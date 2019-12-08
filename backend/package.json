@@ -1,0 +1,14 @@
+{
+  "name": "amsterdam",
+  "version": "0.0.0",
+  "scripts": {
+    "start:server": "nodemon server.js"
+  },
+  "private": true,
+  "dependencies": {
+    "mongoose": "^5.7.14"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.1"
+  }
+}

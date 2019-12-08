@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 
 const app = express();
 
-mongoose.connect('mongodb+srv://jelle:8aUV4rpm705MyLRS@cluster0-ujjqf.mongodb.net/test?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect('mongodb+srv://jelle:'+ process.env.MONGODB_PASSWORD +'@cluster0-ujjqf.mongodb.net/test?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
     console.log('Connected to database!');
   })
@@ -14,10 +14,13 @@ mongoose.connect('mongodb+srv://jelle:8aUV4rpm705MyLRS@cluster0-ujjqf.mongodb.ne
     console.log('Connection failed!');
   });
 
+
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
 //forward to this folder
+//Add this for pdf
 //app.use('/images', express.static(path.join('backend/images')));
 
 
