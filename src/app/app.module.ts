@@ -10,6 +10,7 @@ import { CreateAssignmentComponent } from './components/create-assignment/create
 import { HomeComponent } from './components/home/home.component';
 import { SignUpComponent } from './components/sign-up/sign-up/sign-up.component';
 import { SignUpModule } from './components/sign-up/sign-up.module';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { SignUpModule } from './components/sign-up/sign-up.module';
     BrowserAnimationsModule,
     MaterialModule,
     SharedModule,
-    SignUpModule
+    SignUpModule,
+    HttpClientModule,
 
   ],
   providers: [],
