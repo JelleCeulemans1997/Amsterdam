@@ -23,7 +23,6 @@ import { SignUpModule } from './components/sign-up/sign-up.module';
     MaterialModule,
     SharedModule,
     SignUpModule
-
   ],
   providers: [],
   bootstrap: [AppComponent]
