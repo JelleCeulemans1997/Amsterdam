@@ -8,12 +8,14 @@ import { MaterialModule } from './material.module';
 import { SharedModule } from './shared.module';
 import { CreateAssignmentComponent } from './components/create-assignment/create-assignment.component';
 import { HomeComponent } from './components/home/home.component';
+import { SignUpComponent } from './components/sign-up/sign-up/sign-up.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CreateAssignmentComponent,
-    HomeComponent
+    HomeComponent,
+    SignUpComponent
   ],
   imports: [
     BrowserModule,
