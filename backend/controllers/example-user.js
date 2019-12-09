@@ -1,67 +1,30 @@
-// const bcrypt = require('bcryptjs');
-// const jwt = require('jsonwebtoken');
+const express = require('express')
+const User = require('../models/User')
+const auth = require('../middleware/auth')
+const jwt = require('jsonwebtoken')
 
-// const User = require('../models/user');
+// const sgMail = require('@sendgrid/mail')
+// sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 
-// exports.createUser = (req, res, next) => {
-//   bcrypt.hash(req.body.password, 10).then(hash => {
-//     const user = new User({
-//       email: req.body.email,
-//       password: hash
-//     });
-//     user
-//       .save()
-//       .then(result => {
-//         res.status(201).json({
-//           message: 'User created!',
-//           result: result
-//         });
-<<<<<<< Updated upstream
-//       })
-//       .catch(err => {
-//         res.status(500).json({
-//           message: 'Invalid authentication credentials!'
-//         });
-//       });
-//   });
-// }
+const router = express.Router()
 
-// exports.userLogin = (req, res, next) => {
-//   let fetchedUser;
-//   User.findOne({ email: req.body.email })
-//     .then(user => {
-//       if (!user) {
-//         return res.status(401).json({
-//           message: 'Auth failed'
+router.get('/users', (req, res, next) => {
+    try {
+        User.find().exec((err, users) => {
+            res.json(users);
+        });
+    } catch (error) {
+        res.status(400).send(error)
+    }
+});
+
+// router.get('/user/:email', function (req, res) {
+//     try {
+//         User.findOne({email: {$regex : req.params.email}}).exec((err, user) => {
+//             // User.find({requestReceived: { "idUser" :user._id}}).exec((err, users) => {
+//                 res.json(user);
+//             // });
 //         });
-//       }
-//       fetchedUser = user;
-//       return bcrypt.compare(req.body.password, user.password);
-//     })
-//     .then(result => {
-//       if (!result) {
-//         return res.status(401).json({
-//           message: 'Auth failed'
-//         });
-//       }
-//       const token = jwt.sign(
-//         { email: fetchedUser.email, userId: fetchedUser._id },
-//         process.env.JWT_KEY,
-//         { expiresIn: '1h' }
-//       );
-//       res.status(200).json({
-//         token: token,
-//         expiresIn: 3600,
-//         userId: fetchedUser._id
-//       });
-//     })
-//     .catch(err => {
-//       return res.status(401).json({
-//         message: 'Invalid authentication credentials!'
-//       });
-//     });
-// }
-=======
 //     } catch (error) {
 //         res.status(400).send(error)
 //     }
@@ -125,4 +88,3 @@ router.get('/user/me', auth, async(req, res) => {
 })
 
 module.exports = router
->>>>>>> Stashed changes
