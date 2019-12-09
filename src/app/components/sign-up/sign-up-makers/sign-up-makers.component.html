@@ -1,0 +1,333 @@
+<mat-card>
+
+  <form>
+    <mat-form-field>
+      <input
+        matInput
+        type="text"
+        required
+        [ngModel]
+        name="nickname"
+        placeholder="nickname"
+        #nickname="ngModel"
+      >
+      <mat-error *ngIf="nickname.invalid">Enter a valid nickname</mat-error>
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <input
+        matInput
+        type="text"
+        required
+        [ngModel]
+        name="firstname"
+        placeholder="firstname"
+        #firstname="ngModel"
+      >
+      <mat-error *ngIf="firstname.invalid">Enter a valid firstname</mat-error>
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <input
+        matInput
+        type="text"
+        required
+        [ngModel]
+        name="lastname"
+        placeholder="lastname"
+        #lastname="ngModel"
+      >
+      <mat-error *ngIf="lastname.invalid">Enter a valid lastname</mat-error>
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <input
+        matInput
+        type="text"
+        required
+        [ngModel]
+        name="email"
+        placeholder="email"
+        #email="ngModel"
+      >
+      <mat-error *ngIf="email.invalid">Enter a valid email</mat-error>
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <input
+        matInput
+        type="text"
+        required
+        [ngModel]
+        name="dateofbirth"
+        placeholder="date of birth"
+        #dateofbirth="ngModel"
+      >
+      <mat-error *ngIf="dateofbirth.invalid">Enter a valid dateofbirth</mat-error>
+    </mat-form-field>
+    <br>
+<!--    <mat-form-field>-->
+<!--      <input-->
+<!--        matInput-->
+<!--        type="text"-->
+<!--        required-->
+<!--        [ngModel]-->
+<!--        name="skills"-->
+<!--        placeholder="skills"-->
+<!--        #skills="ngModel"-->
+<!--      >-->
+<!--      <mat-error *ngIf="skills.invalid">Enter a valid skills</mat-error>-->
+<!--    </mat-form-field>-->
+
+    <mat-form-field *ngFor="let skill of skillsarray; let i = index">
+            <input
+              matInput
+              type="text"
+              required
+              [ngModel]
+              name="optie_{{i}}"
+              placeholder="Skill {{i+1}}"
+            >
+          </mat-form-field>
+          <button type="button" [disabled]="skillsarray.length == 10" (click)="OnAddSkill()"
+                 >Add
+          </button>
+          <button type="button"  [disabled]="skillsarray.length == 1" (click)="OnRemoveSkill(1)"
+                  >Remove
+          </button>
+    <br>
+    <mat-form-field>
+      <textarea matInput placeholder="Bio" required
+                [ngModel]
+                name="bio"
+                #bio="ngModel"></textarea>
+      <mat-error *ngIf="bio.invalid">Enter a valid bio</mat-error>
+    </mat-form-field>
+    <br>
+
+
+
+    <mat-form-field *ngFor="let social of socialarray; let i = index">
+      <input
+        matInput
+        type="text"
+        required
+        [ngModel]
+        name="social_{{i}}"
+        placeholder="Social {{i+1}}"
+      >
+    </mat-form-field>
+    <button type="button" [disabled]="socialarray.length == 10" (click)="OnAddSocial()"
+    >Add
+    </button>
+    <button type="button"  [disabled]="socialarray.length == 1" (click)="OnRemoveSocial(1)"
+    >Remove
+    </button>
+    <br>
+    <mat-form-field>
+      <textarea matInput placeholder="Experience" required
+                [ngModel]
+                name="experience"
+                #experience="ngModel"></textarea>
+      <mat-error *ngIf="experience.invalid">Enter a valid experience</mat-error>
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+            <input
+              matInput
+              type="text"
+              required
+              [ngModel]
+              name="place"
+              placeholder="place"
+              #place="ngModel"
+            >
+            <mat-error *ngIf="place.invalid">Enter a valid place</mat-error>
+          </mat-form-field>
+    <br>
+          <mat-form-field>
+            <input
+              matInput
+              type="text"
+              required
+              [ngModel]
+              name="zipcode"
+              placeholder="zipcode"
+              #zipcode="ngModel"
+            >
+            <mat-error *ngIf="zipcode.invalid">Enter a valid zipcode</mat-error>
+          </mat-form-field>
+    <br>
+          <mat-form-field>
+            <input
+              matInput
+              type="text"
+              required
+              [ngModel]
+              name="street"
+              placeholder="street"
+              #street="ngModel"
+            >
+            <mat-error *ngIf="street.invalid">Enter a valid street</mat-error>
+          </mat-form-field>
+    <br>
+          <mat-form-field>
+            <input
+              matInput
+              type="text"
+              required
+              [ngModel]
+              name="number"
+              placeholder="number"
+              #number="ngModel"
+            >
+            <mat-error *ngIf="number.invalid">Enter a valid number</mat-error>
+          </mat-form-field>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--   -->
+<!--    <h2>contact</h2>-->
+<!--    <mat-form-field>-->
+<!--      <input-->
+<!--        matInput-->
+<!--        type="text"-->
+<!--        required-->
+<!--        [ngModel]-->
+<!--        name="voornaam"-->
+<!--        placeholder="voornaam"-->
+<!--        #voornaam="ngModel"-->
+<!--      >-->
+<!--      <mat-error *ngIf="voornaam.invalid">Enter a valid voornaam</mat-error>-->
+<!--    </mat-form-field>-->
+<!--    <mat-form-field>-->
+<!--      <input-->
+<!--        matInput-->
+<!--        type="text"-->
+<!--        required-->
+<!--        [ngModel]-->
+<!--        name="achternaam"-->
+<!--        placeholder="achternaam"-->
+<!--        #achternaam="ngModel"-->
+<!--      >-->
+<!--      <mat-error *ngIf="achternaam.invalid">Enter a valid achternaam</mat-error>-->
+<!--    </mat-form-field>-->
+<!--    <mat-form-field>-->
+<!--      <input-->
+<!--        matInput-->
+<!--        type="text"-->
+<!--        required-->
+<!--        [ngModel]-->
+<!--        name="email"-->
+<!--        placeholder="email"-->
+<!--        #email="ngModel"-->
+<!--      >-->
+<!--      <mat-error *ngIf="email.invalid">Enter a valid email</mat-error>-->
+<!--    </mat-form-field>-->
+<!--    <mat-form-field>-->
+<!--      <input-->
+<!--        matInput-->
+<!--        type="text"-->
+<!--        required-->
+<!--        [ngModel]-->
+<!--        name="phonenumber"-->
+<!--        placeholder="phonenumber"-->
+<!--        #phonenumber="ngModel"-->
+<!--      >-->
+<!--      <mat-error *ngIf="phonenumber.invalid">Enter a valid phonenumber</mat-error>-->
+<!--    </mat-form-field>-->
+<!--    <h2>locatie</h2>-->
+<!--    <mat-form-field>-->
+<!--      <input-->
+<!--        matInput-->
+<!--        type="text"-->
+<!--        required-->
+<!--        [ngModel]-->
+<!--        name="place"-->
+<!--        placeholder="place"-->
+<!--        #place="ngModel"-->
+<!--      >-->
+<!--      <mat-error *ngIf="place.invalid">Enter a valid place</mat-error>-->
+<!--    </mat-form-field>-->
+<!--    <mat-form-field>-->
+<!--      <input-->
+<!--        matInput-->
+<!--        type="text"-->
+<!--        required-->
+<!--        [ngModel]-->
+<!--        name="zipcode"-->
+<!--        placeholder="zipcode"-->
+<!--        #zipcode="ngModel"-->
+<!--      >-->
+<!--      <mat-error *ngIf="zipcode.invalid">Enter a valid zipcode</mat-error>-->
+<!--    </mat-form-field>-->
+<!--    <mat-form-field>-->
+<!--      <input-->
+<!--        matInput-->
+<!--        type="text"-->
+<!--        required-->
+<!--        [ngModel]-->
+<!--        name="street"-->
+<!--        placeholder="street"-->
+<!--        #street="ngModel"-->
+<!--      >-->
+<!--      <mat-error *ngIf="street.invalid">Enter a valid street</mat-error>-->
+<!--    </mat-form-field>-->
+<!--    <mat-form-field>-->
+<!--      <input-->
+<!--        matInput-->
+<!--        type="text"-->
+<!--        required-->
+<!--        [ngModel]-->
+<!--        name="number"-->
+<!--        placeholder="number"-->
+<!--        #number="ngModel"-->
+<!--      >-->
+<!--      <mat-error *ngIf="number.invalid">Enter a valid number</mat-error>-->
+<!--    </mat-form-field>-->
+<!--    <mat-form-field>-->
+<!--      <mat-select name="vrienden" [ngModel] multiple>-->
+<!--        <mat-label>Friends</mat-label>-->
+<!--        <mat-option *ngFor="let vriend of vrienden" [value]="vriend.vriend">{{vriend.vriend.username}}</mat-option>-->
+<!--      </mat-select>-->
+<!--    </mat-form-field>-->
+<!--    <mat-form-field *ngFor="let antwoord of antwoordtellingarray; let i = index">-->
+<!--      <input-->
+<!--        matInput-->
+<!--        type="text"-->
+<!--        required-->
+<!--        [ngModel]-->
+<!--        name="optie_{{i}}"-->
+<!--        placeholder="Optie {{i+1}}"-->
+<!--      >-->
+<!--    </mat-form-field>-->
+<!--    <button type="button" [disabled]="antwoordtellingarray.length == 5" (click)="OnAddAntwoord()" mdbBtn color="info"-->
+<!--            mdbWavesEffect>Add-->
+<!--    </button>-->
+<!--    <button type="button" [disabled]="antwoordtellingarray.length == 2" (click)="OnRemoveAntwoord()" mdbBtn color="info"-->
+<!--            mdbWavesEffect>Remove-->
+<!--    </button>-->
+<!--    <hr>-->
+<!--    <button mdbBtn type="submit" color="default" block="true" mdbWavesEffect>Create Poll</button>-->
+  </form>
+</mat-card>

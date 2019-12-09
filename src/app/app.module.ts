@@ -9,8 +9,10 @@ import { SharedModule } from './shared.module';
 import { CreateAssignmentComponent } from './components/create-assignment/create-assignment.component';
 import { HomeComponent } from './components/home/home.component';
 import { SignUpComponent } from './components/sign-up/sign-up/sign-up.component';
+import { SignUpMakersComponent } from './components/sign-up/sign-up-makers/sign-up-makers.component';
 import { SignUpModule } from './components/sign-up/sign-up.module';
 import { HttpClientModule } from '@angular/common/http';
+
 
 @NgModule({
   declarations: [
@@ -26,6 +28,7 @@ import { HttpClientModule } from '@angular/common/http';
     SharedModule,
     SignUpModule,
     HttpClientModule,
+
 
   ],
   providers: [],

@@ -13,8 +13,6 @@ const routes: Routes = [
   { path: 'signIn', component: SignInComponent }
   
 
-];
-
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
