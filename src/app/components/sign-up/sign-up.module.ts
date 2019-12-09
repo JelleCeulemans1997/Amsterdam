@@ -8,15 +8,14 @@ import { SignUpCompanyComponent } from './sign-up-company/sign-up-company.compon
 
 
 @NgModule({
-  declarations: [SignUpCompanyComponent, SignUpComponent],
+  declarations: [SignUpCompanyComponent],
   imports: [
     CommonModule,
     MaterialModule,
     SharedModule
   ],
   exports: [
-    SignUpCompanyComponent,
-    SignUpComponent
+    SignUpCompanyComponent
   ]
 })
 export class SignUpModule { }
