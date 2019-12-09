@@ -8,19 +8,21 @@ import { MaterialModule } from './material.module';
 import { SharedModule } from './shared.module';
 import { CreateAssignmentComponent } from './components/create-assignment/create-assignment.component';
 import { HomeComponent } from './components/home/home.component';
+import { TagComponent } from './components/tag/tag.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CreateAssignmentComponent,
-    HomeComponent
+    HomeComponent,
+    TagComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModule,
-    SharedModule
+    SharedModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
