@@ -1,8 +1,9 @@
-//const path = require('path');
+const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
 const userRouter = require('./controllers/example-user');
 const tagRouter = require('./routes/tag');
+const assignmentRouter = require('./routes/assignment');
 
 const mongoose = require('mongoose');
 mongoose.set('useCreateIndex', true)
@@ -23,7 +24,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 
 //forward to this folder
 //Add this for pdf
-//app.use('/images', express.static(path.join('backend/images')));
+app.use('/images', express.static(path.join('backend/images')));
 
 
 app.use((req, res, next) => {
@@ -39,6 +40,7 @@ app.use((req, res, next) => {
 
 app.use('/api', userRouter);
 app.use('/api/tag', tagRouter);
+app.use('/api/assignment', assignmentRouter);
 //app.use('/api/posts', postRoutes);
 //app.use('/api/user', userRoutes);
 

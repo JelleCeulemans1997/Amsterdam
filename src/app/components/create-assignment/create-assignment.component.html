@@ -3,61 +3,82 @@
     <mat-card-title fxLayoutAlign="center center">Creating new assignment</mat-card-title>
     <mat-card-content>
       <form [formGroup]="assignmentForm">
-          <mat-vertical-stepper>
-              <mat-step label="Choose title">
-                <mat-form-field>
-                  <input type="text" matInput placeholder="Title" formControlName="title" />
-                  <mat-error>The title is required!</mat-error>
-                </mat-form-field>
-              </mat-step>
-              <mat-step label="Write Description">
-                <mat-form-field>
-                  <textarea matInput rows="6" name="content" placeholder="Post content" formControlName="description"></textarea>
-                  <mat-error>Required!</mat-error>
-                </mat-form-field>
-              </mat-step>
-              <mat-step label="Add tags">
-                  <mat-form-field class="example-chip-list">
-                      <mat-chip-list #chipList aria-label="Fruit selection">
-                        <mat-chip
-                          color="primary"
-                          *ngFor="let fruit of fruits"
-                          [selectable]="selectable"
-                          [removable]="removable"
-                          (removed)="remove(fruit)">
-                          {{fruit}}
-                          <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-                        </mat-chip>
-                        <input
-                          placeholder="New fruit..."
-                          #tagInput
-                          [formControl]="fruitCtrl"
-                          [matAutocomplete]="auto"
-                          [matChipInputFor]="chipList"
-                          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                          [matChipInputAddOnBlur]="addOnBlur"
-                          (matChipInputTokenEnd)="add($event)">
-                      </mat-chip-list>
-                      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
-                        <mat-option *ngFor="let fruit of filteredFruits | async" [value]="fruit">
-                          {{fruit}}
-                        </mat-option>
-                      </mat-autocomplete>
-                    </mat-form-field>
-              </mat-step>
-              <mat-step label="Upload document">
-                <div>
-                  <button mat-raised-button type="button" color="accent" (click)="filePicker.click()">
-                    Pick image
-                  </button>
-                  <input type="file" #filePicker (change)="onImagePicked($event)" />
+        <mat-vertical-stepper>
+          <mat-step label="Choose title">
+            <mat-form-field>
+              <input type="text" matInput placeholder="Title" formControlName="title" />
+              <mat-error>The title is required!</mat-error>
+            </mat-form-field>
+          </mat-step>
+          <mat-step label="Write Description">
+            <mat-form-field>
+              <textarea matInput rows="6" name="content" placeholder="Post content"
+                formControlName="description"></textarea>
+              <mat-error>Required!</mat-error>
+            </mat-form-field>
+          </mat-step>
+          <mat-step label="Add tags">
+            <mat-form-field class="example-chip-list">
+              <mat-chip-list #chipList aria-label="Fruit selection">
+                <mat-chip color="primary" selected [selectable]="true" *ngFor="let tag of tags" [removable]="true"
+                  (removed)="remove(tag)">
+                  {{tag}}
+                  <mat-icon matChipRemove>cancel</mat-icon>
+                </mat-chip>
+                <input placeholder="tags..." #tagInput [formControl]="tagCtrl" [matAutocomplete]="auto"
+                  [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                  [matChipInputAddOnBlur]="true" (matChipInputTokenEnd)="add($event)">
+              </mat-chip-list>
+              <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+                <mat-option *ngFor="let tag of filteredTags | async" [value]="tag">
+                  {{tag}}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </mat-step>
+          <mat-step label="Upload document">
+            <div>
+              <button mat-raised-button type="button" color="accent" (click)="pdfPicker.click()">
+                Pick PDF
+              </button>
+              <input type="file" #pdfPicker (change)="onPdfPicked($event)" />
+              <p>{{filename}}</p>
+            </div>
+          </mat-step>
+          <!-- <mat-step label="Upload document">
+              <div>
+                <button mat-raised-button type="button" color="accent" (click)="imagePicker.click()">
+                  Pick image
+                </button>
+                <div class="image-preview"
+                  *ngIf="imagePreview !== '' && imagePreview && assignmentForm.get('image').valid">
+                  <img [src]="imagePreview" [alt]="assignmentForm.value.name" />
                 </div>
-              </mat-step>
-            </mat-vertical-stepper>
+                <input type="file" #imagePicker (change)="onImagePicked($event)" />
+              </div>
+            </mat-step> -->
+          <mat-step label="Location">
+            <div>
+              <mat-form-field>
+                <textarea matInput rows="6" name="content" placeholder="Post content"
+                  formControlName="description"></textarea>
+                <mat-error>Required!</mat-error>
+              </mat-form-field>
+            </div>
+            <div>
+              <mat-form-field>
+                <textarea matInput rows="6" name="content" placeholder="Post content"
+                  formControlName="description"></textarea>
+                <mat-error>Required!</mat-error>
+              </mat-form-field>
+            </div>
+          </mat-step>
+        </mat-vertical-stepper>
       </form>
     </mat-card-content>
     <mat-card-actions fxLayoutAlign="center center">
-        <button mat-raised-button color="primary" [disabled]="assignmentForm.invalid">Create assignment</button>
+      <button mat-raised-button color="primary" [disabled]="assignmentForm.invalid" (click)="onSaveAssignment()">Create
+        assignment</button>
     </mat-card-actions>
   </mat-card>
 </div>
