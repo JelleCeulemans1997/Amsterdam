@@ -7,7 +7,7 @@ import { SharedModule } from 'src/app/shared.module';
 
 
 @NgModule({
-  declarations: [SignUpComponent],
+  declarations: [],
   imports: [
     CommonModule,
     MaterialModule,
