@@ -42,6 +42,7 @@ export class SignInComponent implements OnInit {
       this.submitted = true;
       localStorage.setItem("token",result.token);
       this._authenticateService.isLoggedin.next(result.token ? true : false);
+      this._authenticateService.role.next(result.role);
       console.log("User is logged in!");
       this.router.navigateByUrl('/signUp');
       },

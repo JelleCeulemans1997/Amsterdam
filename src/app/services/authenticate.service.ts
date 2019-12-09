@@ -11,7 +11,7 @@ import { UserLogin } from '../models/user-login.model';
 export class AuthenticateService {
 
   isLoggedin = new BehaviorSubject(localStorage.getItem('token')? true : false);
-
+  role = new BehaviorSubject('');
 
   constructor(private _httpClient: HttpClient) { }
   authenticate(userLogin: UserLogin): Observable<User> {
