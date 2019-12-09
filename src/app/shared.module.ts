@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatChipsModule, MatAutocompleteModule } from '@angular/material';
 
 
 
@@ -11,12 +13,18 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     FlexLayoutModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatGridListModule,
+    MatChipsModule,
+    MatAutocompleteModule
   ],
   exports: [
     FlexLayoutModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatGridListModule,
+    MatChipsModule,
+    MatAutocompleteModule
   ]
 })
 export class SharedModule { }

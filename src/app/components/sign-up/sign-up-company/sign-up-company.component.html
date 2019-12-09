@@ -1,0 +1,50 @@
+<form [formGroup]="companyFormSignup">
+  <mat-form-field>
+    <input
+      type="text" matInput placeholder="Company name" formControlName="companyName" required
+    />
+  </mat-form-field><br/>
+  <label>Adress</label><br/>
+  <mat-form-field>
+    <input type="text" matInput placeholder="Street" formControlName="street" required/>
+  </mat-form-field>
+  <mat-form-field>
+    <input type="text" matInput placeholder="Nr." formControlName="number" required/>
+  </mat-form-field><br/>
+  <mat-form-field>
+    <input
+      type="text" matInput placeholder="Zipcode" formControlName="zipcode" required/>
+  </mat-form-field>
+  <mat-form-field>
+    <input type="text" matInput placeholder="Town" formControlName="town" required/>
+  </mat-form-field><br/>
+  <mat-form-field>
+    <textarea matInput placeholder="About your company" formControlName="biography" required></textarea>
+  </mat-form-field><br/>
+  <mat-form-field class="example-chip-list">
+      <mat-chip-list #chipList aria-label="Fruit selection">
+        <mat-chip
+          *ngFor="let tag of tags"
+          [selectable]="selectable"
+          [removable]="removable"
+          (removed)="remove(tag)">
+          {{tag}}
+          <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+        </mat-chip>
+        <input
+          placeholder="Tags for your company"
+          #tagInput
+          [formControl]="tagCtrl"
+          [matAutocomplete]="auto"
+          [matChipInputFor]="chipList"
+          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+          [matChipInputAddOnBlur]="addOnBlur"
+          (matChipInputTokenEnd)="add($event)">
+      </mat-chip-list>
+      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+        <mat-option *ngFor="let tag of filteredTags | async" [value]="tag">
+          {{tag}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+</form>

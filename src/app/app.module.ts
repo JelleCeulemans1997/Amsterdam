@@ -9,6 +9,8 @@ import { SharedModule } from './shared.module';
 import { CreateAssignmentComponent } from './components/create-assignment/create-assignment.component';
 import { HomeComponent } from './components/home/home.component';
 import { TagComponent } from './components/tag/tag.component';
+import { SignUpModule } from './components/sign-up/sign-up.module';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -23,6 +25,8 @@ import { TagComponent } from './components/tag/tag.component';
     BrowserAnimationsModule,
     MaterialModule,
     SharedModule,
+    SignUpModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
