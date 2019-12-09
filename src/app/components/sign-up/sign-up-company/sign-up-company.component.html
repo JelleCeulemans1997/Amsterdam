@@ -1,0 +1,24 @@
+<form [formGroup]="companyFormSignup">
+  <mat-form-field>
+    <input
+      type="text" matInput placeholder="Company name" formControlName="companyName" required
+    />
+  </mat-form-field><br/>
+  <label>Adress</label><br/>
+  <mat-form-field>
+    <input type="text" matInput placeholder="Street" formControlName="street" required/>
+  </mat-form-field>
+  <mat-form-field>
+    <input type="text" matInput placeholder="Nr." formControlName="number" required/>
+  </mat-form-field><br/>
+  <mat-form-field>
+    <input
+      type="text" matInput placeholder="Zipcode" formControlName="zipcode" required/>
+  </mat-form-field>
+  <mat-form-field>
+    <input type="text" matInput placeholder="Town" formControlName="town" required/>
+  </mat-form-field><br/>
+  <mat-form-field>
+    <input type="text" matInput placeholder="About your company" width="50%" formControlName="biography" required/>
+  </mat-form-field><br/>
+</form>
