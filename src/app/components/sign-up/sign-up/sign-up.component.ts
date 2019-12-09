@@ -8,17 +8,17 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 })
 export class SignUpComponent implements OnInit {
 
+  firstFormGroup: FormGroup;
+  secondFormGroup: FormGroup;
+
   constructor(private fb: FormBuilder) { }
 
   ngOnInit() {
+    this.firstFormGroup = this.fb.group({
+      firstCtrl: ['', Validators.required]
+    });
+    this.secondFormGroup = this.fb.group({
+      secondCtrl: ''
+    });
   }
-
-  firstFormGroup = this.fb.group({
-    firstCtrl: ['', Validators.required]
-  })
-
-  secondFormGroup = this.fb.group({
-    secondCtrl: ['']
-  })
-
 }
