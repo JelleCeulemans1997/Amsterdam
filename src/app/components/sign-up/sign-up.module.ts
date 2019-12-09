@@ -6,7 +6,7 @@ import { MaterialModule } from 'src/app/material.module';
 
 
 @NgModule({
-  declarations: [SignUpComponent],
+  declarations: [],
   imports: [
     CommonModule,
     MaterialModule
