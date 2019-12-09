@@ -9,7 +9,6 @@ const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'createAssignment', component: CreateAssignmentComponent },
   { path: 'signUp', component: SignUpComponent }
-
 ];
 
 @NgModule({
