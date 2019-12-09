@@ -1,12 +1,13 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var assignmentSchema = new Schema({
+var MakerSchema = new Schema({
     nickname: String,
     firstname: String,
     lastname: String,
     email: String,
     dateofbirth: Date,
+
     skills: [
             {
                 value: String,
@@ -35,4 +36,5 @@ var assignmentSchema = new Schema({
   ],
 });
 
-module.exports = mongoose.model('Assignment', assignmentSchema);
+module.exports = mongoose.model('Maker', MakerSchema);
+

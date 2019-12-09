@@ -10,6 +10,8 @@ import { CreateAssignmentComponent } from './components/create-assignment/create
 import { HomeComponent } from './components/home/home.component';
 import { SignUpComponent } from './components/sign-up/sign-up/sign-up.component';
 import { SignUpMakersComponent } from './components/sign-up/sign-up-makers/sign-up-makers.component';
+import { SignUpModule } from './components/sign-up/sign-up.module';
+
 
 @NgModule({
   declarations: [
@@ -17,14 +19,17 @@ import { SignUpMakersComponent } from './components/sign-up/sign-up-makers/sign-
     CreateAssignmentComponent,
     HomeComponent,
     SignUpComponent,
-    SignUpMakersComponent
+    SignUpMakersComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModule,
-    SharedModule
+    SharedModule,
+    SignUpModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]
