@@ -7,6 +7,7 @@
         name="nickname"
         placeholder="Nickname"
         formControlName="nickname"
+        [(ngModel)]="maker.nickname"
       >
     </mat-form-field>
     <br>
@@ -19,6 +20,7 @@
         name="firstname"
         placeholder="First name"
         formControlName="firstname"
+        [(ngModel)]="maker.firstname"
       >
     </mat-form-field>
     <mat-form-field>
@@ -29,6 +31,7 @@
         name="lastname"
         placeholder="Last name"
         formControlName="lastname"
+        [(ngModel)]="maker.lastname"
       >
     </mat-form-field>
     <br>
@@ -40,6 +43,7 @@
         name="email"
         placeholder="E-mail"
         formControlName="email"
+        [(ngModel)]="maker.email"
       >
     </mat-form-field>
     <br>
@@ -51,6 +55,7 @@
         name="dob"
         placeholder="Date of birth"
         formControlName="dob"
+        [(ngModel)]="maker.dob"
       >
     </mat-form-field>
     <br>
@@ -62,7 +67,8 @@
           required
           name="street"
           placeholder="Street"
-formControlName="street"            >
+formControlName="street"
+[(ngModel)]="maker.street"        >
       </mat-form-field>
       <mat-form-field>
         <input
@@ -72,6 +78,7 @@ formControlName="street"            >
           name="number"
           placeholder="Nr."
           formControlName="number"
+          [(ngModel)]="maker.nr"
         >
       </mat-form-field><br/>
 
@@ -83,6 +90,7 @@ formControlName="street"            >
             name="zipcode"
             placeholder="Zipcode"
             formControlName="zipcode"
+            [(ngModel)]="maker.zipcode"
           >
          </mat-form-field>
 
@@ -94,6 +102,7 @@ formControlName="street"            >
           name="town"
           placeholder="Town"
           formControlName="town"
+          [(ngModel)]="maker.town"
         >
       </mat-form-field><br/>
 
@@ -126,24 +135,28 @@ formControlName="street"            >
     <mat-form-field>
       <textarea matInput placeholder="Bio" required
                 name="bio"
-                formControlName="bio"></textarea>
+                formControlName="bio"
+                [(ngModel)]="maker.bio"></textarea>
     </mat-form-field>
     <br>
     <mat-form-field>
         <input matInput placeholder="LinkedIn"
                   name="linkedin"
-                  formControlName="linkedin"/>
+                  formControlName="linkedin"
+                  [(ngModel)]="maker.linkedin"/>
       </mat-form-field>
     <mat-form-field>
         <input matInput placeholder="Github"
                   name="github"
-                  formControlName="github"/>
+                  formControlName="github"
+                  [(ngModel)]="maker.github"/>
       </mat-form-field>
     <br>
     <mat-form-field>
       <textarea matInput placeholder="Experience" required
                 name="Experience"
-                formControlName="experience"></textarea>
+                formControlName="experience"
+                [(ngModel)]="maker.experience"></textarea>
     </mat-form-field>
 
     <br>

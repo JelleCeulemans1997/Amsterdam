@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import { MatChipInputEvent, MatAutocompleteModule, MatAutocomplete, MatAutocompleteSelectedEvent } from '@angular/material';
 import {map, startWith} from 'rxjs/operators';
+import {Maker } from 'src/app/models/maker.model';
 
 @Component({
   selector: 'app-sign-up-makers',
@@ -15,6 +16,8 @@ export class SignUpMakersComponent implements OnInit {
   socialarray = ['social'];
   skillcount = 'skill';
   socialcount = 'social';
+
+  maker: Maker = new Maker('', '', '', '', '', '', '', null, [], '', '', '', '');
 
   companyFormSignup: FormGroup;
   visible = true;
@@ -58,7 +61,9 @@ export class SignUpMakersComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.makerFormSignup.get("nickname").value);
+    this.maker.skills = this.tags;
+    console.log(this.maker);
+
   }
 
 
