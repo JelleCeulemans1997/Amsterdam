@@ -12,7 +12,7 @@
       </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
-      <mat-toolbar color="primary">
+      <mat-toolbar class="navbarbgc">
           <div fxHide.gt-xs>
               <button mat-icon-button (click)="sidenav.toggle()">
                   <mat-icon>menu</mat-icon>
@@ -22,7 +22,8 @@
               <ul fxLayout fxLayoutGap="20px" class="navigation-items">
                   <li><a routerLink="/" routerLinkActive="true">Home</a></li>
                   <li><a routerLink="/createAssignment" routerLinkActive="true">Create Assignment</a></li>
-                  <li><a>Logout</a></li>
+                  <li *ngIf="!loggedIn"><a routerLink="/signIn">Login</a></li>
+                  <li *ngIf="loggedIn"><a (click)="logOut()">Logout</a></li>
               </ul>
           </div>
           <div fxFlex fxLayout fxLayoutAlign="flex-end" class="navigation-items" fxHide.gt-xs>
