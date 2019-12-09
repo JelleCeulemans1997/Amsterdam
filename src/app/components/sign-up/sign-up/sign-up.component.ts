@@ -10,6 +10,7 @@ export class SignUpComponent implements OnInit {
 
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
+  thirdFormGroup: FormGroup;
 
   constructor(private fb: FormBuilder) { }
 
@@ -19,6 +20,9 @@ export class SignUpComponent implements OnInit {
     });
     this.secondFormGroup = this.fb.group({
       secondCtrl: ''
+    });
+    this.thirdFormGroup = this.fb.group({
+      thirdCtrl: ''
     });
   }
 }
