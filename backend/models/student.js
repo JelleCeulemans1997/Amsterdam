@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var assignmentSchema = new Schema({
+var studentSchema = new Schema({
     Nickname: String,
     voornaam: String, 
     achternaam: String,
@@ -29,4 +29,4 @@ var assignmentSchema = new Schema({
     //review moet nog worden toegevoegd
 });
 
-module.exports = mongoose.model('Assignment', assignmentSchema);
+module.exports = mongoose.model('Student', studentSchema);

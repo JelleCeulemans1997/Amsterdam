@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var assignmentSchema = new Schema({
+var companySchema = new Schema({
     naam: String,
     contact: [
             {
@@ -30,4 +30,4 @@ var assignmentSchema = new Schema({
     }]
 });
 
-module.exports = mongoose.model('Assignment', assignmentSchema);
+module.exports = mongoose.model('Company', companySchema);
