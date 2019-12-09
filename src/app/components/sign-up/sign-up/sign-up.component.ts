@@ -10,7 +10,6 @@ export class SignUpComponent implements OnInit {
 
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
-  isOptional = false;
 
   constructor(private fb: FormBuilder) { }
 
@@ -20,6 +19,6 @@ export class SignUpComponent implements OnInit {
     });
     this.secondFormGroup = this.fb.group({
       secondCtrl: ''
-    })
+    });
   }
 }
