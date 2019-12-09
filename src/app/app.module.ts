@@ -9,13 +9,15 @@ import { SharedModule } from './shared.module';
 import { CreateAssignmentComponent } from './components/create-assignment/create-assignment.component';
 import { HomeComponent } from './components/home/home.component';
 import { SignUpComponent } from './components/sign-up/sign-up/sign-up.component';
+import { SignUpMakersComponent } from './components/sign-up/sign-up-makers/sign-up-makers.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CreateAssignmentComponent,
     HomeComponent,
-    SignUpComponent
+    SignUpComponent,
+    SignUpMakersComponent
   ],
   imports: [
     BrowserModule,
