@@ -11,7 +11,7 @@ import { SignUpMakersComponent } from './sign-up-makers/sign-up-makers.component
 
 
 @NgModule({
-  declarations: [SignUpCompanyComponent, SignUpComponent, SignUpMakersComponent, , SignInComponent],
+  declarations: [SignUpCompanyComponent, SignUpComponent, SignUpMakersComponent, SignInComponent],
 
   imports: [
     CommonModule,
