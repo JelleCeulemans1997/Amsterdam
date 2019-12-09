@@ -5,6 +5,8 @@ import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {MatAutocompleteSelectedEvent, MatAutocomplete} from '@angular/material/autocomplete';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
+import { SignupService } from 'src/app/services/signup.service';
+
 
 @Component({
   selector: 'app-sign-up-company',
@@ -28,12 +30,17 @@ export class SignUpCompanyComponent implements OnInit {
   @ViewChild('tagInput', {static: false}) tagInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto', {static: false}) matAutocomplete: MatAutocomplete;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private signupService: SignupService) {
     this.filteredTags = this.tagCtrl.valueChanges.pipe(
         startWith(null),
         map((tag: string | null) => tag ? this._filter(tag) : this.allTags.slice()));
        }
 
+  onSubmit() {
+    console.log(this.companyFormSignup.get('companyName').value);
+    this.signupService.addCompany();
+  }
+  
   ngOnInit() {
     this.companyFormSignup = this.fb.group({
       companyName: ['', Validators.required],

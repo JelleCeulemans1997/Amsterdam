@@ -25,4 +25,4 @@ export class AuthenticateService {
   loggedIn() {
     return !!localStorage.getItem('token');
   }
-}
+}*/
