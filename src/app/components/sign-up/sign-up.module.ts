@@ -8,6 +8,7 @@ import { SignUpMakersComponent } from './sign-up-makers/sign-up-makers.component
 
 
 
+
 @NgModule({
   declarations: [SignUpCompanyComponent, SignUpComponent, SignUpMakersComponent],
   imports: [

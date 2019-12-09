@@ -1,11 +1,13 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var studentSchema = new Schema({
-    Nickname: String,
-    voornaam: String, 
-    achternaam: String,
-    geboortedatum: Date,
+var MakerSchema = new Schema({
+    nickname: String,
+    firstname: String,
+    lastname: String,
+    email: String,
+    dateofbirth: Date,
+
     skills: [
             {
                 value: String,
@@ -25,8 +27,14 @@ var studentSchema = new Schema({
     straat: String,
     huisnummer: Number,
     plaats: String,
-    postcode: Number
-    //review moet nog worden toegevoegd
+    postcode: Number,
+  review: [
+    {
+      like: Boolean,
+      value: String
+    }
+  ],
 });
 
-module.exports = mongoose.model('Student', studentSchema);
+module.exports = mongoose.model('Maker', MakerSchema);
+
