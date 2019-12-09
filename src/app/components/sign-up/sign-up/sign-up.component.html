@@ -1,21 +1,17 @@
 <mat-horizontal-stepper linear #stepper>
   <mat-step [stepControl]="firstFormGroup">
     <form [formGroup]="firstFormGroup">
-      <ng-template matStepLabel>Choose if student/company</ng-template>
-      <mat-form-field>
-        <input matInput placeholder="Last name, First name" formControlName="firstCtrl" required>
-      </mat-form-field>
-      <div>
-        <button mat-button matStepperNext>Next</button>
-      </div>
+      <ng-template matStepLabel>Choose your profile</ng-template>
+        <button matStepperNext (click)="setMaker()" mat-button name="makerBtn">I am a Maker</button> or
+        <button matStepperNext (click)="setCompany()" mat-button name="companyBtn">I am a company</button>
     </form>
   </mat-step>
   <mat-step [stepControl]="secondFormGroup">
     <form [formGroup]="secondFormGroup">
-      <ng-template matStepLabel>Form for student/company</ng-template>
+      <ng-template matStepLabel>Fill out this form</ng-template>
 
-      <app-sign-up-makers></app-sign-up-makers>
-      <app-sign-up-company></app-sign-up-company>
+      <app-sign-up-makers *ngIf="userType == 'm'"></app-sign-up-makers>
+      <app-sign-up-company *ngIf="userType == 'c'"></app-sign-up-company>
 
       <div>
         <button mat-button matStepperPrevious>Back</button>

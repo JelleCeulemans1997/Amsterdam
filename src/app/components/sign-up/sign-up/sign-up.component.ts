@@ -12,11 +12,22 @@ export class SignUpComponent implements OnInit {
   secondFormGroup: FormGroup;
   thirdFormGroup: FormGroup;
 
+  userType: string;
+
   constructor(private fb: FormBuilder) { }
+
+  setMaker() {
+    this.userType = 'm';
+  }
+
+  setCompany() {
+    this.userType = 'c';
+  }
 
   ngOnInit() {
     this.firstFormGroup = this.fb.group({
-      firstCtrl: ['', Validators.required]
+      makerBtn:  new FormControl(),
+      companyBtn: new FormControl()
     });
     this.secondFormGroup = this.fb.group({
       secondCtrl: ''
