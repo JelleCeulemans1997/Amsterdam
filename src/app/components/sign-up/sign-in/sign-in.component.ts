@@ -3,7 +3,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import { AuthenticateService } from './../../../services/authenticate.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { UserLogin } from 'src/app/models/user-login.model';
+import { UserLogin } from '../../../models/user-login.model';
 
 @Component({
   selector: 'app-sign-in',
@@ -12,20 +12,20 @@ import { UserLogin } from 'src/app/models/user-login.model';
 })
 export class SignInComponent implements OnInit {
 
-  model = new UserLogin('','');
+  model = new UserLogin('', '');
 
-  isCorrect: boolean = false;
-  isRegister: boolean = true;
-  submitted : boolean = false;
+  isCorrect = false;
+  isRegister = true;
+  submitted = false;
 
-  constructor(private _authenticateService : AuthenticateService, private fb: FormBuilder,  private router: Router) { 
+  constructor(private authenticateService : AuthenticateService, private fb: FormBuilder,  private router: Router) {
     // redirect to home if already logged in
-    this._authenticateService.isLoggedin.subscribe(result => {
-      if (result == true) { 
+    this.authenticateService.isLoggedin.subscribe(result => {
+      if (result) {
         this.router.navigate(['/']);
     }
     })
-    
+
   }
 
   loginForm = new FormGroup({
@@ -38,10 +38,10 @@ export class SignInComponent implements OnInit {
   }
 
   login(){
-    this._authenticateService.authenticate(this.loginForm.value).subscribe(result => {
+    this.authenticateService.authenticate(this.loginForm.value).subscribe(result => {
       this.submitted = true;
       localStorage.setItem("token",result.token);
-      this._authenticateService.isLoggedin.next(result.token ? true : false);
+      this.authenticateService.isLoggedin.next(result.token ? true : false);
       console.log("User is logged in!");
       this.router.navigateByUrl('/signUp');
       },
