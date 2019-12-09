@@ -17,9 +17,6 @@ import { SignUpModule } from './components/sign-up/sign-up.module';
   declarations: [
     AppComponent,
     CreateAssignmentComponent,
-    HomeComponent,
-    SignUpComponent,
-    SignUpMakersComponent,
     HomeComponent
   ],
   imports: [
@@ -29,7 +26,6 @@ import { SignUpModule } from './components/sign-up/sign-up.module';
     MaterialModule,
     SharedModule,
     SignUpModule
-
   ],
   providers: [],
   bootstrap: [AppComponent]

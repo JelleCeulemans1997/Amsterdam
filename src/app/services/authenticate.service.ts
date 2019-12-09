@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+/*import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from '../models/user.model';
 import { Observable, BehaviorSubject } from 'rxjs';
@@ -24,4 +24,4 @@ export class AuthenticateService {
   loggedIn() {
     return !!localStorage.getItem('token');
   }
-}
+}*/
