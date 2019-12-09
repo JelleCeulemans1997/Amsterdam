@@ -16,6 +16,10 @@ export class SignUpMakersComponent implements OnInit {
   ngOnInit() {
   }
 
+  onSubmit() {
+    console.log("maker")
+  }
+
   OnAddSkill() {
     if (this.skillsarray.length < 10) {
       this.skillsarray.push(this.skillcount);
