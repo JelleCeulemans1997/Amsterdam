@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { MaterialModule } from 'src/app/material.module';
+import { SharedModule } from 'src/app/shared.module';
 
 
 
@@ -9,7 +10,8 @@ import { MaterialModule } from 'src/app/material.module';
   declarations: [SignUpComponent],
   imports: [
     CommonModule,
-    MaterialModule
+    MaterialModule,
+    SharedModule
   ]
 })
 export class SignUpModule { }
