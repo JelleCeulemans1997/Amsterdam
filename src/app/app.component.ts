@@ -15,13 +15,14 @@ export class AppComponent implements OnInit, OnDestroy {
 
   loggedIn: boolean;
   loginSub: Subscription;
+
   ngOnInit() {
     this.authService.isLoggedin.subscribe(result => {
       this.loggedIn = result;
     });
   }
 
-  logOut(){
+  logOut() {
     this.loginSub = this.authService.isLoggedin.subscribe(result => {
       this.loggedIn = false;
       localStorage.removeItem('token');

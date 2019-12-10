@@ -2,19 +2,20 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var assignmentSchema = new Schema({
-    titel: String,
-    omschrijving: String,
+    title: String,
+    description: String,
     tags: [
             {
-                value: String,
+              type: String,
             }
         ],
-    locatie: [{
-        straat: String,
-        huisnummer: Number,
-        plaats: String,
-        postcode: Number
-    }]
+    location: [{
+        street: String,
+        nr: String,
+        city: String,
+        zipcode: String
+    }],
+    pdf: String
 });
 
 module.exports = mongoose.model('Assignment', assignmentSchema);

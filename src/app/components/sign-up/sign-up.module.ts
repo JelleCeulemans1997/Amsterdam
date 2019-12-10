@@ -7,9 +7,6 @@ import { SignUpCompanyComponent } from './sign-up-company/sign-up-company.compon
 import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpMakersComponent } from './sign-up-makers/sign-up-makers.component';
 
-
-
-
 @NgModule({
 
   declarations: [SignUpCompanyComponent, SignUpComponent, SignUpMakersComponent, SignInComponent],
