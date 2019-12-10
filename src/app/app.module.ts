@@ -14,11 +14,16 @@ import { SignUpModule } from './components/sign-up/sign-up.module';
 import { HttpClientModule } from '@angular/common/http';
 
 
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { CompanyComponent } from './components/company/company.component';
+
+
 @NgModule({
   declarations: [
     AppComponent,
     CreateAssignmentComponent,
-    HomeComponent
+    HomeComponent,
+    CompanyComponent
   ],
   imports: [
     BrowserModule,
@@ -28,6 +33,7 @@ import { HttpClientModule } from '@angular/common/http';
     SharedModule,
     SignUpModule,
     HttpClientModule,
+    MatAutocompleteModule
 
 
   ],

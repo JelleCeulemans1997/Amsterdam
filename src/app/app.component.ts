@@ -11,27 +11,26 @@ import { Subscription } from 'rxjs';
 export class AppComponent implements OnInit, OnDestroy {
   title = 'Amsterdam';
 
-  constructor(private _authService: AuthenticateService, private router: Router) {}
+  constructor(private authService: AuthenticateService, private router: Router) {}
 
-  loggedIn : boolean;
-  loginSub: Subscription
-  
+  loggedIn: boolean;
+  loginSub: Subscription;
   ngOnInit() {
-    this._authService.isLoggedin.subscribe(result => {
+    this.authService.isLoggedin.subscribe(result => {
       this.loggedIn = result;
-    })
+    });
   }
 
   logOut(){
-    this.loginSub = this._authService.isLoggedin.subscribe(result => {
+    this.loginSub = this.authService.isLoggedin.subscribe(result => {
       this.loggedIn = false;
-      localStorage.removeItem("token");
-    })
-    
+      localStorage.removeItem('token');
+    });
+
     this.router.navigateByUrl('');
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.loginSub.unsubscribe();
   }
 }

@@ -16,7 +16,8 @@ import { MatChipsModule, MatAutocompleteModule } from '@angular/material';
     ReactiveFormsModule,
     MatGridListModule,
     MatChipsModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    ReactiveFormsModule
   ],
   exports: [
     FlexLayoutModule,
@@ -24,7 +25,8 @@ import { MatChipsModule, MatAutocompleteModule } from '@angular/material';
     ReactiveFormsModule,
     MatGridListModule,
     MatChipsModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    ReactiveFormsModule
   ]
 })
 export class SharedModule { }
