@@ -6,8 +6,9 @@ export class Assignment {
     public location: {
       street: string,
       nr: string,
-      city: string,
-      zipcode: string
-    },
-    public pdf: string) { }
+      zipcode: string,
+      city: string
+    }//,
+    //public pdf: string
+    ) { }
 }

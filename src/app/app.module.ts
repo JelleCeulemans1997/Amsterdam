@@ -11,10 +11,14 @@ import { HomeComponent } from './components/home/home.component';
 import { TagComponent } from './components/tag/tag.component';
 import { SignUpModule } from './components/sign-up/sign-up.module';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { CompanyComponent } from './components/company/company.component';
 import { SearchAssignmentComponent } from './components/search-assignment/search-assignment.component';
+import {AssignmentviewComponent} from './components/company/assignmentview/assignmentview.component';
+import {AssignmentlistComponent} from './components/company/assignmentlist/assignmentlist.component';
+import {CompanyDashboardComponent} from './components/company/company-dashboard/company-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +28,10 @@ import { SearchAssignmentComponent } from './components/search-assignment/search
     CompanyComponent,
     TagComponent,
     SearchAssignmentComponent,
-    CompanyComponent
+    CompanyComponent,
+    AssignmentviewComponent,
+    AssignmentlistComponent,
+    CompanyDashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -34,6 +41,7 @@ import { SearchAssignmentComponent } from './components/search-assignment/search
     SharedModule,
     SignUpModule,
     HttpClientModule,
+    FormsModule,
     MatAutocompleteModule
   ],
   providers: [],
