@@ -2,6 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { MatChipInputEvent, MatAutocomplete, MatAutocompleteSelectedEvent } from '@angular/material';
+import { Observable } from 'rxjs';
+import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import {map, startWith} from 'rxjs/operators';
+import { TagService } from 'src/app/services/tag.service';
+import { mimeTypeImage } from './mime-type-image.validator';
+import { AssignmentService } from 'src/app/services/assignment.service';
+import { mimeTypePdf } from './mime-type-pdf.validator';
 
 @Component({
   selector: 'app-create-assignment',
@@ -19,7 +29,16 @@ export class CreateAssignmentComponent implements OnInit {
   filename = '';
   token = '';
 
-  constructor() { }
+  @ViewChild('tagInput', {static: false}) tagInput: ElementRef<HTMLInputElement>;
+  @ViewChild('auto', {static: false}) matAutocomplete: MatAutocomplete;
+
+  constructor(
+    private tagService: TagService,
+    private assignmentService: AssignmentService) {
+    this.filteredTags = this.tagCtrl.valueChanges.pipe(
+        startWith(null),
+        map((fruit: string | null) => fruit ? this._filter(fruit) : this.allTags.slice()));
+  }
 
   ngOnInit() {
     this.tagService.getAllDesc().subscribe(result => {
@@ -81,11 +100,9 @@ export class CreateAssignmentComponent implements OnInit {
 
     return this.allTags.filter(fruit => fruit.toLowerCase().indexOf(filterValue) === 0);
   }
-//TODO: creator opvullen met id (werkt nu niet)
   onSaveAssignment() {
     this.assignmentService.createAssignment(
       this.assignmentForm.value.title,
-      this.token,
       this.assignmentForm.value.description,
       this.tags,
       null,
@@ -107,8 +124,8 @@ export class CreateAssignmentComponent implements OnInit {
 
   // onImagePicked(event: Event) {
   //   const file = (event.target as HTMLInputElement).files[0];
-  //   this.form.patchValue({ image: file });
-  //   this.form.get('image').updateValueAndValidity();
+  //   this.assignmentForm.patchValue({ image: file });
+  //   this.assignmentForm.get('image').updateValueAndValidity();
   //   const reader = new FileReader();
   //   reader.onload = () => {
   //     this.imagePreview = reader.result as string;

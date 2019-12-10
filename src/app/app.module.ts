@@ -8,8 +8,7 @@ import { MaterialModule } from './material.module';
 import { SharedModule } from './shared.module';
 import { CreateAssignmentComponent } from './components/create-assignment/create-assignment.component';
 import { HomeComponent } from './components/home/home.component';
-import { SignUpComponent } from './components/sign-up/sign-up/sign-up.component';
-import { SignUpMakersComponent } from './components/sign-up/sign-up-makers/sign-up-makers.component';
+import { TagComponent } from './components/tag/tag.component';
 import { SignUpModule } from './components/sign-up/sign-up.module';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -18,7 +17,6 @@ import { CompanyComponent } from './components/company/company.component';
 import {AssignmentviewComponent} from './components/company/assignmentview/assignmentview.component';
 import {AssignmentlistComponent} from './components/company/assignmentlist/assignmentlist.component';
 import {CompanyDashboardComponent} from './components/company/company-dashboard/company-dashboard.component';
-
 
 @NgModule({
   declarations: [
@@ -39,8 +37,7 @@ import {CompanyDashboardComponent} from './components/company/company-dashboard/
     SharedModule,
     SignUpModule,
     HttpClientModule,
-
-
+    MatAutocompleteModule
   ],
   providers: [],
   bootstrap: [AppComponent]
