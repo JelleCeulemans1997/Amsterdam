@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Assignment } from '../models/assignment.model';
+import { LocationDefining } from '../models/location.model';
 
 @Injectable({
   providedIn: 'root'
@@ -9,36 +10,19 @@ import { Assignment } from '../models/assignment.model';
 export class AssignmentService {
   baseURL = environment.baseURL;
 
-  //Make all the necessary services available
+  // Make all the necessary services available
   constructor(private http: HttpClient) { }
 
-  createAssignment(
-    title: string,
-    description: string,
-    tags: string[],
-    location: [
-      {
-        street: string;
-        nr: string;
-        city: string;
-        zipcode: string;
-      }
-    ],
-    pdf: File
-  ) {
-    console.log('Create post');
-    const postData = new FormData();
-    postData.append('title', title);
-    postData.append('description', description);
-    postData.append('tags', JSON.stringify(tags));
-    postData.append('location', JSON.stringify(location));
-    postData.append('pdf', pdf, title);
-    this.http
-      .post<{ message: string; assignment: Assignment }>(
-        this.baseURL + '/assignment/create',
-        postData
-      )
-      .subscribe(responseData => {
+  createAssignment(assignment: Assignment) {
+    // const postData = new FormData();
+    // postData.append('title', title);
+    // postData.append('description', description);
+    // postData.append('tags', JSON.stringify(tags));
+    // postData.append('location', JSON.stringify(location));
+    // postData.append('pdf', pdf, title);
+    // console.log(postData);
+    this.http.post<{ message: string; assignment: Assignment }>(this.baseURL + '/assignment/create', assignment)
+    .subscribe(responseData => {
         console.log(responseData);
       });
   }

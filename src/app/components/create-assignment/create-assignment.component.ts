@@ -8,6 +8,8 @@ import { TagService } from 'src/app/services/tag.service';
 import { mimeTypeImage } from './mime-type-image.validator';
 import { AssignmentService } from 'src/app/services/assignment.service';
 import { mimeTypePdf } from './mime-type-pdf.validator';
+import { LocationDefining } from '../../models/location.model';
+import { Assignment } from 'src/app/models/assignment.model';
 
 @Component({
   selector: 'app-create-assignment',
@@ -45,8 +47,12 @@ export class CreateAssignmentComponent implements OnInit {
     this.assignmentForm = new FormGroup({
       title: new FormControl(null, { validators: [Validators.required] }),
       description: new FormControl(null, { validators: [Validators.required]}),
-      //image: new FormControl(null, {validators: [Validators.required], asyncValidators: [mimeTypeImage]}),
-      pdf: new FormControl(null, {validators: [Validators.required], asyncValidators: [mimeTypePdf]})
+      // image: new FormControl(null, {validators: [Validators.required], asyncValidators: [mimeTypeImage]}),
+      // pdf: new FormControl(null, {validators: [Validators.required], asyncValidators: [mimeTypePdf]}),
+      street: new FormControl(null, {validators: [Validators.required]}),
+      nr: new FormControl(null, {validators: [Validators.required]}),
+      zipcode: new FormControl(null, {validators: [Validators.required]}),
+      city: new FormControl(null, {validators: [Validators.required]}),
     });
   }
 
@@ -96,26 +102,25 @@ export class CreateAssignmentComponent implements OnInit {
   }
 
   onSaveAssignment() {
-    this.assignmentService.createAssignment(
+    const location: LocationDefining = {
+      street: this.assignmentForm.value.street,
+      nr: this.assignmentForm.value.nr,
+      zipcode: this.assignmentForm.value.zipcode,
+      city: this.assignmentForm.value.city,
+    };
+    this.assignmentService.createAssignment(new Assignment(
       this.assignmentForm.value.title,
       this.assignmentForm.value.description,
       this.tags,
-      null,
-      this.assignmentForm.value.pdf);
+      location));
   }
-  onPdfPicked(event: Event) {
-    const file = (event.target as HTMLInputElement).files[0];
-    console.log(file);
-    this.filename = file.name;
-    this.assignmentForm.patchValue({ pdf: file });
-    this.assignmentForm.get('pdf').updateValueAndValidity();
-    console.log(this.assignmentForm.value);
-    // const reader = new FileReader();
-    // reader.onload = () => {
-    //   this.imagePreview = reader.result as string;
-    // };
-    // reader.readAsDataURL(file);
-  }
+  // onPdfPicked(event: Event) {
+  //   const file = (event.target as HTMLInputElement).files[0];
+  //   console.log(file);
+  //   this.filename = file.name;
+  //   this.assignmentForm.patchValue({ pdf: file });
+  //   this.assignmentForm.get('pdf').updateValueAndValidity();
+  // }
 
   // onImagePicked(event: Event) {
   //   const file = (event.target as HTMLInputElement).files[0];

@@ -36,7 +36,7 @@
               </mat-autocomplete>
             </mat-form-field>
           </mat-step>
-          <mat-step label="Upload document">
+          <!-- <mat-step label="Upload document">
             <div>
               <button mat-raised-button type="button" color="accent" (click)="pdfPicker.click()">
                 Pick PDF
@@ -44,32 +44,26 @@
               <input type="file" #pdfPicker (change)="onPdfPicked($event)" />
               <p>{{filename}}</p>
             </div>
-          </mat-step>
-          <!-- <mat-step label="Upload document">
-              <div>
-                <button mat-raised-button type="button" color="accent" (click)="imagePicker.click()">
-                  Pick image
-                </button>
-                <div class="image-preview"
-                  *ngIf="imagePreview !== '' && imagePreview && assignmentForm.get('image').valid">
-                  <img [src]="imagePreview" [alt]="assignmentForm.value.name" />
-                </div>
-                <input type="file" #imagePicker (change)="onImagePicked($event)" />
-              </div>
-            </mat-step> -->
+          </mat-step> -->
           <mat-step label="Location">
-            <div>
+            <div fxFlex fxLayout="row" fxLayoutGap="20px">
               <mat-form-field>
-                <textarea matInput rows="6" name="content" placeholder="Post content"
-                  formControlName="description"></textarea>
-                <mat-error>Required!</mat-error>
+                <input type="text" matInput placeholder="Street" formControlName="street" />
+                <mat-error>The street is required!</mat-error>
+              </mat-form-field>
+              <mat-form-field>
+                <input type="text" matInput placeholder="Number" formControlName="nr" />
+                <mat-error>The nr is required!</mat-error>
               </mat-form-field>
             </div>
-            <div>
+            <div fxFlex fxLayout="row" fxLayoutGap="20px">
               <mat-form-field>
-                <textarea matInput rows="6" name="content" placeholder="Post content"
-                  formControlName="description"></textarea>
-                <mat-error>Required!</mat-error>
+                <input type="text" matInput placeholder="Zipcode" formControlName="zipcode" />
+                <mat-error>The zipcode is required!</mat-error>
+              </mat-form-field>
+              <mat-form-field>
+                <input type="text" matInput placeholder="City" formControlName="city" />
+                <mat-error>The city is required!</mat-error>
               </mat-form-field>
             </div>
           </mat-step>

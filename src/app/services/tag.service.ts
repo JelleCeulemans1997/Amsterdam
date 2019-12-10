@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { Observable } from 'rxjs';
 import { Tag } from '../models/tag.model';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';

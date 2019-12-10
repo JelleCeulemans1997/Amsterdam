@@ -1,21 +1,13 @@
 const Assignment = require('../models/assignment');
 
 exports.createAssignment = (req, res, next) => {
-  console.log(req.file.filename);
-  const url = req.protocol + '://' + req.get('host');
+  //const url = req.protocol + '://' + req.get('host');
   const assignment = new Assignment({
     title: req.body.title,
     description: req.body.description,
-    tags: JSON.parse(req.body.tags),
-    location: [
-      {
-        street: 'test',
-        nr: 'test',
-        city: 'test',
-        zipcode: 'test'
-      }
-    ],
-    pdf: url + '/pdf/' + req.file.filename
+    tags: req.body.tags,
+    location: req.body.location//,
+    //pdf: url + '/pdf/' + req.file.filename
   });
   assignment.save()
     .then(createdAssignment => {
@@ -28,7 +20,6 @@ exports.createAssignment = (req, res, next) => {
       });
     })
     .catch(error => {
-      console.log('faaailleeddd');
       res.status(500).json({
         message: 'Creating an assignment failed!'
       });
