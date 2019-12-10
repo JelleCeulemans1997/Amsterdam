@@ -29,13 +29,17 @@ export class AssignmentService {
   }
 
   getAssignmentById(assingmentId: string) {
-    this.http.get<{ message: string; assignment: any }>(this.baseURL + '/assignment/' + assingmentId)
+    return this.http.get<{ message: string; assignment: any }>(this.baseURL + '/assignment/' + assingmentId)
     .pipe(map(result => {
       return {
         ...result.assignment,
         id: result.assignment._id
       };
-    })).subscribe(result => {
+    }));
+  }
+
+  updateAssignment(assignment: Assignment) {
+    this.http.put<AssignmentService>(this.baseURL + '/assignment/' + assignment.id, assignment).subscribe(result => {
       console.log(result);
     });
   }
@@ -55,7 +59,7 @@ export class AssignmentService {
   // }
 
   getAllAsignments() {
-    return this.http.get<{ message: string, assignments: any }>(this.baseURL + '/api/assignment');
+    return this.http.get<{ message: string, assignments: any }>(this.baseURL + '</assignment');
 
   }
 

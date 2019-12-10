@@ -8,7 +8,6 @@ import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 import { Assignment } from 'src/app/models/assignment.model';
 import { Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
 
 
 @Component({
@@ -91,7 +90,6 @@ export class SearchAssignmentComponent implements OnInit {
     }
   }
 
-
   add(event: MatChipInputEvent): void {
     if (!this.matAutocomplete.isOpen) {
       const input = event.input;
@@ -130,7 +128,7 @@ export class SearchAssignmentComponent implements OnInit {
     return this.allTags.filter(tag => tag.toLowerCase().indexOf(filterValue) === 0);
   }
 
-  goToDetail(id:string){
+  goToDetail(id: string) {
     console.log(id);
     this.router.navigateByUrl('/assignmentDetail/' + id);
   }

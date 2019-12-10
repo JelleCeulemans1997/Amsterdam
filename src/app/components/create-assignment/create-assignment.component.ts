@@ -11,6 +11,7 @@ import { mimeTypePdf } from './mime-type-pdf.validator';
 import { LocationDefining } from '../../models/location.model';
 import { Assignment } from 'src/app/models/assignment.model';
 import { ActivatedRoute, ParamMap } from '@angular/router';
+import { Tag } from 'src/app/models/tag.model';
 
 @Component({
   selector: 'app-create-assignment',
@@ -29,6 +30,7 @@ export class CreateAssignmentComponent implements OnInit {
   token = '';
   editMode = false;
   assignmentId: string;
+  tagObjects: Tag[];
 
   @ViewChild('tagInput', {static: false}) tagInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto', {static: false}) matAutocomplete: MatAutocomplete;
@@ -43,9 +45,20 @@ export class CreateAssignmentComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.tagService.getAllDesc().subscribe(result => {
-      result.tags.forEach(tag => {
-        this.allTags.push(tag.name);
+    this.tagService.getAllDesc().pipe(map(result => {
+      return {
+        tags: result.tags.map(tag => {
+          return {
+            id: tag._id,
+            name: tag.name,
+            usages: tag.usages
+          };
+        })
+      };
+    })).subscribe(result => {
+      this.tagObjects = Object.assign([], result.tags);
+      result.tags.forEach(element => {
+        this.allTags.push(element.name);
       });
     });
 
@@ -63,11 +76,19 @@ export class CreateAssignmentComponent implements OnInit {
 
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
       if (paramMap.has('assignmentId')) {
-        this.editMode = false;
+        this.editMode = true;
         this.assignmentId = paramMap.get('assignmentId');
-        console.log(this.assignmentId);
-
-        this.assignmentService.getAssignmentById(this.assignmentId);
+        this.assignmentService.getAssignmentById(this.assignmentId).subscribe(result => {
+          this.tags = result.tags;
+          this.assignmentForm.setValue({
+            title: result.title,
+            description: result.description,
+            street: result.location[0].street,
+            nr: result.location[0].nr,
+            zipcode: result.location[0].zipcode,
+            city: result.location[0].city
+          });
+        });
 
 
         // this.postSService.getPost(this.postId).subscribe(postData => {
@@ -132,22 +153,34 @@ export class CreateAssignmentComponent implements OnInit {
     return this.allTags.filter(fruit => fruit.toLowerCase().indexOf(filterValue) === 0);
   }
   onSaveAssignment() {
+    // Add or update tags in database
+    this.tags.forEach(element => {
+      if (!this.allTags.includes(element)) {
+        // this.tagService.createTag(new Tag('', element, 1));
+      } else if (!this.editMode) {
+        const tag = this.tagObjects.find(t => t.name === element);
+        tag.usages++;
+        this.tagService.updateTag(tag);
+      }
+    });
     const location: LocationDefining = {
       street: this.assignmentForm.value.street,
       nr: this.assignmentForm.value.nr,
       zipcode: this.assignmentForm.value.zipcode,
       city: this.assignmentForm.value.city,
     };
+    const assignment = new Assignment(
+      '',
+      this.assignmentForm.value.title,
+      this.assignmentForm.value.description,
+      this.tags,
+      location,
+      localStorage.getItem('token'));
     if (!this.editMode) {
-      this.assignmentService.createAssignment(new Assignment(
-        '',
-        this.assignmentForm.value.title,
-        this.assignmentForm.value.description,
-        this.tags,
-        location,
-        localStorage.getItem('token')));
+      this.assignmentService.createAssignment(assignment);
     } else {
-      // edit assignment
+      assignment.id = this.assignmentId;
+      this.assignmentService.updateAssignment(assignment);
     }
   }
   // onPdfPicked(event: Event) {

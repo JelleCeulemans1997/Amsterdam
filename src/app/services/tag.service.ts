@@ -11,21 +11,11 @@ import { map } from 'rxjs/operators';
 export class TagService {
   baseURL = environment.baseURL;
 
-  //Make all the necessary services available
+  // Make all the necessary services available
   constructor( private http: HttpClient) { }
 
   getAllDesc() {
-    return this.http.get<{tags: any}>(this.baseURL + '/tag/allDesc').pipe(map(result => {
-      return {
-        tags: result.tags.map(tag => {
-          return {
-            id: tag._id,
-            name: tag.name,
-            usages: tag.usages
-          };
-        })
-      };
-    }));
+    return this.http.get<{ tags: any }>(this.baseURL + '/tag/allDesc');
   }
 
 
@@ -36,7 +26,7 @@ export class TagService {
   }
 
   updateTag(tag: Tag) {
-    this.http.put<Tag>(this.baseURL + '/tag/update', tag).subscribe(result => {
+    this.http.put<Tag>(this.baseURL + '/tag/update/' + tag.id, tag).subscribe(result => {
       console.log(result);
     });
   }
