@@ -16,6 +16,7 @@ export class AppComponent implements OnInit, OnDestroy {
   roleSub: Subscription;
   role: String;
 
+
   constructor(private authService: AuthenticateService, private router: Router) {
     this.authService.role.subscribe(result => {
       console.log(result);
@@ -25,7 +26,7 @@ export class AppComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.authService.isLoggedin.subscribe(result => {
       this.loggedIn = result;
-    })
+    });
   }
 
   get isAdmin(){
@@ -47,11 +48,11 @@ export class AppComponent implements OnInit, OnDestroy {
       this.roleSub = this.authService.role.subscribe(result => {
         this.role = "";
       })
-    })  
+    });
     this.router.navigateByUrl('');
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.loginSub.unsubscribe();
     this.roleSub.unsubscribe();
   }

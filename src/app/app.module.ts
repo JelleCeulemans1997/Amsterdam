@@ -12,11 +12,15 @@ import { TagComponent } from './components/tag/tag.component';
 import { SignUpModule } from './components/sign-up/sign-up.module';
 import { HttpClientModule } from '@angular/common/http';
 
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { CompanyComponent } from './components/company/company.component';
+
 @NgModule({
   declarations: [
     AppComponent,
     CreateAssignmentComponent,
     HomeComponent,
+    CompanyComponent,
     TagComponent
   ],
   imports: [
@@ -26,7 +30,8 @@ import { HttpClientModule } from '@angular/common/http';
     MaterialModule,
     SharedModule,
     SignUpModule,
-    HttpClientModule
+    HttpClientModule,
+    MatAutocompleteModule
   ],
   providers: [],
   bootstrap: [AppComponent]

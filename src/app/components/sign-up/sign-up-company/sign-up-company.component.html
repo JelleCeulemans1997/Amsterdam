@@ -1,25 +1,25 @@
 <form [formGroup]="companyFormSignup">
   <mat-form-field>
     <input
-      type="text" matInput placeholder="Company name" formControlName="companyName" required
+      type="text" matInput placeholder="Company name" [(ngModel)]="company.companyname" formControlName="companyName" required
     />
   </mat-form-field><br/>
   <label>Adress</label><br/>
   <mat-form-field>
-    <input type="text" matInput placeholder="Street" formControlName="street" required/>
+    <input type="text" matInput placeholder="Street" [(ngModel)]="company.street" formControlName='street' required/>
   </mat-form-field>
   <mat-form-field>
-    <input type="text" matInput placeholder="Nr." formControlName="number" required/>
+    <input type="text" matInput placeholder="Nr." [(ngModel)]="company.nr" formControlName='number' required/>
   </mat-form-field><br/>
   <mat-form-field>
     <input
-      type="text" matInput placeholder="Zipcode" formControlName="zipcode" required/>
+      type="text" matInput placeholder="Zipcode" [(ngModel)]="company.zipcode" formControlName="zipcode" required/>
   </mat-form-field>
   <mat-form-field>
-    <input type="text" matInput placeholder="Town" formControlName="town" required/>
+    <input type="text" matInput placeholder="Town" [(ngModel)]="company.town" formControlName='town' required/>
   </mat-form-field><br/>
   <mat-form-field>
-    <textarea matInput placeholder="About your company" formControlName="biography" required></textarea>
+    <textarea matInput placeholder="About your company" [(ngModel)]="company.bio" formControlName="biography" required></textarea>
   </mat-form-field><br/>
   <mat-form-field class="example-chip-list">
       <mat-chip-list #chipList aria-label="Fruit selection">
