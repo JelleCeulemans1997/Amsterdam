@@ -28,7 +28,7 @@ export class CreateAssignmentComponent implements OnInit {
   filename = '';
   token = '';
   editMode = false;
-  asignmentId: string;
+  assignmentId: string;
 
   @ViewChild('tagInput', {static: false}) tagInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto', {static: false}) matAutocomplete: MatAutocomplete;
@@ -45,7 +45,6 @@ export class CreateAssignmentComponent implements OnInit {
   ngOnInit() {
     this.tagService.getAllDesc().subscribe(result => {
       result.tags.forEach(tag => {
-        console.log(tag.name);
         this.allTags.push(tag.name);
       });
     });
@@ -65,7 +64,10 @@ export class CreateAssignmentComponent implements OnInit {
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
       if (paramMap.has('assignmentId')) {
         this.editMode = false;
-        this.asignmentId = paramMap.get('assignmentId');
+        this.assignmentId = paramMap.get('assignmentId');
+        console.log(this.assignmentId);
+
+        this.assignmentService.getAssignmentById(this.assignmentId);
 
 
         // this.postSService.getPost(this.postId).subscribe(postData => {
@@ -84,24 +86,19 @@ export class CreateAssignmentComponent implements OnInit {
 
       } else {
         this.editMode = false;
-        this.asignmentId = null;
+        this.assignmentId = null;
       }
     });
     this.token = localStorage.getItem('token');
   }
 
   add(event: MatChipInputEvent): void {
-    console.log(event);
-    // Add fruit only when MatAutocomplete is not open
-    // To make sure this does not conflict with OptionSelected Event
     if (!this.matAutocomplete.isOpen) {
       const input = event.input;
       const value = event.value;
-      // Add our fruit
       if ((value || '').trim()) {
         this.tags.push(value.trim());
       }
-      // Reset the input value
       if (input) {
         input.value = '';
       }
@@ -143,10 +140,12 @@ export class CreateAssignmentComponent implements OnInit {
     };
     if (!this.editMode) {
       this.assignmentService.createAssignment(new Assignment(
+        '',
         this.assignmentForm.value.title,
         this.assignmentForm.value.description,
         this.tags,
-        location));
+        location,
+        localStorage.getItem('token')));
     } else {
       // edit assignment
     }

@@ -1,13 +1,14 @@
 const Assignment = require('../models/assignment');
+const jwt = require('jsonwebtoken');
 
 exports.createAssignment = (req, res, next) => {
-  //const url = req.protocol + '://' + req.get('host');
+  console.log(req.body.title, req.body.description);
   const assignment = new Assignment({
     title: req.body.title,
     description: req.body.description,
     tags: req.body.tags,
-    location: req.body.location//,
-    //pdf: url + '/pdf/' + req.file.filename
+    location: req.body.location,
+    creator: jwt.decode(req.body.creator)._id
   });
   assignment.save()
     .then(createdAssignment => {

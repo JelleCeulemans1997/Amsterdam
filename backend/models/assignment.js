@@ -3,8 +3,7 @@ var Schema = mongoose.Schema;
 
 var assignmentSchema = new Schema({
 
-    titel: String,
-    creator:  {type: mongoose.Schema.Types.ObjectId, ref: "Company"},
+    title: String,
     description: String,
     tags: [
             {
@@ -16,9 +15,8 @@ var assignmentSchema = new Schema({
         nr: String,
         city: String,
         zipcode: String
-    }]
-    //,
-    //pdf: String
+    }],
+    creator:  {type: mongoose.Schema.Types.ObjectId, ref: "User"},
 });
 
 module.exports = mongoose.model('Assignment', assignmentSchema);
