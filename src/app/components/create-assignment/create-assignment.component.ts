@@ -10,6 +10,7 @@ import { AssignmentService } from 'src/app/services/assignment.service';
 import { mimeTypePdf } from './mime-type-pdf.validator';
 import { LocationDefining } from '../../models/location.model';
 import { Assignment } from 'src/app/models/assignment.model';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({
   selector: 'app-create-assignment',
@@ -25,13 +26,16 @@ export class CreateAssignmentComponent implements OnInit {
   allTags: string[] = [];
   imagePreview: string;
   filename = '';
+  editMode = false;
+  asignmentId: string;
 
   @ViewChild('tagInput', {static: false}) tagInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto', {static: false}) matAutocomplete: MatAutocomplete;
 
   constructor(
     private tagService: TagService,
-    private assignmentService: AssignmentService) {
+    private assignmentService: AssignmentService,
+    private route: ActivatedRoute) {
     this.filteredTags = this.tagCtrl.valueChanges.pipe(
         startWith(null),
         map((fruit: string | null) => fruit ? this._filter(fruit) : this.allTags.slice()));
@@ -44,6 +48,8 @@ export class CreateAssignmentComponent implements OnInit {
         this.allTags.push(tag.name);
       });
     });
+
+
     this.assignmentForm = new FormGroup({
       title: new FormControl(null, { validators: [Validators.required] }),
       description: new FormControl(null, { validators: [Validators.required]}),
@@ -53,6 +59,32 @@ export class CreateAssignmentComponent implements OnInit {
       nr: new FormControl(null, {validators: [Validators.required]}),
       zipcode: new FormControl(null, {validators: [Validators.required]}),
       city: new FormControl(null, {validators: [Validators.required]}),
+    });
+
+    this.route.paramMap.subscribe((paramMap: ParamMap) => {
+      if (paramMap.has('assignmentId')) {
+        this.editMode = false;
+        this.asignmentId = paramMap.get('assignmentId');
+
+
+        // this.postSService.getPost(this.postId).subscribe(postData => {
+        //   this.post = {
+        //     id: postData._id,
+        //     title: postData.title,
+        //     content: postData.content,
+        //     imagePath: postData.imagePath,
+        //     creator: postData.creator};
+        //   this.assignmentForm.setValue({
+        //     title: this.post.title,
+        //     content: this.post.content,
+        //     image: this.post.imagePath
+        //   });
+        // });
+
+      } else {
+        this.editMode = false;
+        this.asignmentId = null;
+      }
     });
   }
 
@@ -108,11 +140,15 @@ export class CreateAssignmentComponent implements OnInit {
       zipcode: this.assignmentForm.value.zipcode,
       city: this.assignmentForm.value.city,
     };
-    this.assignmentService.createAssignment(new Assignment(
-      this.assignmentForm.value.title,
-      this.assignmentForm.value.description,
-      this.tags,
-      location));
+    if (!this.editMode) {
+      this.assignmentService.createAssignment(new Assignment(
+        this.assignmentForm.value.title,
+        this.assignmentForm.value.description,
+        this.tags,
+        location));
+    } else {
+      // edit assignment
+    }
   }
   // onPdfPicked(event: Event) {
   //   const file = (event.target as HTMLInputElement).files[0];

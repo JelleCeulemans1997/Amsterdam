@@ -11,6 +11,7 @@ import { HomeComponent } from './components/home/home.component';
 import { TagComponent } from './components/tag/tag.component';
 import { SignUpModule } from './components/sign-up/sign-up.module';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { HttpClientModule } from '@angular/common/http';
     MaterialModule,
     SharedModule,
     SignUpModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

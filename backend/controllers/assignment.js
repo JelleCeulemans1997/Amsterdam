@@ -25,6 +25,26 @@ exports.createAssignment = (req, res, next) => {
       });
     });
 };
+
+exports.getAssignment = (req, res, next) => {
+  console.log(req.params);
+  Assignment.findById(req.params.id)
+  .then(assignment => {
+    if (assignment) {
+      res.status(200).json({
+        message: 'Fetching assignment succeeded',
+        assignment
+      });
+    } else {
+      res.status(404).json({ message: 'Assignment not found!' });
+    }
+  })
+  .catch(error => {
+    res.status(500).json({
+      message: 'Fetching assignment failed!'
+    });
+  });
+}
   // const tag = new Tag({
   //   name: req.body.name,
   //   usages: req.body.usages,

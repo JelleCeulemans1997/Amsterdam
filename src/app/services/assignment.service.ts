@@ -3,6 +3,7 @@ import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Assignment } from '../models/assignment.model';
 import { LocationDefining } from '../models/location.model';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +26,22 @@ export class AssignmentService {
     .subscribe(responseData => {
         console.log(responseData);
       });
+  }
+
+  getAssignmentById(assingmentId: string) {
+    this.http.get<{ message: string; assignment: any }>(this.baseURL + '/assignment/getAssignment/' + assingmentId)
+    .pipe(map(result => {
+      return {
+        assignment: result.assignment.map(assignment => {
+          return {
+            ...assignment,
+            id: assignment._id
+          };
+        })
+      };
+    })).subscribe(result => {
+      console.log(result);
+    });
   }
 
   // getAllDesc() {
