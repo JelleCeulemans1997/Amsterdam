@@ -6,6 +6,8 @@ import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {MatAutocompleteSelectedEvent, MatAutocomplete} from '@angular/material/autocomplete';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
+import { Assignment } from 'src/app/models/assignment.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-search-assignment',
@@ -18,6 +20,9 @@ export class SearchAssignmentComponent implements OnInit {
 
   categories: string[];
   selection: string;
+  assignments: any[];
+  results: any[];
+
   visible = true;
   selectable = true;
   removable = true;
@@ -31,7 +36,7 @@ export class SearchAssignmentComponent implements OnInit {
   @ViewChild('tagInput', {static: false}) tagInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto', {static: false}) matAutocomplete: MatAutocomplete;
 
-  constructor(private fb: FormBuilder, private assignmentService: AssignmentService) {
+  constructor(private fb: FormBuilder, private assignmentService: AssignmentService, private router: Router) {
     this.filteredTags = this.tagCtrl.valueChanges.pipe(
       startWith(null),
       map((tag: string | null) => tag ? this._filter(tag) : this.allTags.slice()));
@@ -39,6 +44,7 @@ export class SearchAssignmentComponent implements OnInit {
 
   ngOnInit() {
     this.categories = ['Location', 'Tags', 'Company'];
+    this.results = [];
     this.searchForm = this.fb.group({
       searchString: ['']
     });
@@ -46,11 +52,35 @@ export class SearchAssignmentComponent implements OnInit {
   }
 
   search() {
+    this.results.splice(0, this.results.length);
+    if (this.selection === 'Location') {
+      this.assignments.forEach(assignment => {
+        if ( assignment.location[0].zipcode === this.searchForm.get('searchString').value ) {
+          this.results.push(assignment);
+        }
+      });
+    } else if (this.selection === 'Tags') {
+      this.assignments.forEach(assignment => {
+        this.tags.forEach(tag => {
+          if ( assignment.tags.includes(tag)) {
+            if (!this.results.includes(assignment)) {
+              this.results.push(assignment);
+            }
+          }
+        });
+      });
+    } else if (this.selection === 'Company') {
+
+    }
     return this.searchForm.get('searchString').value;
+
   }
 
   getAllAssignments() {
-    console.log(this.assignmentService);
+    this.assignmentService.getAllAsignments().subscribe(res => {
+      this.assignments = res.assignments;
+      console.log(this.assignments);
+    });
   }
 
   onSelectionChange() {
@@ -75,6 +105,7 @@ export class SearchAssignmentComponent implements OnInit {
 
       this.tagCtrl.setValue(null);
     }
+    this.search();
   }
 
   remove(tag: string): void {
@@ -95,6 +126,11 @@ export class SearchAssignmentComponent implements OnInit {
     const filterValue = value.toLowerCase();
 
     return this.allTags.filter(tag => tag.toLowerCase().indexOf(filterValue) === 0);
+  }
+
+  goToDetail(id:string){
+    console.log(id);
+    this.router.navigateByUrl('/assignmentDetail/' + id);
   }
 
 }

@@ -11,6 +11,7 @@ import {CompanyDashboardComponent} from './components/company/company-dashboard/
 import { AuthGuard } from './guards/auth.guard';
 import { Role } from './models/role';
 import { SearchAssignmentComponent } from './components/search-assignment/search-assignment.component';
+import { AssignmentdetailComponent } from './components/assignment/assignmentdetail/assignmentdetail.component';
 
 
 const routes: Routes = [
@@ -22,7 +23,8 @@ const routes: Routes = [
   { path: 'signIn', component: SignInComponent },
   { path: 'tag', component: TagComponent },
   { path: 'companyhomepage', component: CompanyComponent },
-  { path: 'companydashboard/:assignmentId', component: CompanyDashboardComponent }
+  { path: 'companydashboard/:assignmentId', component: CompanyDashboardComponent },
+  { path: 'assignmentDetail/:assignmentId', component: AssignmentdetailComponent }
 ];
 
 @NgModule({
