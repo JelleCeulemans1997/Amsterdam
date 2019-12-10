@@ -38,7 +38,7 @@
           </mat-step>
           <mat-step label="Upload document">
             <div>
-              <button mat-raised-button type="button" color="accent" (click)="pdfPicker.click()">
+              <button mat-raised-button type="button" color="primary" (click)="pdfPicker.click()">
                 Pick PDF
               </button>
               <input type="file" #pdfPicker (change)="onPdfPicked($event)" />

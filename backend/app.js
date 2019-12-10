@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const userRouter = require('./controllers/example-user');
 const tagRouter = require('./routes/tag');
 const assignmentRouter = require('./routes/assignment');
+const companyRouter = require('./controllers/company');
 
 const mongoose = require('mongoose');
 mongoose.set('useCreateIndex', true)
@@ -41,6 +42,7 @@ app.use((req, res, next) => {
 app.use('/api', userRouter);
 app.use('/api/tag', tagRouter);
 app.use('/api/assignment', assignmentRouter);
+app.use('/api/company', companyRouter);
 //app.use('/api/posts', postRoutes);
 //app.use('/api/user', userRoutes);
 

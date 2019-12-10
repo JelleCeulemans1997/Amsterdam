@@ -5,6 +5,7 @@ const extractPdf = require("../middleware/file-pdf");
 const router = express.Router();
 
 router.post('/create', extractPdf, AssignmentController.createAssignment);
+// router.get('/assignment:company', extractPdf, AssignmentController.getAssigment);
 // router.get('/allDesc', TagController.getAllDesc);
 // router.put('/update', TagController.putTag);
 // router.delete('/delete/:id', TagController.deleteTag);

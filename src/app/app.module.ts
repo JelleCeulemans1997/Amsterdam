@@ -14,6 +14,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { CompanyComponent } from './components/company/company.component';
+import { SearchAssignmentComponent } from './components/search-assignment/search-assignment.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { CompanyComponent } from './components/company/company.component';
     CreateAssignmentComponent,
     HomeComponent,
     CompanyComponent,
-    TagComponent
+    TagComponent,
+    SearchAssignmentComponent
   ],
   imports: [
     BrowserModule,

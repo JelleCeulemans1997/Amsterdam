@@ -7,11 +7,13 @@ import { SignInComponent } from './components/sign-up/sign-in/sign-in.component'
 import { AuthGuard } from './guards/auth.guard';
 import { Role } from './models/role';
 import { TagComponent } from './components/tag/tag.component';
+import { SearchAssignmentComponent } from './components/search-assignment/search-assignment.component';
 
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'createAssignment', component: CreateAssignmentComponent},
+  { path: 'searchAssignment', component: SearchAssignmentComponent},
   { path: 'signUp', component: SignUpComponent },
   { path: 'signIn', component: SignInComponent },
   { path: 'tag', component: TagComponent }

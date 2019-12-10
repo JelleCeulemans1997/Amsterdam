@@ -34,6 +34,13 @@ exports.createAssignment = (req, res, next) => {
       });
     });
 };
+
+// exports.getAssigment()= (req, res, next) => {
+//   Assignment.find({email: {$regex : req.params.email}})
+// };
+
+
+
   // const tag = new Tag({
   //   name: req.body.name,
   //   usages: req.body.usages,
