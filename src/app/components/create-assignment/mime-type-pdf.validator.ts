@@ -1,7 +1,7 @@
 import { AbstractControl } from '@angular/forms';
 import { Observable, Observer, of } from 'rxjs';
 
-export const mimeType = (
+export const mimeTypePdf = (
   control: AbstractControl): Promise<{ [key: string]: any }> | Observable<{ [key: string]: any }> => {
   if (typeof(control.value) === 'string') {
     return of(null);
@@ -18,14 +18,7 @@ export const mimeType = (
           header += arr[i].toString(16);
         }
         switch (header) {
-          case '89504e47':
-            isValid = true;
-            break;
-          case 'ffd8ffe0':
-          case 'ffd8ffe1':
-          case 'ffd8ffe2':
-          case 'ffd8ffe3':
-          case 'ffd8ffe8':
+          case '25504446':
             isValid = true;
             break;
           default:

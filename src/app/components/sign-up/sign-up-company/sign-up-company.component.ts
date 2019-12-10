@@ -8,6 +8,7 @@ import {map, startWith} from 'rxjs/operators';
 import { SignupService } from 'src/app/services/signup.service';
 import {Company} from 'src/app/models/company.model';
 
+
 @Component({
   selector: 'app-sign-up-company',
   templateUrl: './sign-up-company.component.html',
@@ -42,7 +43,7 @@ export class SignUpCompanyComponent implements OnInit {
     console.log(this.company);
     this.signupService.addCompany(this.company);
   }
-
+  
   ngOnInit() {
     this.companyFormSignup = this.fb.group({
       companyName: ['', Validators.required],
