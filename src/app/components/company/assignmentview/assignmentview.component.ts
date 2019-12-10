@@ -10,7 +10,8 @@ import {AssignmentService} from '../../../services/assignment.service';
 export class AssignmentviewComponent implements OnInit {
 
   assignmentId = '';
-  assignment;
+  assignment = null;
+  isLoading = true;
 
   constructor(public route: ActivatedRoute, private assignmentService: AssignmentService) { }
 
@@ -25,6 +26,8 @@ export class AssignmentviewComponent implements OnInit {
         });
       } else {
         this.assignmentId = null;
+        this.isLoading = false;
+
       }
     });
   }
