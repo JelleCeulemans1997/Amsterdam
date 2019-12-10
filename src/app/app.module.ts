@@ -11,6 +11,7 @@ import { HomeComponent } from './components/home/home.component';
 import { TagComponent } from './components/tag/tag.component';
 import { SignUpModule } from './components/sign-up/sign-up.module';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { CompanyComponent } from './components/company/company.component';
@@ -37,6 +38,7 @@ import {CompanyDashboardComponent} from './components/company/company-dashboard/
     SharedModule,
     SignUpModule,
     HttpClientModule,
+    FormsModule,
     MatAutocompleteModule
   ],
   providers: [],

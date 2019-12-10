@@ -1,4 +1,4 @@
-var mongoose = require('mongoose');
+var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 var assignmentSchema = new Schema({
@@ -16,8 +16,9 @@ var assignmentSchema = new Schema({
         nr: String,
         city: String,
         zipcode: String
-    }],
-    pdf: String
+    }]
+    //,
+    //pdf: String
 });
 
 module.exports = mongoose.model('Assignment', assignmentSchema);

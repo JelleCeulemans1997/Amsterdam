@@ -15,7 +15,8 @@ import { Role } from './models/role';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'createAssignment', component: CreateAssignmentComponent},
+  { path: 'createAssignment', component: CreateAssignmentComponent },
+  { path: 'editAssignment/:assignmentId', component: CreateAssignmentComponent},
   { path: 'signUp', component: SignUpComponent },
   { path: 'signIn', component: SignInComponent },
   { path: 'tag', component: TagComponent },
