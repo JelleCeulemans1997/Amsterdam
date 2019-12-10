@@ -23,7 +23,8 @@ import { SearchAssignmentComponent } from './components/search-assignment/search
     HomeComponent,
     CompanyComponent,
     TagComponent,
-    SearchAssignmentComponent
+    SearchAssignmentComponent,
+    CompanyComponent
   ],
   imports: [
     BrowserModule,
