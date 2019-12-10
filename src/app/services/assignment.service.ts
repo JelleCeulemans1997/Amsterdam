@@ -57,6 +57,15 @@ export class AssignmentService {
   //   }));
   // }
 
+  getAllAsignments() {
+    return this.http.get<{ message: string, assignments: any }>('http://localhost:3000/api/assignment');
+
+  }
+
+  getAssignment(assignmentId: string) {
+    return this.http.get('http://localhost:3000/api/assignment/' + assignmentId);
+  }
+
   // createTag(tag: Tag) {
   //   this.http.post<Tag>(this.baseURL + '/tag/create', tag).subscribe(result => {
   //     console.log(result);
