@@ -3,17 +3,18 @@ var Schema = mongoose.Schema;
 
 var assignmentSchema = new Schema({
     titel: String,
-    omschrijving: String,
+    creator:  {type: mongoose.Schema.Types.ObjectId, ref: "Company"},
+    description: String,
     tags: [
             {
                 value: String,
             }
         ],
-    locatie: [{
-        straat: String,
-        huisnummer: Number,
-        plaats: String,
-        postcode: Number
+    location: [{
+        street: String,
+        nr: Number,
+        city: String,
+        zipcode: Number
     }]
 });
 

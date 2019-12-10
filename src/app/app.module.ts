@@ -13,12 +13,23 @@ import { SignUpMakersComponent } from './components/sign-up/sign-up-makers/sign-
 import { SignUpModule } from './components/sign-up/sign-up.module';
 import { HttpClientModule } from '@angular/common/http';
 
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { CompanyComponent } from './components/company/company.component';
+import {AssignmentviewComponent} from './components/company/assignmentview/assignmentview.component';
+import {AssignmentlistComponent} from './components/company/assignmentlist/assignmentlist.component';
+import {CompanyDashboardComponent} from './components/company/company-dashboard/company-dashboard.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     CreateAssignmentComponent,
-    HomeComponent
+    HomeComponent,
+    CompanyComponent,
+    TagComponent,
+    AssignmentviewComponent,
+    AssignmentlistComponent,
+    CompanyDashboardComponent
   ],
   imports: [
     BrowserModule,
