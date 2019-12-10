@@ -7,6 +7,7 @@ import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import { SignupService } from 'src/app/services/signup.service';
 import {Company} from 'src/app/models/company.model';
+import { LocationDefining } from 'src/app/models/location.model';
 
 
 @Component({
@@ -39,11 +40,18 @@ export class SignUpCompanyComponent implements OnInit {
        }
 
   onSubmit() {
-    this.company.tags = this.tags;
+    const tags = this.tags;
+    const location: LocationDefining = {
+      street: this.company.street,
+      nr: this.company.nr,
+      zipcode: this.company.zipcode,
+      city:  this.company.town
+    }
     console.log(this.company);
-    this.signupService.addCompany(this.company);
+    console.log(location)
+    this.signupService.addCompany(this.company.companyname, [location], this.company.bio, tags);
   }
-  
+
   ngOnInit() {
     this.companyFormSignup = this.fb.group({
       companyName: ['', Validators.required],

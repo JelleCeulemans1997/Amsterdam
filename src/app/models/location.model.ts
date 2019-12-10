@@ -1,4 +1,4 @@
-export interface Location {
+export interface LocationDefining {
   street: string;
   nr: string;
   city: string;
