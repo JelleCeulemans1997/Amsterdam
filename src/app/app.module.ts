@@ -13,11 +13,15 @@ import { SignUpModule } from './components/sign-up/sign-up.module';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { CompanyComponent } from './components/company/company.component';
+
 @NgModule({
   declarations: [
     AppComponent,
     CreateAssignmentComponent,
     HomeComponent,
+    CompanyComponent,
     TagComponent
   ],
   imports: [
@@ -29,6 +33,7 @@ import { FormsModule } from '@angular/forms';
     SignUpModule,
     HttpClientModule,
     FormsModule,
+    MatAutocompleteModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -12,7 +12,8 @@ import { environment } from 'src/environments/environment';
 export class AuthenticateService {
   baseURL = environment.baseURL;
 
-  isLoggedin = new BehaviorSubject(localStorage.getItem('token') ? true : false);
+  isLoggedin = new BehaviorSubject(localStorage.getItem('token')? true : false);
+  role = new BehaviorSubject('');
 
   constructor(private httpClient: HttpClient) { }
   authenticate(userLogin: UserLogin): Observable<User> {
