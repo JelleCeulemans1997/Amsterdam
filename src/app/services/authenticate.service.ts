@@ -4,22 +4,24 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from '../models/user.model';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { UserLogin } from '../models/user-login.model';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticateService {
+  baseURL = environment.baseURL;
 
   isLoggedin = new BehaviorSubject(localStorage.getItem('token')? true : false);
   role = new BehaviorSubject('');
 
-  constructor(private _httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) { }
   authenticate(userLogin: UserLogin): Observable<User> {
-    return this._httpClient.post<User>("http://localhost:3000/api/user/login", userLogin);
+    return this.httpClient.post<User>(this.baseURL + '/user/login', userLogin);
   }
 
   register(userLogin: UserLogin): Observable<User> {
-    return this._httpClient.post<User>("http://localhost:3000/api/register", userLogin);
+    return this.httpClient.post<User>( this.baseURL + '/register', userLogin);
   }
 
   loggedIn() {

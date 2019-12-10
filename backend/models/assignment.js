@@ -1,8 +1,10 @@
-var mongoose = require('mongoose');
+var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 var assignmentSchema = new Schema({
-    title: String,
+
+    titel: String,
+    creator:  {type: mongoose.Schema.Types.ObjectId, ref: "Company"},
     description: String,
     tags: [
             {
@@ -14,8 +16,9 @@ var assignmentSchema = new Schema({
         nr: String,
         city: String,
         zipcode: String
-    }],
-    pdf: String
+    }]
+    //,
+    //pdf: String
 });
 
 module.exports = mongoose.model('Assignment', assignmentSchema);
