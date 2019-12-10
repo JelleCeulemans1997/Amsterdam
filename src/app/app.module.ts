@@ -29,6 +29,7 @@ import { AssignmentModule } from './components/assignment/assignment.module';
     CompanyComponent,
     TagComponent,
     SearchAssignmentComponent,
+    CompanyComponent,
     AssignmentviewComponent,
     AssignmentlistComponent,
     CompanyDashboardComponent

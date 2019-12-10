@@ -3,6 +3,7 @@ var Schema = mongoose.Schema;
 
 var companySchema = new Schema({
     naam: String,
+    userId: String,
     contact: [
             {
                 voornaam: String,

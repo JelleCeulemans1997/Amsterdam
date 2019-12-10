@@ -14,6 +14,7 @@ import { SearchAssignmentComponent } from './components/search-assignment/search
 import { AssignmentdetailComponent } from './components/assignment/assignmentdetail/assignmentdetail.component';
 
 
+
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'createAssignment', component: CreateAssignmentComponent},
