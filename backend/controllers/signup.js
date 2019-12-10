@@ -5,6 +5,7 @@ exports.createCompany = (req, res, next) => {
   console.log(req.body);
   const company = new Company({
     naam: req.body.naam,
+    userId: req.body.userId,
     locatie: req.body.locatie,
     contact:[{
       voornaam: null,
@@ -40,6 +41,7 @@ exports.createMaker = (req, res, next) => {
   console.log(req.body);
   const maker = new Maker({
     nickname: req.body.nickname,
+    userId : req.body.userId,
     firstname: req.body.firstname,
     lastname:req.body.lastname,
     email:req.body.email,

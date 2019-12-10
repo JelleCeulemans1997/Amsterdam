@@ -13,20 +13,20 @@ export class SignupService {
 
   constructor(private http: HttpClient) { }
 
-  addCompany(naam: string, locatie: LocationDefining[], bio: string , tags: string[]) {
+  addCompany(naam: string, locatie: LocationDefining[], bio: string , tags: string[], userId: string) {
     console.log(naam);
     console.log(locatie);
     console.log(bio);
     console.log(tags);
-    this.http.post(this.baseURL + '/signup/createCompany/', { bio, tags, locatie, naam}).subscribe(result => {
+    this.http.post(this.baseURL + '/signup/createCompany/', { bio, tags, locatie, naam, userId}).subscribe(result => {
       console.log(result);
     });
   }
 
   addMaker(nickname: string, firstname: string, lastname: string, email: string, dateofbirth: Date,
-    experience: string, location: LocationDefining[], bio: string , tags: string[], github: string, linkedin: string){
+    experience: string, location: LocationDefining[], bio: string , tags: string[], github: string, linkedin: string, userId: string){
     this.http.post(this.baseURL + '/signup/createMaker/', { bio, tags, location, firstname, lastname, nickname,
-       dateofbirth, experience, email, linkedin, github}).subscribe(result => {
+       dateofbirth, experience, email, linkedin, github, userId}).subscribe(result => {
       console.log(result);
     });
   }

@@ -13,9 +13,10 @@ export class Maker {
   github:string;
   linkedin:string;
   bio:string;
+  userId: string;
 
   constructor(nickname:string, firstname:string, lastname:string, street:string, nr:string, zipcode:string,
-     town:string, dob:Date, skills:string[], github:string, linkedin:string, email:string, bio:string){
+     town:string, dob:Date, skills:string[], github:string, linkedin:string, email:string, bio:string, userId?: string){
     this.nickname = nickname;
     this.firstname = firstname;
     this.lastname = lastname;
@@ -30,5 +31,6 @@ export class Maker {
     this.linkedin = linkedin;
     this.email = email;
     this.bio = bio;
+    this.userId = userId;
   }
 }
