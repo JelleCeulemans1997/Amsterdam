@@ -27,6 +27,13 @@ exports.createAssignment = (req, res, next) => {
     });
 };
 
+
+// exports.getAssigment()= (req, res, next) => {
+//   Assignment.find({email: {$regex : req.params.email}})
+// };
+
+
+
 exports.getAssignment = (req, res, next) => {
   console.log(req.params);
   Assignment.findById(req.params.id)
@@ -46,6 +53,7 @@ exports.getAssignment = (req, res, next) => {
     });
   });
 }
+
   // const tag = new Tag({
   //   name: req.body.name,
   //   usages: req.body.usages,

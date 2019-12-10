@@ -15,9 +15,11 @@ import { FormsModule } from '@angular/forms';
 
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { CompanyComponent } from './components/company/company.component';
+import { SearchAssignmentComponent } from './components/search-assignment/search-assignment.component';
 import {AssignmentviewComponent} from './components/company/assignmentview/assignmentview.component';
 import {AssignmentlistComponent} from './components/company/assignmentlist/assignmentlist.component';
 import {CompanyDashboardComponent} from './components/company/company-dashboard/company-dashboard.component';
+import { AssignmentModule } from './components/assignment/assignment.module';
 
 @NgModule({
   declarations: [
@@ -26,6 +28,8 @@ import {CompanyDashboardComponent} from './components/company/company-dashboard/
     HomeComponent,
     CompanyComponent,
     TagComponent,
+    SearchAssignmentComponent,
+    CompanyComponent,
     AssignmentviewComponent,
     AssignmentlistComponent,
     CompanyDashboardComponent
@@ -39,7 +43,8 @@ import {CompanyDashboardComponent} from './components/company/company-dashboard/
     SignUpModule,
     HttpClientModule,
     FormsModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    AssignmentModule
   ],
   providers: [],
   bootstrap: [AppComponent]

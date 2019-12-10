@@ -2,6 +2,25 @@
   <mat-step [stepControl]="firstFormGroup">
     <form [formGroup]="firstFormGroup">
       <ng-template matStepLabel>Choose your profile</ng-template>
+      <!-- <label>Name</label><br/> -->
+      <mat-form-field>
+        <input type="text" matInput placeholder="Name" [(ngModel)]="user.name" formControlName='name' required/>
+      </mat-form-field>
+      <!-- <label>email</label><br/> -->
+      <br/>
+  <mat-form-field>
+    <input type="text" matInput placeholder="Email" [(ngModel)]="user.email" formControlName='email' required/>
+  </mat-form-field>
+  <!-- <label>Password</label><br/> -->
+  <br/>
+  <mat-form-field>
+    <input type="password" matInput placeholder="Password" [(ngModel)]="user.password" formControlName='password' required/>
+  </mat-form-field>
+  <!-- <label>Confirm password</label><br/>
+  <mat-form-field>
+    <input type="text" matInput placeholder="Street" [(ngModel)]="company.street" formControlName='street' required/>
+  </mat-form-field> -->
+  <br/>
         <button matStepperNext (click)="setMaker()" mat-button name="makerBtn">I am a Maker</button> or
         <button matStepperNext (click)="setCompany()" mat-button name="companyBtn">I am a company</button>
     </form>
@@ -37,7 +56,6 @@
     <div>
       <button mat-button matStepperPrevious>Back</button>
       <button mat-button (click)="onSubmit()">Submit</button>
-      <button mat-button (click)="stepper.reset()">Reset</button>
     </div>
   </mat-step>
 </mat-horizontal-stepper>

@@ -39,7 +39,7 @@ export class SignUpCompanyComponent implements OnInit {
         map((tag: string | null) => tag ? this._filter(tag) : this.allTags.slice()));
        }
 
-  onSubmit() {
+  onSubmit(userId: string) {
     const tags = this.tags;
     const location: LocationDefining = {
       street: this.company.street,
@@ -49,7 +49,7 @@ export class SignUpCompanyComponent implements OnInit {
     }
     console.log(this.company);
     console.log(location)
-    this.signupService.addCompany(this.company.companyname, [location], this.company.bio, tags);
+    this.signupService.addCompany(this.company.companyname, [location], this.company.bio, tags, userId);
   }
 
   ngOnInit() {

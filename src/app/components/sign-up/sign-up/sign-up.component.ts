@@ -2,6 +2,11 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import { SignUpCompanyComponent } from '../sign-up-company/sign-up-company.component';
 import { SignUpMakersComponent } from '../sign-up-makers/sign-up-makers.component';
+import { UserLogin } from 'src/app/models/user-login.model';
+import { User } from 'src/app/models/user.model';
+import { AuthenticateService } from 'src/app/services/authenticate.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sign-up',
@@ -16,10 +21,12 @@ export class SignUpComponent implements OnInit {
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
   thirdFormGroup: FormGroup;
+  user: UserLogin = new UserLogin('', '', '', '');
+  userId : string;
 
   userType: string;
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private authService: AuthenticateService, private router: Router) { }
 
   setMaker() {
     this.userType = 'm';
@@ -31,6 +38,9 @@ export class SignUpComponent implements OnInit {
 
   ngOnInit() {
     this.firstFormGroup = this.fb.group({
+      name: new FormControl(),
+      email: new FormControl(),
+      password: new FormControl(),
       makerBtn:  new FormControl(),
       companyBtn: new FormControl()
     });
@@ -44,9 +54,18 @@ export class SignUpComponent implements OnInit {
 
   onSubmit() {
     if(this.userType == 'c'){
-      this.companyCmp.onSubmit();
+      this.user.role = "Company";
+       this.authService.register(this.user).subscribe(result => {
+        this.userId = result._id;
+        this.companyCmp.onSubmit(this.userId);
+      });
     }else{
-      this.makerCmp.onSubmit();
+      this.user.role = "Maker";
+      this.authService.register(this.user).subscribe(result => {
+        this.userId = result._id;
+        this.makerCmp.onSubmit(this.userId);
+      });
     }
+    this.router.navigateByUrl('/signIn');
   }
 }
