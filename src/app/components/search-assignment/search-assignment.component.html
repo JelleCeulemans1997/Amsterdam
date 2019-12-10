@@ -1,9 +1,8 @@
 <h4>Select company</h4>
+<form [formGroup]="searchForm">
 <mat-form-field>
-  <mat-label>Favorite food</mat-label>
-  <mat-select>
-    <mat-option *ngFor="let food of foods" [value]="food.value">
-      {{food.viewValue}}
-    </mat-option>
-  </mat-select>
+  <input matInput type="text" formControlName="searchString" (keyup)="search()" placeholder="Search for assignments"/>
 </mat-form-field>
+</form>
+
+<p>{{search()}}</p>
