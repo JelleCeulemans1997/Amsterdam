@@ -10,24 +10,24 @@ var MakerSchema = new Schema({
 
     skills: [
             {
-                value: String,
+                type: String,
             }
         ],
     tags: [
         {
-            value: String,
+            type: String,
         }
     ],
     bio: String,
-    social: [{
-        link: String,
-        type: String
+    github: String,
+    linkedin:String,
+    experience: String,
+    location: [{
+      street: String,
+      nr: String,
+      zipcode: String,
+      city: String
     }],
-    ervaring: String,
-    straat: String,
-    huisnummer: Number,
-    plaats: String,
-    postcode: Number,
   review: [
     {
       like: Boolean,

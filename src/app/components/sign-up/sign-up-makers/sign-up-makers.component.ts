@@ -5,6 +5,8 @@ import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import { MatChipInputEvent, MatAutocompleteModule, MatAutocomplete, MatAutocompleteSelectedEvent } from '@angular/material';
 import {map, startWith} from 'rxjs/operators';
 import {Maker } from 'src/app/models/maker.model';
+import { SignupService } from 'src/app/services/signup.service';
+import { LocationDefining } from 'src/app/models/location.model';
 
 @Component({
   selector: 'app-sign-up-makers',
@@ -36,7 +38,7 @@ export class SignUpMakersComponent implements OnInit {
   @ViewChild('tagInput', {static: false}) tagInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto', {static: false}) matAutocomplete: MatAutocomplete;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private signupService: SignupService) {
     this.filteredTags = this.tagCtrl.valueChanges.pipe(
         startWith(null),
         map((tag: string | null) => tag ? this._filter(tag) : this.allTags.slice()));
@@ -63,7 +65,15 @@ export class SignUpMakersComponent implements OnInit {
   onSubmit() {
     this.maker.skills = this.tags;
     console.log(this.maker);
-
+    const location: LocationDefining = {
+      street: this.maker.street,
+      nr: this.maker.nr,
+      zipcode: this.maker.zipcode,
+      city:  this.maker.town
+    }
+    this.signupService.addMaker(this.maker.nickname, this.maker.firstname, this.maker.lastname,
+      this.maker.email, this.maker.dob, this.maker.experience, [location], this.maker.bio, this.tags,
+      this.maker.github, this.maker.linkedin);
   }
 
 
