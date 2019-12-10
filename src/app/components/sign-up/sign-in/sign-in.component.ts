@@ -18,38 +18,38 @@ export class SignInComponent implements OnInit {
   isRegister = true;
   submitted = false;
 
-  constructor(private authenticateService : AuthenticateService, private fb: FormBuilder,  private router: Router) {
+  constructor(private authenticateService: AuthenticateService, private fb: FormBuilder,  private router: Router) {
     // redirect to home if already logged in
     this.authenticateService.isLoggedin.subscribe(result => {
       if (result) {
         this.router.navigate(['/']);
     }
-    })
+    });
 
   }
 
   loginForm = new FormGroup({
-    email: new FormControl('', Validators.required),
-    password: new FormControl('', Validators.required)
+    email: new FormControl('jelle@gmail.com', Validators.required),
+    password: new FormControl('test123', Validators.required)
     });
 
 
   ngOnInit() {
   }
 
-  login(){
+  login() {
     this.authenticateService.authenticate(this.loginForm.value).subscribe(result => {
       this.submitted = true;
-      localStorage.setItem("token",result.token);
+      localStorage.setItem('token', result.token);
       this.authenticateService.isLoggedin.next(result.token ? true : false);
       this.authenticateService.role.next(result.role);
-      console.log("User is logged in!");
+      console.log('User is logged in!');
       this.router.navigateByUrl('/signUp');
       },
-      (error:HttpErrorResponse) => {
-          let errorPayload = JSON.parse(error.message);
-          //ToDo: apply your handling logic e.g.:
-          //console.log(errorPayload[0].description
+      (error: HttpErrorResponse) => {
+          const errorPayload = JSON.parse(error.message);
+          // ToDo: apply your handling logic e.g.:
+          // console.log(errorPayload[0].description
           // this.isCorrect = true;
           this.submitted = false;
           console.log(error.error);

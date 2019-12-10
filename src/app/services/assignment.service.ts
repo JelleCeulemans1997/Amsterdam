@@ -29,15 +29,11 @@ export class AssignmentService {
   }
 
   getAssignmentById(assingmentId: string) {
-    this.http.get<{ message: string; assignment: any }>(this.baseURL + '/assignment/getAssignment/' + assingmentId)
+    this.http.get<{ message: string; assignment: any }>(this.baseURL + '/assignment/' + assingmentId)
     .pipe(map(result => {
       return {
-        assignment: result.assignment.map(assignment => {
-          return {
-            ...assignment,
-            id: assignment._id
-          };
-        })
+        ...result.assignment,
+        id: result.assignment._id
       };
     })).subscribe(result => {
       console.log(result);
@@ -59,12 +55,12 @@ export class AssignmentService {
   // }
 
   getAllAsignments() {
-    return this.http.get<{ message: string, assignments: any }>('http://localhost:3000/api/assignment');
+    return this.http.get<{ message: string, assignments: any }>(this.baseURL + '/api/assignment');
 
   }
 
   getAssignment(assignmentId: string) {
-    return this.http.get('http://localhost:3000/api/assignment/' + assignmentId);
+    return this.http.get(this.baseURL + '/assignment/' + assignmentId);
   }
 
   // createTag(tag: Tag) {
