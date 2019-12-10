@@ -1,4 +1,5 @@
 const Company = require('../models/company');
+const Maker = require('../models/student');
 
 exports.createCompany = (req, res, next) => {
   console.log(req.body);
@@ -35,3 +36,38 @@ exports.createCompany = (req, res, next) => {
     });
 };
 
+exports.createMaker = (req, res, next) => {
+  console.log(req.body);
+  const maker = new Maker({
+    nickname: req.body.nickname,
+    firstname: req.body.firstname,
+    lastname:req.body.lastname,
+    email:req.body.email,
+    skills:req.body.tags,
+    tags: null,
+    github:req.body.github,
+    linkedin:req.body.linkedin,
+    experience:req.body.experience,
+    dateofbirth:req.body.dateofbirth,
+    location: req.body.location,
+    bio: req.body.bio,
+    review: [{
+      like: null,
+      value: null
+    }]
+  });
+  maker.save().then(createdMaker => {
+      res.status(201).json({
+        message: 'Maker added successfully',
+        maker: {
+          ...createdMaker,
+          id: createdMaker._id
+        }
+      });
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: 'Creating a Maker failed!'
+      });
+    });
+};

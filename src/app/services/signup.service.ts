@@ -22,4 +22,12 @@ export class SignupService {
       console.log(result);
     });
   }
+
+  addMaker(nickname: string, firstname: string, lastname: string, email: string, dateofbirth: Date,
+    experience: string, location: LocationDefining[], bio: string , tags: string[], github: string, linkedin: string){
+    this.http.post(this.baseURL + '/signup/createMaker/', { bio, tags, location, firstname, lastname, nickname,
+       dateofbirth, experience, email, linkedin, github}).subscribe(result => {
+      console.log(result);
+    });
+  }
 }
