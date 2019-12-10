@@ -11,7 +11,7 @@ import { TagComponent } from './components/tag/tag.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'createAssignment', component: CreateAssignmentComponent, canActivate: [AuthGuard], data: { roles: [Role.Company] }},
+  { path: 'createAssignment', component: CreateAssignmentComponent},
   { path: 'signUp', component: SignUpComponent },
   { path: 'signIn', component: SignInComponent },
   { path: 'tag', component: TagComponent }
