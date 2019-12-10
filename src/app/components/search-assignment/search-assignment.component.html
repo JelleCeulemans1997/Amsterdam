@@ -1,8 +1,46 @@
 <h4>Select company</h4>
 <form [formGroup]="searchForm">
-<mat-form-field>
-  <input matInput type="text" formControlName="searchString" (keyup)="search()" placeholder="Search for assignments"/>
-</mat-form-field>
+    <mat-form-field>
+        <mat-label>Select a filter</mat-label>
+        <mat-select [(value)]="selection" (selectionChange)="onSelectionChange()">
+          <mat-option *ngFor="let category of categories" [value]="category" >
+            {{category}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <br/>
+      <p>Filtering by {{selection}}</p>
+<mat-form-field *ngIf="selection == 'Tags'; else noTags" style="width:95%" class="example-chip-list">
+    <mat-chip-list #chipList aria-label="Fruit selection">
+      <mat-chip
+        *ngFor="let tag of tags"
+        [selectable]="selectable"
+        [removable]="removable"
+        (removed)="remove(tag)">
+        {{tag}}
+        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+      </mat-chip>
+      <input
+        placeholder="Enter the tags your want to search by"
+        #tagInput
+        [formControl]="tagCtrl"
+        [matAutocomplete]="auto"
+        [matChipInputFor]="chipList"
+        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+        [matChipInputAddOnBlur]="addOnBlur"
+        (matChipInputTokenEnd)="add($event)">
+    </mat-chip-list>
+    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+      <mat-option *ngFor="let tag of filteredTags | async" [value]="tag">
+        {{tag}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+<ng-template #noTags>
+<mat-form-field style="width:95%">
+    <input matInput type="text" formControlName="searchString" (keyup)="search()" placeholder="Search for assignments"/>
+  </mat-form-field>
+</ng-template>
 </form>
 
 <p>{{search()}}</p>

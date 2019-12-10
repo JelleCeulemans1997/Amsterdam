@@ -43,9 +43,9 @@ export class SignUpComponent implements OnInit {
   }
 
   onSubmit() {
-    if(this.userType == 'c'){
+    if (this.userType == 'c'){
       this.companyCmp.onSubmit();
-    }else{
+    } else {
       this.makerCmp.onSubmit();
     }
   }
