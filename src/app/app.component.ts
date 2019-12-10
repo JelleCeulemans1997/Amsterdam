@@ -16,17 +16,14 @@ export class AppComponent implements OnInit, OnDestroy {
   roleSub: Subscription;
   role: String;
 
-  constructor(private _authService: AuthenticateService, private router: Router) {
-    this._authService.role.subscribe(result => {
+  constructor(private authService: AuthenticateService, private router: Router) {
+    this.authService.role.subscribe(result => {
       console.log(result);
       this.role = result;
     })
   }
-
-  
-  
   ngOnInit() {
-    this._authService.isLoggedin.subscribe(result => {
+    this.authService.isLoggedin.subscribe(result => {
       this.loggedIn = result;
     })
   }
@@ -44,10 +41,10 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   logOut(){
-    this.loginSub = this._authService.isLoggedin.subscribe(result => {
+    this.loginSub = this.authService.isLoggedin.subscribe(result => {
       this.loggedIn = false;
       localStorage.removeItem("token");
-      this.roleSub = this._authService.role.subscribe(result => {
+      this.roleSub = this.authService.role.subscribe(result => {
         this.role = "";
       })
     })  

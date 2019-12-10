@@ -22,6 +22,8 @@
               <ul fxLayout fxLayoutGap="20px" class="navigation-items">
                   <li><a routerLink="/" routerLinkActive="true">Home</a></li>
                   <li *ngIf="isCompany"><a routerLink="/createAssignment" routerLinkActive="true">Create Assignment</a></li>
+                  <li><a routerLink="/createAssignment" routerLinkActive="true">Create Assignment</a></li>
+                  <li><a routerLink="/tag" routerLinkActive="true">Tag</a></li>
                   <li *ngIf="!loggedIn"><a routerLink="/signIn">Login</a></li>
                   <li *ngIf="loggedIn"><a (click)="logOut()">Logout</a></li>
               </ul>
