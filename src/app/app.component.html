@@ -24,6 +24,7 @@
                   <li><a routerLink="/" routerLinkActive="true" class="home">Home</a></li>
                   <li><a routerLink="/createAssignment" routerLinkActive="true">Create Assignment</a></li>
                   <li><a routerLink="/tag" routerLinkActive="true">Tag</a></li>
+                  <li><a routerLink="/companyhomepage" routerLinkActive="true">Company Home</a></li>
                   <li *ngIf="!loggedIn"><a routerLink="/signIn">Login</a></li>
                   <li *ngIf="loggedIn"><a (click)="logOut()">Logout</a></li>
               </ul>
