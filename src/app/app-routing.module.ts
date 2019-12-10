@@ -10,11 +10,12 @@ import {CompanyDashboardComponent} from './components/company/company-dashboard/
 
 import { AuthGuard } from './guards/auth.guard';
 import { Role } from './models/role';
-
+import { SearchAssignmentComponent } from './components/search-assignment/search-assignment.component';
 
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
+  { path: 'searchAssignment', component: SearchAssignmentComponent},
   { path: 'createAssignment', component: CreateAssignmentComponent },
   { path: 'editAssignment/:assignmentId', component: CreateAssignmentComponent},
   { path: 'signUp', component: SignUpComponent },

@@ -2,11 +2,11 @@
 
 @include mat-core();
 
-$my-theme-primary: mat-palette($mat-light-blue);
-$my-theme-accent:  mat-palette($mat-blue-grey, A200, A100, A400);
+$my-theme-primary: mat-palette($mat-deep-orange);
+$my-theme-accent:  mat-palette($mat-deep-orange, A200, A100, A400);
 
 $my-theme-warn: mat-palette($mat-red, A700);
 
-$my-theme-theme: mat-dark-theme($my-theme-primary, $my-theme-accent, $my-theme-warn);
+$my-theme-theme: mat-light-theme($my-theme-primary, $my-theme-accent, $my-theme-warn);
 
 @include angular-material-theme($my-theme-theme);

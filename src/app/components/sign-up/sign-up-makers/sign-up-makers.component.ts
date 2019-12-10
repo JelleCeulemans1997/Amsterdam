@@ -62,7 +62,7 @@ export class SignUpMakersComponent implements OnInit {
     });
   }
 
-  onSubmit() {
+  onSubmit(userId: string) {
     this.maker.skills = this.tags;
     console.log(this.maker);
     const location: LocationDefining = {
@@ -73,7 +73,7 @@ export class SignUpMakersComponent implements OnInit {
     }
     this.signupService.addMaker(this.maker.nickname, this.maker.firstname, this.maker.lastname,
       this.maker.email, this.maker.dob, this.maker.experience, [location], this.maker.bio, this.tags,
-      this.maker.github, this.maker.linkedin);
+      this.maker.github, this.maker.linkedin, userId);
   }
 
 
