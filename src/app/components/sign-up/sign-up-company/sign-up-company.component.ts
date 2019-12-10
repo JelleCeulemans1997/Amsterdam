@@ -6,6 +6,7 @@ import {MatAutocompleteSelectedEvent, MatAutocomplete} from '@angular/material/a
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import { SignupService } from 'src/app/services/signup.service';
+import {Company} from 'src/app/models/company.model';
 
 
 @Component({
@@ -16,6 +17,7 @@ import { SignupService } from 'src/app/services/signup.service';
 
 export class SignUpCompanyComponent implements OnInit {
 
+  company: Company = new Company('', '', '', '', '', '', []);
   companyFormSignup: FormGroup;
   visible = true;
   selectable = true;
@@ -37,8 +39,9 @@ export class SignUpCompanyComponent implements OnInit {
        }
 
   onSubmit() {
-    console.log(this.companyFormSignup.get('companyName').value);
-    this.signupService.addCompany();
+    this.company.tags = this.tags;
+    console.log(this.company);
+    this.signupService.addCompany(this.company);
   }
   
   ngOnInit() {
