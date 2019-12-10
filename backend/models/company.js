@@ -19,7 +19,7 @@ var companySchema = new Schema({
     }],
     tags: [
         {
-            value: String,
+            type: String,
         }
     ],
     bio: String,
