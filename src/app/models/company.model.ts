@@ -1,4 +1,5 @@
 import { LocationDefining } from './location.model';
+import { Review } from './review.model';
 
 export class Company {
   constructor(
@@ -13,10 +14,6 @@ export class Company {
     public location: LocationDefining,
     public tags: string[],
     public bio: string,
-    public reviews: {
-      name: string,
-      text: string,
-      score: string
-    }[],
+    public reviews: Review[],
     public website: string[]) { }
 }

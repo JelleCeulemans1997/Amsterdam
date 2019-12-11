@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import { MatChipInputEvent, MatAutocompleteModule, MatAutocomplete, MatAutocompleteSelectedEvent } from '@angular/material';
 import {map, startWith} from 'rxjs/operators';
-import {Maker } from 'src/app/models/maker.model';
+import { Developer} from 'src/app/models/developer.model';
 import { SignupService } from 'src/app/services/signup.service';
 import { LocationDefining } from 'src/app/models/location.model';
 
@@ -19,7 +19,7 @@ export class SignUpMakersComponent implements OnInit {
   skillcount = 'skill';
   socialcount = 'social';
 
-  maker: Maker = new Maker('', '', '', '', '', '', '', null, [], '', '', '', '');
+  // maker: Maker = new Maker('', '', '', '', '', '', '', null, [], '', '', '', '');
 
   companyFormSignup: FormGroup;
   visible = true;
@@ -62,19 +62,19 @@ export class SignUpMakersComponent implements OnInit {
     });
   }
 
-  onSubmit(userId: string) {
-    this.maker.skills = this.tags;
-    console.log(this.maker);
-    const location: LocationDefining = {
-      street: this.maker.street,
-      nr: this.maker.nr,
-      zipcode: this.maker.zipcode,
-      city:  this.maker.town
-    }
-    this.signupService.addMaker(this.maker.nickname, this.maker.firstname, this.maker.lastname,
-      this.maker.email, this.maker.dob, this.maker.experience, [location], this.maker.bio, this.tags,
-      this.maker.github, this.maker.linkedin, userId);
-  }
+  // onSubmit(userId: string) {
+  //   this.maker.skills = this.tags;
+  //   console.log(this.maker);
+  //   const location: LocationDefining = {
+  //     street: this.maker.street,
+  //     nr: this.maker.nr,
+  //     zipcode: this.maker.zipcode,
+  //     city:  this.maker.town
+  //   }
+  //   this.signupService.addMaker(this.maker.nickname, this.maker.firstname, this.maker.lastname,
+  //     this.maker.email, this.maker.dob, this.maker.experience, [location], this.maker.bio, this.tags,
+  //     this.maker.github, this.maker.linkedin, userId);
+  // }
 
 
   OnAddSocial() {
