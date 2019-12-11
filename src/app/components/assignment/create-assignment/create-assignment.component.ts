@@ -8,7 +8,7 @@ import { TagService } from 'src/app/services/tag.service';
 import { mimeTypeImage } from './mime-type-image.validator';
 import { AssignmentService } from 'src/app/services/assignment.service';
 import { mimeTypePdf } from './mime-type-pdf.validator';
-import { LocationDefining } from '../../models/location.model';
+import { LocationDefining } from '../../../models/location.model';
 import { Assignment } from 'src/app/models/assignment.model';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Tag } from 'src/app/models/tag.model';

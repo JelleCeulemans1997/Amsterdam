@@ -1,27 +1,23 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { AssignmentService } from 'src/app/services/assignment.service';
-import { MatChipInputEvent } from '@angular/material';
-import {COMMA, ENTER} from '@angular/cdk/keycodes';
-import {MatAutocompleteSelectedEvent, MatAutocomplete} from '@angular/material/autocomplete';
-import { Observable } from 'rxjs';
-import { startWith, map } from 'rxjs/operators';
 import { Assignment } from 'src/app/models/assignment.model';
+import { map, startWith } from 'rxjs/operators';
+import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
+import { ENTER, COMMA } from '@angular/cdk/keycodes';
+import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
-
+import { MatAutocompleteSelectedEvent, MatChipInputEvent, MatAutocomplete } from '@angular/material';
 
 @Component({
-  selector: 'app-search-assignment',
-  templateUrl: './search-assignment.component.html',
-  styleUrls: ['./search-assignment.component.scss']
+  selector: 'app-assignment-overview',
+  templateUrl: './overview.component.html',
+  styleUrls: ['./overview.component.scss']
 })
-export class SearchAssignmentComponent implements OnInit {
-
+export class OverviewComponent implements OnInit {
   searchForm: FormGroup;
 
   categories: string[];
   selection: string;
-  assignments: any[];
   results: any[];
 
   visible = true;
@@ -33,23 +29,31 @@ export class SearchAssignmentComponent implements OnInit {
   filteredTags: Observable<string[]>;
   tags: string[] = [];
   allTags: string[] = ['JavaScript', 'node.js', 'C#', 'PHP', 'Java'];
+  assignments: Assignment[];
 
   @ViewChild('tagInput', {static: false}) tagInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto', {static: false}) matAutocomplete: MatAutocomplete;
 
-  constructor(private fb: FormBuilder, private assignmentService: AssignmentService, private router: Router) {
-    this.filteredTags = this.tagCtrl.valueChanges.pipe(
-      startWith(null),
+  constructor(
+    private assingmentService: AssignmentService,
+    private fb: FormBuilder,
+    private assignmentService: AssignmentService, private router: Router) {
+    this.filteredTags = this.tagCtrl.valueChanges.pipe(startWith(null),
       map((tag: string | null) => tag ? this._filter(tag) : this.allTags.slice()));
    }
 
   ngOnInit() {
+    this.assingmentService.getAllAsignments().subscribe(result => {
+      this.assignments = result.assignments;
+      console.log(this.assignments);
+    });
+
     this.categories = ['Location', 'Tags', 'Company'];
     this.results = [];
     this.searchForm = this.fb.group({
       searchString: ['']
     });
-    this.getAllAssignments();
+    // this.getAllAssignments();
   }
 
   search() {
@@ -77,12 +81,12 @@ export class SearchAssignmentComponent implements OnInit {
 
   }
 
-  getAllAssignments() {
-    this.assignmentService.getAllAsignments().subscribe(res => {
-      this.assignments = res.assignments;
-      console.log(this.assignments);
-    });
-  }
+  // getAllAssignments() {
+  //   this.assignmentService.getAllAsignments().subscribe(result => {
+  //     this.assignments = result.assignments;
+  //     console.log(this.assignments);
+  //   });
+  // }
 
   onSelectionChange() {
     if (this.selection === 'Tags') {
