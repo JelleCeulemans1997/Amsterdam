@@ -5,8 +5,8 @@ import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-assignment-overview',
-  templateUrl: './assignment-overview.component.html',
-  styleUrls: ['./assignment-overview.component.scss']
+  templateUrl: './dashboard.component.html',
+  styleUrls: ['./dashboard.component.scss']
 })
 export class AssignmentOverviewComponent implements OnInit {
   assignments: Assignment[];

@@ -12,29 +12,18 @@ import { TagComponent } from './components/tag/tag.component';
 import { AuthModule } from './components/auth/auth.module';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
-import { CompanyComponent } from './components/company/company.component';
+import { AssignmentOverviewComponent } from './components/dashboard/dashboard.component';
 import { SearchAssignmentComponent } from './components/search-assignment/search-assignment.component';
-import {AssignmentviewComponent} from './components/company/assignmentview/assignmentview.component';
-import {AssignmentlistComponent} from './components/company/assignmentlist/assignmentlist.component';
-import {CompanyDashboardComponent} from './components/company/company-dashboard/company-dashboard.component';
-import { AssignmentModule } from './components/assignment/assignment.module';
-import { AssignmentOverviewComponent } from './components/assignment-overview/assignment-overview.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CreateAssignmentComponent,
     HomeComponent,
-    CompanyComponent,
     TagComponent,
-    SearchAssignmentComponent,
-    CompanyComponent,
-    AssignmentviewComponent,
-    AssignmentlistComponent,
-    CompanyDashboardComponent,
-    AssignmentOverviewComponent
+    AssignmentOverviewComponent,
+    SearchAssignmentComponent
   ],
   imports: [
     BrowserModule,
@@ -45,8 +34,7 @@ import { AssignmentOverviewComponent } from './components/assignment-overview/as
     AuthModule,
     HttpClientModule,
     FormsModule,
-    MatAutocompleteModule,
-    AssignmentModule
+    MatAutocompleteModule
   ],
   providers: [],
   bootstrap: [AppComponent]
