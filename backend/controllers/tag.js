@@ -43,7 +43,7 @@ exports.putTag = (req, res, next) => {
     name: req.body.name,
     usages: req.body.usages
   });
-  Tag.updateOne({ _id: req.body.id}, tag)
+  Tag.updateOne({ _id: req.params.id}, tag)
     .then(result => {
       if (result.n > 0) {
         res.status(200).json({ message: 'Update successful!' });
