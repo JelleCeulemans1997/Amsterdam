@@ -10,6 +10,7 @@ import { Role } from './models/role';
 import { OverviewComponent } from './components/overview/overview.component';
 import { CompanyDashboardComponent } from './components/company/company-dashboard/company-dashboard.component';
 import { SignupComponent } from './components/auth/signup/signup.component';
+import { SignUpCompanyComponent } from './components/auth/sign-up-company/sign-up-company.component';
 
 
 
@@ -22,6 +23,7 @@ const routes: Routes = [
   { path: 'overview', component: OverviewComponent},
   { path: 'company', component: CompanyDashboardComponent},
   { path: 'signup', component: SignupComponent},
+  { path: 'fuckdit', component: SignUpCompanyComponent}
 ];
 
 @NgModule({

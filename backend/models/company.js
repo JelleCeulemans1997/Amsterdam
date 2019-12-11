@@ -24,8 +24,8 @@ const companySchema = new Schema({
     bio: String,
     reviews: [{
         name: String,
-        text: String,
-        score: Number
+        score: Number,
+        text: String
     }],
     website: String
 });
