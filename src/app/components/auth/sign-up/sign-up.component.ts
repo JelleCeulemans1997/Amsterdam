@@ -1,5 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import { Component, OnInit, ViewChild } from "@angular/core";
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators
+} from '@angular/forms';
 import { SignUpCompanyComponent } from '../sign-up-company/sign-up-company.component';
 import { SignUpMakersComponent } from '../sign-up-makers/sign-up-makers.component';
 import { UserLogin } from 'src/app/models/user-login.model';
@@ -14,7 +19,6 @@ import { Router } from '@angular/router';
   styleUrls: ['./sign-up.component.scss']
 })
 export class SignUpComponent implements OnInit {
-
   @ViewChild(SignUpCompanyComponent, null) companyCmp: SignUpCompanyComponent;
   @ViewChild(SignUpMakersComponent, null) makerCmp: SignUpCompanyComponent;
 
@@ -22,11 +26,15 @@ export class SignUpComponent implements OnInit {
   secondFormGroup: FormGroup;
   thirdFormGroup: FormGroup;
   user: UserLogin = new UserLogin('', '', '', '');
-  userId : string;
+  userId: string;
 
   userType: string;
 
-  constructor(private fb: FormBuilder, private authService: AuthenticateService, private router: Router) { }
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthenticateService,
+    private router: Router
+  ) { }
 
   setMaker() {
     this.userType = 'm';
@@ -41,7 +49,7 @@ export class SignUpComponent implements OnInit {
       name: new FormControl(),
       email: new FormControl(),
       password: new FormControl(),
-      makerBtn:  new FormControl(),
+      makerBtn: new FormControl(),
       companyBtn: new FormControl()
     });
     this.secondFormGroup = this.fb.group({
@@ -53,19 +61,19 @@ export class SignUpComponent implements OnInit {
   }
 
   onSubmit() {
-    if(this.userType == 'c'){
-      this.user.role = "Company";
-       this.authService.register(this.user).subscribe(result => {
+    if (this.userType === 'c') {
+      this.user.role = 'Company';
+      this.authService.register(this.user).subscribe(result => {
         this.userId = result._id;
         this.companyCmp.onSubmit(this.userId);
       });
-    }else{
-      this.user.role = "Maker";
+    } else {
+      this.user.role = 'Maker';
       this.authService.register(this.user).subscribe(result => {
         this.userId = result._id;
         this.makerCmp.onSubmit(this.userId);
       });
     }
-    this.router.navigateByUrl('/signIn');
+    this.router.navigateByUrl('/login');
   }
 }

@@ -21,7 +21,7 @@ const routes: Routes = [
   { path: 'createAssignment', component: CreateAssignmentComponent},
   { path: 'searchAssignment', component: SearchAssignmentComponent},
   { path: 'editAssignment/:assignmentId', component: CreateAssignmentComponent},
-  { path: 'signUp', component: SignUpComponent },
+  { path: 'signup', component: SignUpComponent },
   { path: 'login', component: LoginComponent },
   { path: 'tag', component: TagComponent },
   { path: 'companyhomepage', component: CompanyComponent },
