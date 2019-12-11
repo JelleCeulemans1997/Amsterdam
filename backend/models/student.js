@@ -1,24 +1,19 @@
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-var MakerSchema = new Schema({
+const MakerSchema = new Schema({
     nickname: String,
     userId: String,
     firstname: String,
     lastname: String,
     email: String,
     dateofbirth: Date,
-
-    skills: [
-            {
+    skills: [{
                 type: String,
-            }
-        ],
-    tags: [
-        {
+            }],
+    tags: [{
             type: String,
-        }
-    ],
+        }],
     bio: String,
     github: String,
     linkedin:String,
@@ -29,12 +24,10 @@ var MakerSchema = new Schema({
       zipcode: String,
       city: String
     }],
-  review: [
-    {
+  review: [{
       like: Boolean,
       value: String
-    }
-  ],
+    }],
 });
 
 module.exports = mongoose.model('Maker', MakerSchema);

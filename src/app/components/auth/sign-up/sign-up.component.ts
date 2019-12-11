@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -18,7 +18,7 @@ import { Router } from '@angular/router';
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.scss']
 })
-export class SignUpComponent implements OnInit {
+export class TestComponent implements OnInit {
   @ViewChild(SignUpCompanyComponent, null) companyCmp: SignUpCompanyComponent;
   @ViewChild(SignUpMakersComponent, null) makerCmp: SignUpCompanyComponent;
 
@@ -60,20 +60,20 @@ export class SignUpComponent implements OnInit {
     });
   }
 
-  onSubmit() {
-    if (this.userType === 'c') {
-      this.user.role = 'Company';
-      this.authService.register(this.user).subscribe(result => {
-        this.userId = result._id;
-        this.companyCmp.onSubmit(this.userId);
-      });
-    } else {
-      this.user.role = 'Maker';
-      this.authService.register(this.user).subscribe(result => {
-        this.userId = result._id;
-        this.makerCmp.onSubmit(this.userId);
-      });
-    }
-    this.router.navigateByUrl('/login');
-  }
+//   onSubmit() {
+//     if (this.userType === 'c') {
+//       this.user.role = 'Company';
+//       this.authService.register(this.user).subscribe(result => {
+//         this.userId = result._id;
+//         this.companyCmp.onSubmit(this.userId);
+//       });
+//     } else {
+//       this.user.role = 'Maker';
+//       this.authService.register(this.user).subscribe(result => {
+//         this.userId = result._id;
+//         this.makerCmp.onSubmit(this.userId);
+//       });
+//     }
+//     this.router.navigateByUrl('/login');
+//   }
 }

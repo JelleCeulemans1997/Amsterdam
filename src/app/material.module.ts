@@ -14,7 +14,8 @@ import {
   MatAutocompleteModule,
   MatTableModule,
   MatSelectModule,
-  MatExpansionModule} from '@angular/material';
+  MatExpansionModule,
+  MatSlideToggleModule} from '@angular/material';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import {
     MatAutocompleteModule,
     MatTableModule,
     MatSelectModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatSlideToggleModule
   ],
   exports: [
     MatToolbarModule,
@@ -49,7 +51,8 @@ import {
     MatAutocompleteModule,
     MatTableModule,
     MatSelectModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatSlideToggleModule
   ]
 })
 export class MaterialModule { }

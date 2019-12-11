@@ -18,7 +18,8 @@ import { LocationDefining } from 'src/app/models/location.model';
 
 export class SignUpCompanyComponent implements OnInit {
 
-  company: Company = new Company('', '', '', '', '', '', []);
+  company: Company;
+  //  = new Company('', '', '', '', '', '', []);
   companyFormSignup: FormGroup;
   visible = true;
   selectable = true;
@@ -39,18 +40,18 @@ export class SignUpCompanyComponent implements OnInit {
         map((tag: string | null) => tag ? this._filter(tag) : this.allTags.slice()));
        }
 
-  onSubmit(userId: string) {
-    const tags = this.tags;
-    const location: LocationDefining = {
-      street: this.company.street,
-      nr: this.company.nr,
-      zipcode: this.company.zipcode,
-      city:  this.company.town
-    }
-    console.log(this.company);
-    console.log(location)
-    this.signupService.addCompany(this.company.companyname, [location], this.company.bio, tags, userId);
-  }
+  // onSubmit(userId: string) {
+  //   const tags = this.tags;
+  //   const location: LocationDefining = {
+  //     street: this.company.street,
+  //     nr: this.company.nr,
+  //     zipcode: this.company.zipcode,
+  //     city:  this.company.town
+  //   }
+  //   console.log(this.company);
+  //   console.log(location)
+  //   this.signupService.addCompany(this.company.companyname, [location], this.company.bio, tags, userId);
+  // }
 
   ngOnInit() {
     this.companyFormSignup = this.fb.group({

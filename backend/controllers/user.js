@@ -1,12 +1,40 @@
-const express = require('express')
-const User = require('../models/user')
-const auth = require('../middleware/auth')
-const jwt = require('jsonwebtoken')
+const express = require('express');
+const User = require('../models/user');
+const auth = require('../middleware/auth');
+const jwt = require('jsonwebtoken');
+const bcryptjs = require('bcryptjs');
 
 // const sgMail = require('@sendgrid/mail')
 // sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 
 const router = express.Router()
+
+
+exports.createUser = (req, res, next) => {
+  console.log(req.body);
+
+  bcryptjs.hash(req.body.password, 10).then(hash => {
+    const user = new User({
+      email: req.body.email,
+      password: hash,
+      role: req.body.role
+    });
+    console.log(user);
+    user.save()
+      .then(result => {
+        res.status(201).json({
+          message: 'User created!',
+          result
+        });
+      })
+      .catch(err => {
+        res.status(500).json({
+          message: 'Invalid authentication credentials!'
+        });
+      });
+  });
+}
+
 
 router.get('/users', (req, res, next) => {
     try {
@@ -18,17 +46,17 @@ router.get('/users', (req, res, next) => {
     }
 });
 
-// router.get('/user/:email', function (req, res) {
-//     try {
-//         User.findOne({email: {$regex : req.params.email}}).exec((err, user) => {
-//             // User.find({requestReceived: { "idUser" :user._id}}).exec((err, users) => {
-//                 res.json(user);
-//             // });
-//         });
-//     } catch (error) {
-//         res.status(400).send(error)
-//     }
-// });
+router.get('/user/:email', function (req, res) {
+    try {
+        User.findOne({email: {$regex : req.params.email}}).exec((err, user) => {
+            // User.find({requestReceived: { "idUser" :user._id}}).exec((err, users) => {
+                res.json(user);
+            // });
+        });
+    } catch (error) {
+        res.status(400).send(error)
+    }
+});
 
 router.post('/register', async (req, res) => {
     // Create a new user
@@ -40,31 +68,31 @@ router.post('/register', async (req, res) => {
     } catch (error) {
         res.status(400).send(error)
     }
+});
+
+router.post('/sendmail', async (req, res) => {
+    // Create a new user
+    try {
+        // const user = new User(req.body)
+        const msg = {
+            to: req.body.email,
+            from: "support@pollinizer.com",
+            templateId: 'd-8f1cd5f9702b4533903f9342b0d4cef4',
+            subject: 'Join your Friend on PollPalls',
+            dynamic_template_data: {
+                email: req.body.email,
+                subject: 'Join your Friend on PollPalls',
+                link: "https://www.ajaxshowtime.com",
+            },
+        };
+        sgMail.send(msg);
+        // await user.save()
+
+        res.status(201).send("mail send");
+    } catch (error) {
+        res.status(400).send(error)
+    }
 })
-
-// router.post('/sendmail', async (req, res) => {
-//     // Create a new user
-//     try {
-//         // const user = new User(req.body)
-//         const msg = {
-//             to: req.body.email,
-//             from: "support@pollinizer.com",
-//             templateId: 'd-8f1cd5f9702b4533903f9342b0d4cef4',
-//             subject: 'Join your Friend on PollPalls',
-//             dynamic_template_data: {
-//                 email: req.body.email,
-//                 subject: 'Join your Friend on PollPalls',
-//                 link: "https://www.ajaxshowtime.com",
-//             },
-//         };
-//         sgMail.send(msg);
-//         // await user.save()
-
-//         res.status(201).send("mail send");
-//     } catch (error) {
-//         res.status(400).send(error)
-//     }
-// })
 
 router.post('/user/login', async(req, res) => {
     //Login a registered user
@@ -88,4 +116,4 @@ router.get('/user/me', auth, async(req, res) => {
     res.send(req.user)
 })
 
-module.exports = router
+//module.exports = router
