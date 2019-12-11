@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import { AuthenticateService } from './../../../services/authenticate.service';
+import { AuthenticateService } from '../../../services/authenticate.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { UserLogin } from '../../../models/user-login.model';
 
 @Component({
-  selector: 'app-sign-in',
-  templateUrl: './sign-in.component.html',
-  styleUrls: ['./sign-in.component.scss']
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss']
 })
-export class SignInComponent implements OnInit {
+export class LoginComponent implements OnInit {
 
   model = new UserLogin('', '');
 
@@ -18,7 +18,10 @@ export class SignInComponent implements OnInit {
   isRegister = true;
   submitted = false;
 
-  constructor(private authenticateService: AuthenticateService, private fb: FormBuilder,  private router: Router) {
+  constructor(
+    private authenticateService: AuthenticateService,
+    private fb: FormBuilder,
+    private router: Router) {
     // redirect to home if already logged in
     this.authenticateService.isLoggedin.subscribe(result => {
       if (result) {
@@ -30,7 +33,7 @@ export class SignInComponent implements OnInit {
 
   loginForm = new FormGroup({
     email: new FormControl('jelle@gmail.com', Validators.required),
-    password: new FormControl('test123', Validators.required)
+    password: new FormControl('test1234', Validators.required)
     });
 
 
@@ -55,5 +58,4 @@ export class SignInComponent implements OnInit {
           console.log(error.error);
       });
   }
-
 }

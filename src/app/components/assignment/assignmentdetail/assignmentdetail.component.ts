@@ -17,9 +17,11 @@ export class AssignmentdetailComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.id = this.activated.snapshot.paramMap.get("assignmentId");
-    this.assignmentService.getAssignmentById(this.id);
-    console.log(this.assignment);
+    this.id = this.activated.snapshot.paramMap.get('assignmentId');
+    if (this.id) {
+      this.assignment = this.assignmentService.getAssignmentById(this.id);
+      console.log(this.assignment);
+    }
   }
 
 

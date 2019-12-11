@@ -23,12 +23,13 @@
               <ul fxLayout fxLayoutGap="20px" class="navigation-items">
                   <li><a routerLink="/" routerLinkActive="true" class="home">Home</a></li>
                   <li><a routerLink="/createAssignment" routerLinkActive="true">Create Assignment</a></li>
-                  <li><a routerLink="/signUp" routerLinkActive="true">Signup</a></li>
+                  <li><a routerLink="/assignmentOverview" routerLinkActive="true">Overview</a></li>
+                  <!-- <li><a routerLink="/signUp" routerLinkActive="true">Signup</a></li>
                   <li><a routerLink="/companyhomepage" routerLinkActive="true">Company home</a></li>
                   <li><a routerLink="/tag" routerLinkActive="true">Tag</a></li>
                   <li><a routerLink="/companydashboard/5defa5ec1abe304418d63b23" routerLinkActive="true">Comp dash</a></li>
-                  <li><a routerLink="/assignmentDetail/5defa5ec1abe304418d63b23" routerLinkActive="true">comp detail</a></li>
-                  <li *ngIf="!loggedIn"><a routerLink="/signIn">Login</a></li>
+                  <li><a routerLink="/assignmentDetail/5defa5ec1abe304418d63b23" routerLinkActive="true">comp detail</a></li> -->
+                  <li *ngIf="!loggedIn"><a routerLink="/login">Login</a></li>
                   <li *ngIf="loggedIn"><a (click)="logOut()">Logout</a></li>
               </ul>
           </div>

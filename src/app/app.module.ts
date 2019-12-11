@@ -9,7 +9,7 @@ import { SharedModule } from './shared.module';
 import { CreateAssignmentComponent } from './components/create-assignment/create-assignment.component';
 import { HomeComponent } from './components/home/home.component';
 import { TagComponent } from './components/tag/tag.component';
-import { SignUpModule } from './components/sign-up/sign-up.module';
+import { AuthModule } from './components/auth/auth.module';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
@@ -20,6 +20,7 @@ import {AssignmentviewComponent} from './components/company/assignmentview/assig
 import {AssignmentlistComponent} from './components/company/assignmentlist/assignmentlist.component';
 import {CompanyDashboardComponent} from './components/company/company-dashboard/company-dashboard.component';
 import { AssignmentModule } from './components/assignment/assignment.module';
+import { AssignmentOverviewComponent } from './components/assignment-overview/assignment-overview.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { AssignmentModule } from './components/assignment/assignment.module';
     CompanyComponent,
     AssignmentviewComponent,
     AssignmentlistComponent,
-    CompanyDashboardComponent
+    CompanyDashboardComponent,
+    AssignmentOverviewComponent
   ],
   imports: [
     BrowserModule,
@@ -40,7 +42,7 @@ import { AssignmentModule } from './components/assignment/assignment.module';
     BrowserAnimationsModule,
     MaterialModule,
     SharedModule,
-    SignUpModule,
+    AuthModule,
     HttpClientModule,
     FormsModule,
     MatAutocompleteModule,

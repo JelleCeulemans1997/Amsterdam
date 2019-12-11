@@ -6,10 +6,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./company-dashboard.component.scss']
 })
 export class CompanyDashboardComponent implements OnInit {
-
+  panelOpenState = false;
   constructor() { }
 
   ngOnInit() {
+
   }
 
 }

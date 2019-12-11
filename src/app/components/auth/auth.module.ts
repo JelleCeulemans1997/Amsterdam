@@ -4,12 +4,12 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import { MaterialModule } from 'src/app/material.module';
 import { SharedModule } from 'src/app/shared.module';
 import { SignUpCompanyComponent } from './sign-up-company/sign-up-company.component';
-import { SignInComponent } from './sign-in/sign-in.component';
+import { LoginComponent } from './login/login.component';
 import { SignUpMakersComponent } from './sign-up-makers/sign-up-makers.component';
 
 @NgModule({
 
-  declarations: [SignUpCompanyComponent, SignUpComponent, SignUpMakersComponent, SignInComponent],
+  declarations: [SignUpCompanyComponent, SignUpComponent, SignUpMakersComponent, LoginComponent],
 
   imports: [
     CommonModule,
@@ -17,12 +17,10 @@ import { SignUpMakersComponent } from './sign-up-makers/sign-up-makers.component
     SharedModule
   ],
   exports: [
-
     SignUpCompanyComponent,
     SignUpComponent,
-    SignInComponent,
+    LoginComponent,
     SignUpMakersComponent
-
   ]
 })
-export class SignUpModule { }
+export class AuthModule { }

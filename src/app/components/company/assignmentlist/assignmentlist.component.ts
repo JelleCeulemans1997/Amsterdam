@@ -13,10 +13,10 @@ assignments: [];
 
   ngOnInit() {
 
-    this.assignmentService.getAllAsignments().subscribe(asignmentsData => {
-      this.assignments = asignmentsData.assignments;
-      console.log(this.assignments);
-    });
+    // this.assignmentService.getAllAsignments().subscribe(asignmentsData => {
+    //   this.assignments = asignmentsData.assignments;
+    //   console.log(this.assignments);
+    // });
 
   }
 
