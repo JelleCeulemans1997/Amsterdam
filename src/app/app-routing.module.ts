@@ -18,7 +18,7 @@ import { AuthGuard } from './components/auth/auth.guard';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'createAssignment', component: CreateAssignmentComponent, canActivate: [AuthGuard], data: {role: Role.Developer}},
+  { path: 'createAssignment', component: CreateAssignmentComponent, canActivate: [AuthGuard], data: {role: Role.Company}},
   { path: 'editAssignment/:assignmentId', component: CreateAssignmentComponent, canActivate: [AuthGuard], data: {role: Role.Company}},
   { path: 'login', component: LoginComponent },
   { path: 'tag', component: TagComponent, canActivate: [AuthGuard], data: {role: Role.Admin} },
