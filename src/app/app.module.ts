@@ -19,6 +19,10 @@ import { NavigationComponent } from './components/company/company-dashboard/navi
 import {MatBadgeModule} from '@angular/material/badge';
 import { CompanyAssignmentdetailComponent } from './components/company/company-assignmentdetail/company-assignmentdetail.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { DeveloperDashboardComponent } from './components/developer-dashboard/developer-dashboard.component';
+import { StoreModule } from '@ngrx/store';
+import { reducers } from './app.reducer';
+import { AuthGuard } from './components/auth/auth.guard';
 
 @NgModule({
   declarations: [
@@ -29,7 +33,8 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     OverviewComponent,
     CompanyDashboardComponent,
     NavigationComponent,
-    CompanyAssignmentdetailComponent
+    CompanyAssignmentdetailComponent,
+    DeveloperDashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -42,9 +47,10 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     FormsModule,
     MatAutocompleteModule,
     MatBadgeModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    StoreModule.forRoot(reducers)
   ],
-  providers: [],
+  providers: [AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
