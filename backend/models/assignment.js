@@ -22,6 +22,9 @@ const assignmentSchema = new Schema({
   ],
   accepted: [
     {accept: {type: mongoose.Schema.Types.ObjectId, ref: "User"}}
+  ],
+  denied: [
+    {deny: {type: mongoose.Schema.Types.ObjectId, ref: "User"}}
   ]
 });
 

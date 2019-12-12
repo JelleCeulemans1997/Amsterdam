@@ -18,6 +18,7 @@ import { CompanyDashboardComponent } from './components/company/company-dashboar
 import { NavigationComponent } from './components/company/company-dashboard/navigation/navigation.component';
 import {MatBadgeModule} from '@angular/material/badge';
 import { CompanyAssignmentdetailComponent } from './components/company/company-assignmentdetail/company-assignmentdetail.component';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { CompanyAssignmentdetailComponent } from './components/company/company-a
     HttpClientModule,
     FormsModule,
     MatAutocompleteModule,
-    MatBadgeModule
+    MatBadgeModule,
+    MatProgressSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

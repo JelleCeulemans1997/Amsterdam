@@ -24,7 +24,7 @@
 
       <div class="row" *ngIf="assignment">
 
-        <div class="col-md-8">
+        <div class="col-md-7">
 
           <mat-card class="example-card">
             <mat-card-header>
@@ -70,18 +70,38 @@
 
 
 
-        <div class="col-md-4"><mat-accordion>
-          <mat-expansion-panel>
+        <div class="col-md-5"><mat-accordion>
+          <mat-expansion-panel (click)="onClickPanel()">
             <mat-expansion-panel-header>
               <mat-panel-title>
                 Applies
               </mat-panel-title>
             </mat-expansion-panel-header>
-            <mat-list role="list">
-              <mat-list-item *ngFor="let apply of assignment.assignment.applies" role="listitem">{{apply.apply}} <br>X - V</mat-list-item>
-<!--              <mat-list-item role="listitem">Item 2</mat-list-item>-->
-<!--              <mat-list-item role="listitem">Item 3</mat-list-item>-->
-            </mat-list>
+            <mat-spinner *ngIf="isLoading"></mat-spinner>
+<!--applies-->
+            <mat-expansion-panel *ngFor="let apply of assignment.assignment.applies">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  {{apply.apply}}
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+
+                          <mat-list role="list">
+                            <mat-list-item role="listitem">Profile</mat-list-item>
+                            <mat-list-item role="listitem" (click)="onAcceptApply(assignment.assignment._id, apply.apply)">Accept</mat-list-item>
+                            <mat-list-item role="listitem" (click)="onDenyApply(assignment.assignment._id, apply.apply)">Deny</mat-list-item>
+                          </mat-list>
+
+            </mat-expansion-panel>
+<!--            <mat-list role="list">-->
+<!--              <mat-list-item *ngFor="let apply of assignment.assignment.applies" role="listitem">{{apply.apply}} <br>X - V-->
+<!--                <br>-->
+<!--                <button class="btn btn-primary">Profile</button>-->
+<!--                <button>Accept</button>-->
+<!--                <button>Deny</button></mat-list-item>-->
+<!--&lt;!&ndash;              <mat-list-item role="listitem">Item 2</mat-list-item>&ndash;&gt;-->
+<!--&lt;!&ndash;              <mat-list-item role="listitem">Item 3</mat-list-item>&ndash;&gt;-->
+<!--            </mat-list>-->
 
           </mat-expansion-panel>
           <mat-expansion-panel>
@@ -90,12 +110,20 @@
                 Accepted
               </mat-panel-title>
             </mat-expansion-panel-header>
-            <mat-list role="list">
-              <mat-list-item *ngFor="let accept of assignment.assignment.accepted" role="listitem">{{accept.accept}} <br>X - V</mat-list-item>
-              <!--              <mat-list-item role="listitem">Item 2</mat-list-item>-->
-              <!--              <mat-list-item role="listitem">Item 3</mat-list-item>-->
-            </mat-list>
+            <mat-expansion-panel *ngFor="let accept of assignment.assignment.accepted">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  {{accept.accept}}
+                </mat-panel-title>
+              </mat-expansion-panel-header>
 
+              <mat-list role="list">
+                <mat-list-item role="listitem">Profile</mat-list-item>
+<!--                <mat-list-item role="listitem">Accept</mat-list-item>-->
+<!--                <mat-list-item role="listitem">Deny</mat-list-item>-->
+              </mat-list>
+
+            </mat-expansion-panel>
           </mat-expansion-panel>
           <mat-expansion-panel>
             <mat-expansion-panel-header>
@@ -103,13 +131,34 @@
                 Denied
               </mat-panel-title>
             </mat-expansion-panel-header>
-            <mat-list role="list">
-              <mat-list-item role="listitem">Item 1</mat-list-item>
-              <mat-list-item role="listitem">Item 2</mat-list-item>
-              <mat-list-item role="listitem">Item 3</mat-list-item>
-            </mat-list>
+            <mat-expansion-panel *ngFor="let deny of assignment.assignment.denied">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  {{deny.deny}}
+                </mat-panel-title>
+              </mat-expansion-panel-header>
 
+              <mat-list role="list">
+                <mat-list-item role="listitem">Profile</mat-list-item>
+<!--                <mat-list-item role="listitem">Accept</mat-list-item>-->
+<!--                <mat-list-item role="listitem">Deny</mat-list-item>-->
+              </mat-list>
+
+            </mat-expansion-panel>
           </mat-expansion-panel>
+<!--          <mat-expansion-panel>-->
+<!--            <mat-expansion-panel-header>-->
+<!--              <mat-panel-title>-->
+<!--                Denied-->
+<!--              </mat-panel-title>-->
+<!--            </mat-expansion-panel-header>-->
+<!--            <mat-list role="list">-->
+<!--              <mat-list-item role="listitem">Item 1</mat-list-item>-->
+<!--              <mat-list-item role="listitem">Item 2</mat-list-item>-->
+<!--              <mat-list-item role="listitem">Item 3</mat-list-item>-->
+<!--            </mat-list>-->
+
+<!--          </mat-expansion-panel>-->
 
         </mat-accordion>
         </div>

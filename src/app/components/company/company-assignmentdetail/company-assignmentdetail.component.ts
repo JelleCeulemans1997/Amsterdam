@@ -11,7 +11,7 @@ import { MatAutocompleteSelectedEvent, MatChipInputEvent, MatAutocomplete } from
   styleUrls: ['./company-assignmentdetail.component.scss']
 })
 export class CompanyAssignmentdetailComponent implements OnInit {
-
+isLoading = false;
   assignmentId = '';
   assignment = null;
 
@@ -31,6 +31,23 @@ export class CompanyAssignmentdetailComponent implements OnInit {
       }
     });
   }
+
+  onClickPanel() {
+    console.log('clicked panel');
+    // this.isLoading = true;
+  }
+
+  onAcceptApply(assignmentId, makerId) {
+    console.log('click assId: ' + assignmentId + ' - makerId: ' + makerId);
+
+    this.assignmentService.acceptApply(assignmentId, makerId);
+  }
+  onDenyApply(assignmentId, makerId) {
+    console.log('click assId: ' + assignmentId + ' - makerId: ' + makerId);
+
+    this.assignmentService.denyApply(assignmentId, makerId);
+  }
+
 
 }
 

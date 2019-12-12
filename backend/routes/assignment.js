@@ -70,6 +70,21 @@ router.patch("/acceptappliedassignment/:id", (req, res, next) => {
   })
 });
 
+// user deny apply for an assignment
+//id is the assignment id, req.body is the id of the user
+router.patch("/denyappliedassignment/:id", (req, res, next) => {
+  console.log(req.body.applies);
+  Assignment.updateOne({_id: req.params.id}, {$push: {denied: req.body.denied}}).then(result => {
+    if (result.nModified > 0) {
+      res.status(200).json({message: "update successful!"});
+    } else {
+      res.status(401).json({
+        message: 'Not authorized! :D'
+      });
+    }
+  })
+});
+
 
 //verwijder de apply na het accepteren of denyen van een apply
 //id is assignmentdId en req.body is userId
@@ -84,18 +99,6 @@ router.patch("/removeappliedassignment/:id", (req, res, next) => {
     }
   })
 });
-//
-// router.patch("/addfriend/:id", (req, res, next) => {
-//   User.updateOne({_id: req.params.id}, {$push: {vrienden: req.body.vrienden}}).then(result => {
-//     if (result.nModified > 0) {
-//       res.status(200).json({message: "update successful!"});
-//     } else {
-//       res.status(401).json({
-//         message: 'Not authorized!'
-//       });
-//     }
-//   })
-// });
 
 
 
