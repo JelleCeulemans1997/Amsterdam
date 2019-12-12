@@ -15,6 +15,10 @@ import { FormsModule } from '@angular/forms';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { OverviewComponent } from './components/overview/overview.component';
 import { CompanyDashboardComponent } from './components/company/company-dashboard/company-dashboard.component';
+import { DeveloperDashboardComponent } from './components/developer-dashboard/developer-dashboard.component';
+import { StoreModule } from '@ngrx/store';
+import { reducers } from './app.reducer';
+import { AuthGuard } from './components/auth/auth.guard';
 
 @NgModule({
   declarations: [
@@ -23,7 +27,8 @@ import { CompanyDashboardComponent } from './components/company/company-dashboar
     HomeComponent,
     TagComponent,
     OverviewComponent,
-    CompanyDashboardComponent
+    CompanyDashboardComponent,
+    DeveloperDashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -34,9 +39,10 @@ import { CompanyDashboardComponent } from './components/company/company-dashboar
     AuthModule,
     HttpClientModule,
     FormsModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    StoreModule.forRoot(reducers),
   ],
-  providers: [],
+  providers: [AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -8,8 +8,10 @@ const router = express.Router();
 // router.post('/createCompany', SignupController.createCompany);
 // router.post('/createMaker', SignupController.createMaker);
 
+router.get('/getById/:id', UserController.getByUserId)
+
 router.post('/create', UserController.createUser);
 
-router.post('/login',  UserController.login)
+router.post('/login',  UserController.login);
 
 module.exports = router;

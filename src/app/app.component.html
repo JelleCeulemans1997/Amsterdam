@@ -1,4 +1,4 @@
-<mat-sidenav-container>
+<mat-sidenav-container *ngIf="this.roles$">
   <mat-sidenav #sidenav role="navigation" >
       <mat-nav-list>
           <a mat-list-item routerLink="/" (click)="sidenav.close()">
@@ -22,18 +22,19 @@
           <div fxFlex fxLayout fxLayoutAlign="flex-end" class="navigation-items" fxHide.lt-sm>
               <ul fxLayout fxLayoutGap="20px" class="navigation-items">
                   <li><a routerLink="/" routerLinkActive="true" class="home">Home</a></li>
-                  <li><a routerLink="/createAssignment" routerLinkActive="true">Create Assignment</a></li>
+                  <li *ngIf="(roles$ | async).Company" ><a routerLink="/createAssignment" routerLinkActive="true">Create Assignment</a></li>
                   <li><a routerLink="/overview" routerLinkActive="true">Overview</a></li>
-                  <li><a routerLink="/company" routerLinkActive="true">Company</a></li>
-                  <li><a routerLink="/fuckdit" routerLinkActive="true">FUCKDIT</a></li>
+                  <li *ngIf="(roles$ | async).Company"><a routerLink="/company" routerLinkActive="true">Company</a></li>
+                  <li *ngIf="(roles$ | async).Company"><a routerLink="/signupCompany" routerLinkActive="true">signup company</a></li>
+                  <li *ngIf="(roles$ | async).Developer"><a routerLink="/developerDashboard" routerLinkActive="true">Dashboard</a></li>
                   <!-- <li><a routerLink="/signUp" routerLinkActive="true">Signup</a></li>
                   <li><a routerLink="/companyhomepage" routerLinkActive="true">Company home</a></li>
                   <li><a routerLink="/tag" routerLinkActive="true">Tag</a></li>
                   <li><a routerLink="/companydashboard/5defa5ec1abe304418d63b23" routerLinkActive="true">Comp dash</a></li>
                   <li><a routerLink="/assignmentDetail/5defa5ec1abe304418d63b23" routerLinkActive="true">comp detail</a></li> -->
-                  <li><a routerLink="/signup" routerLinkActive="true">Signup</a></li>
-                  <li *ngIf="!loggedIn"><a routerLink="/login">Login</a></li>
-                  <li *ngIf="loggedIn"><a (click)="logOut()">Logout</a></li>
+                  <li *ngIf="!(isAuthenticated$ | async)"><a ngif routerLink="/signup" routerLinkActive="true">Signup</a></li>
+                  <li *ngIf="!(isAuthenticated$ | async)"><a routerLink="/login">Login</a></li>
+                  <li *ngIf="(isAuthenticated$ | async)"><a (click)="logout()">Logout</a></li>
               </ul>
           </div>
           <div fxFlex fxLayout fxLayoutAlign="flex-end" class="navigation-items" fxHide.gt-xs>
