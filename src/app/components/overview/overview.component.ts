@@ -1,7 +1,7 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
-import { AssignmentService } from 'src/app/services/assignment.service';
-import { Assignment } from 'src/app/models/assignment.model';
-import { map, startWith } from 'rxjs/operators';
+import { AssignmentService } from '../../services/assignment.service';
+import { Assignment } from '../../models/assignment.model';
+import { map, startWith, filter } from 'rxjs/operators';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
 import { Observable } from 'rxjs';
@@ -19,7 +19,7 @@ export class OverviewComponent implements OnInit {
   categories: string[];
   selection: string;
   results: any[];
-  filtered:boolean = false;
+  filtered: boolean = false;
 
   visible = true;
   selectable = true;
@@ -44,18 +44,19 @@ export class OverviewComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.categories = ['Location', 'Tags'];
     this.assingmentService.getAllAsignments().subscribe(result => {
       this.assignments = result.assignments;
       console.log(this.assignments);
     });
 
+    this.categories = ['Location', 'Tags'];
     this.results = [];
     this.searchForm = this.fb.group({
       searchString: ['']
     });
     // this.getAllAssignments();
   }
+
 
   search() {
     this.results.splice(0, this.results.length);
@@ -75,6 +76,8 @@ export class OverviewComponent implements OnInit {
           }
         });
       });
+    } else if (this.selection === 'Company') {
+
     }
     return this.searchForm.get('searchString').value;
 
@@ -89,7 +92,6 @@ export class OverviewComponent implements OnInit {
 
   onSelectionChange() {
     this.filtered = true;
-
   }
 
   add(event: MatChipInputEvent): void {

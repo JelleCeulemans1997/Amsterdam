@@ -9,9 +9,10 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
+      <p *ngIf="!filtered">Please choose a filter</p>
 
       <br />
-
+      <div *ngIf="filtered">
       <p>Filtering by {{selection}}</p>
       <mat-form-field *ngIf="selection == 'Tags'; else noTags" style="width:95%" class="example-chip-list">
         <mat-chip-list #chipList aria-label="Fruit selection">
@@ -36,12 +37,8 @@
             placeholder="Search for assignments" />
         </mat-form-field>
       </ng-template>
+    </div>
     </form>
-
-    <mat-card (click)="goToDetail(assignment._id)"  *ngFor="let assignment of results">
-        <mat-card-title>{{assignment.title}}</mat-card-title>
-        <mat-card-content>{{assignment.description}}</mat-card-content>
-    </mat-card>
 
 
 
@@ -51,7 +48,7 @@
 
 
   <mat-accordion multi="true">
-    <mat-expansion-panel *ngFor="let assignment of assignments">
+    <mat-expansion-panel *ngFor="let assignment of results">
       <mat-expansion-panel-header>
         <mat-panel-title><h5>{{assignment.title}}</h5></mat-panel-title>
         <!-- <mat-panel-description>
