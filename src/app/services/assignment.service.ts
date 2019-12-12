@@ -37,6 +37,7 @@ export class AssignmentService {
       };
     })).subscribe(result => {
       console.log(result);
+      return result;
     });
   }
 
@@ -55,12 +56,16 @@ export class AssignmentService {
   // }
 
   getAllAsignments() {
-    return this.http.get<{ message: string, assignments: any }>(this.baseURL + '/api/assignment');
+    return this.http.get<{ message: string, assignments: any }>(this.baseURL + '/assignment');
 
   }
 
   getAssignment(assignmentId: string) {
-    return this.http.get(this.baseURL + '/assignment/' + assignmentId);
+    return this.http.get<{ message: string, assignment: any }>(this.baseURL + '/assignment/' + assignmentId);
+  }
+
+  getUser(userId: string) {
+    return this.http.get<{ message: string, user: any }>(this.baseURL + '/user/' + userId);
   }
 
   // createTag(tag: Tag) {

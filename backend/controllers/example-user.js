@@ -18,6 +18,19 @@ router.get('/users', (req, res, next) => {
     }
 });
 
+
+router.get('/getUser', (req, res, next) => {
+  try {
+      User.find().exec((err, users) => {
+          res.json(users);
+      });
+  } catch (error) {
+      res.status(400).send(error)
+  }
+});
+
+
+
 // router.get('/user/:email', function (req, res) {
 //     try {
 //         User.findOne({email: {$regex : req.params.email}}).exec((err, user) => {
@@ -89,3 +102,4 @@ router.get('/user/me', auth, async(req, res) => {
 })
 
 module.exports = router
+

@@ -41,7 +41,7 @@ exports.getAssignment = (req, res, next) => {
     if (assignment) {
       res.status(200).json({
         message: 'Fetching assignment succeeded',
-        assignment
+        assignment: assignment
       });
     } else {
       res.status(404).json({ message: 'Assignment not found!' });

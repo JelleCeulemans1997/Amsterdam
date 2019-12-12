@@ -1,11 +1,12 @@
 const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
-const userRouter = require('./controllers/example-user');
+const userController = require('./controllers/example-user');
 const tagRouter = require('./routes/tag');
 const assignmentRouter = require('./routes/assignment');
 const companyRouter = require('./controllers/company');
 const signupRouter = require('./routes/signup');
+const userRouter = require('./routes/example-user')
 
 const mongoose = require('mongoose');
 mongoose.set('useCreateIndex', true)
@@ -40,13 +41,13 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use('/api', userRouter);
+app.use('/api', userController);
 app.use('/api/tag', tagRouter);
 app.use('/api/assignment', assignmentRouter);
 app.use('/api/company', companyRouter);
 app.use('/api/signup', signupRouter);
+app.use('/api/user', userRouter);
 //app.use('/api/posts', postRoutes);
-//app.use('/api/user', userRoutes);
 
 
 module.exports = app;
