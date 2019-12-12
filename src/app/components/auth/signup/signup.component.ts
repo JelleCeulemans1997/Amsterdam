@@ -19,7 +19,7 @@ export class SignupComponent implements OnInit {
     this.signupForm = new FormGroup({
       email: new FormControl(null, {validators: [Validators.required, Validators.email]}),
       password: new FormControl(null, {validators: [Validators.required]}),
-      confimPassword: new FormControl(null, {validators: [Validators.required]})
+      confirmPassword: new FormControl(null, {validators: [Validators.required]})
     });
   }
 
@@ -28,8 +28,11 @@ export class SignupComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.signupForm.value);
-    console.log(this.account);
-    this.userService.createUser(new User('', this.signupForm.value.email, this.signupForm.value.password, this.account));
+    if (this.signupForm.value.password === this.signupForm.value.confirmPassword) {
+      this.userService.createUser(new User('', this.signupForm.value.email, this.signupForm.value.password, this.account));
+    } else {
+      // show message that passwords aren't identical withh snackbar
+    }
+
   }
 }

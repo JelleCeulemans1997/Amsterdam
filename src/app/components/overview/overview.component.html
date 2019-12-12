@@ -1,4 +1,4 @@
-<div class="container mt-5">
+<div class="container mt-5 mb-5">
     <h4>Select company</h4>
     <form [formGroup]="searchForm">
       <mat-form-field>
@@ -50,7 +50,7 @@
 <hr>
 
 
-  <mat-accordion>
+  <mat-accordion multi="true">
     <mat-expansion-panel *ngFor="let assignment of assignments">
       <mat-expansion-panel-header>
         <mat-panel-title><h5>{{assignment.title}}</h5></mat-panel-title>
