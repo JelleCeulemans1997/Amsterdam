@@ -47,7 +47,7 @@
 <hr>
 
 
-  <mat-accordion multi="true">
+  <mat-accordion multi="true" *ngIf="results.length != 0; else allAssignments">
     <mat-expansion-panel *ngFor="let assignment of results">
       <mat-expansion-panel-header>
         <mat-panel-title><h5>{{assignment.title}}</h5></mat-panel-title>
@@ -84,4 +84,46 @@
       </mat-action-row>
     </mat-expansion-panel>
   </mat-accordion>
+
+  <ng-template #allAssignments>
+
+  <p style="font-weight: bold;">No assignments found! Maybe these will interest you: </p>
+  <mat-accordion multi="true">
+    <mat-expansion-panel *ngFor="let assignment of assignments">
+      <mat-expansion-panel-header>
+        <mat-panel-title><h5>{{assignment.title}}</h5></mat-panel-title>
+        <!-- <mat-panel-description>
+              Type your name and age
+            </mat-panel-description> -->
+      </mat-expansion-panel-header>
+
+      <p>{{assignment.description}}</p>
+      <div>
+          <h5>Location:</h5>
+          <div>{{assignment.location[0].street}} {{assignment.location[0].nr}}</div>
+          <div>{{assignment.location[0].zipcode}} {{assignment.location[0].city}}</div>
+      </div>
+
+      <div>
+        <mat-chip-list style="display: inline;" mat-chip-list *ngFor="let tag of assignment.tags" fxFlex fxLayout="row"
+          fxLayoutGap="5px">
+          <mat-chip color="primary" [selected]="true">{{tag}}</mat-chip>
+        </mat-chip-list>
+      </div>
+
+
+      <!-- Don't show when not the creator -->
+
+
+      <!-- <mat-action-row>
+        <a mat-button color="accent" [routerLink]="['/editAssignment', assignment.id]">EDIT</a>
+        <button mat-button color="warn">DELETE</button>
+      </mat-action-row> -->
+
+      <mat-action-row fxLayoutAlign="center center">
+        <button mat-raised-button color="primary">Apply now!</button>
+      </mat-action-row>
+    </mat-expansion-panel>
+  </mat-accordion>
+  </ng-template>
 </div>
