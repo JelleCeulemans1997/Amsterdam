@@ -13,4 +13,5 @@ router.get('/companies', (req, res, next) => {
     }
 });
 
+
 module.exports = router
