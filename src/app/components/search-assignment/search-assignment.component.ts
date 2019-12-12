@@ -8,8 +8,6 @@ import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 import { Assignment } from 'src/app/models/assignment.model';
 import { Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
-
 
 @Component({
   selector: 'app-search-assignment',

@@ -55,7 +55,7 @@ export class AssignmentService {
   // }
 
   getAllAsignments() {
-    return this.http.get<{ message: string, assignments: any }>(this.baseURL + '/api/assignment');
+    return this.http.get<{ message: string, assignments: any }>(this.baseURL + '/assignment');
 
   }
 
