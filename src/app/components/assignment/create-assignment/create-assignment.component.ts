@@ -22,7 +22,7 @@ export class CreateAssignmentComponent implements OnInit {
   assignmentForm: FormGroup;
   separatorKeysCodes: number[] = [ENTER, COMMA];
   tagCtrl = new FormControl();
-  filteredTags: Observable<string[]>;
+  filteredTags: Observable<string[]> ;
   tags: string[] = [];
   allTags: string[] = [];
   imagePreview: string;
@@ -89,22 +89,6 @@ export class CreateAssignmentComponent implements OnInit {
             city: result.location[0].city
           });
         });
-
-
-        // this.postSService.getPost(this.postId).subscribe(postData => {
-        //   this.post = {
-        //     id: postData._id,
-        //     title: postData.title,
-        //     content: postData.content,
-        //     imagePath: postData.imagePath,
-        //     creator: postData.creator};
-        //   this.assignmentForm.setValue({
-        //     title: this.post.title,
-        //     content: this.post.content,
-        //     image: this.post.imagePath
-        //   });
-        // });
-
       } else {
         this.editMode = false;
         this.assignmentId = null;
@@ -185,6 +169,8 @@ export class CreateAssignmentComponent implements OnInit {
       this.assignmentService.updateAssignment(assignment);
     }
   }
+
+
   // onPdfPicked(event: Event) {
   //   const file = (event.target as HTMLInputElement).files[0];
   //   console.log(file);

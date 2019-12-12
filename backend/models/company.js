@@ -26,8 +26,7 @@ const companySchema = new Schema({
         name: String,
         score: Number,
         text: String
-    }],
-    website: String
+    }]
 });
 
 module.exports = mongoose.model('Company', companySchema);

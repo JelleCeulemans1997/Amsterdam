@@ -8,19 +8,24 @@ import {map, startWith} from 'rxjs/operators';
 import { SignupService } from 'src/app/services/signup.service';
 import {Company} from 'src/app/models/company.model';
 import { LocationDefining } from 'src/app/models/location.model';
+import { TagService } from 'src/app/services/tag.service';
+import { Tag } from 'src/app/models/tag.model';
+import { CompanyService } from 'src/app/services/company.service';
+import { User } from 'src/app/models/user.model';
+import { UserService } from 'src/app/services/user.service';
 
 
 @Component({
-  selector: 'app-sign-up-company',
-  templateUrl: './sign-up-company.component.html',
-  styleUrls: ['./sign-up-company.component.scss']
+  selector: 'app-company-credentials',
+  templateUrl: './company-credentials.component.html',
+  styleUrls: ['./company-credentials.component.scss']
 })
 
-export class SignUpCompanyComponent implements OnInit {
+export class CompanyCredentialsComponent implements OnInit {
 
   company: Company;
-  //  = new Company('', '', '', '', '', '', []);
-  companyFormSignup: FormGroup;
+  //  = new Company('', '', '', '', '', '', []);s
+  companyForm: FormGroup;
   visible = true;
   selectable = true;
   removable = true;
@@ -29,38 +34,63 @@ export class SignUpCompanyComponent implements OnInit {
   tagCtrl = new FormControl();
   filteredTags: Observable<string[]>;
   tags: string[] = [];
-  allTags: string[] = ['JavaScript', 'node.js', 'C#', 'PHP', 'Java'];
+  allTags: string[] = [];
+  tagObjects: Tag[];
 
   @ViewChild('tagInput', {static: false}) tagInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto', {static: false}) matAutocomplete: MatAutocomplete;
 
-  constructor(private fb: FormBuilder, private signupService: SignupService) {
+  constructor(
+    private fb: FormBuilder,
+    private userService: UserService,
+    private companyService: CompanyService,
+    private tagService: TagService,
+    ) {
     this.filteredTags = this.tagCtrl.valueChanges.pipe(
         startWith(null),
         map((tag: string | null) => tag ? this._filter(tag) : this.allTags.slice()));
        }
 
-  // onSubmit(userId: string) {
-  //   const tags = this.tags;
-  //   const location: LocationDefining = {
-  //     street: this.company.street,
-  //     nr: this.company.nr,
-  //     zipcode: this.company.zipcode,
-  //     city:  this.company.town
-  //   }
-  //   console.log(this.company);
-  //   console.log(location)
-  //   this.signupService.addCompany(this.company.companyname, [location], this.company.bio, tags, userId);
-  // }
+  onSaveCompany() {
+
+    const { name, firstname, lastname, email, phone, street, nr, zipcode, city, bio } = this.companyForm.value;
+    const contact = { firstname, lastname, email, phone };
+    const location: LocationDefining = { street, nr, zipcode, city };
+    const userId = this.userService.getUserId();
+    const company = new Company('', name, userId, contact, location, this.tags, bio, null);
+    this.companyService.createCompany(company);
+  }
 
   ngOnInit() {
-    this.companyFormSignup = this.fb.group({
+    this.companyForm = this.fb.group({
       name: ['', Validators.required],
-      street: [''],
-      nr: [''],
+      firstname: ['', Validators.required],
+      lastname: ['', Validators.required],
+      email: ['', Validators.required, Validators.email],
+      phone: ['', Validators.required],
+      street: ['', Validators.required],
+      nr: ['', Validators.required],
       zipcode: ['', Validators.required],
       city: ['', Validators.required],
       bio: ['', Validators.required]
+    });
+
+
+    this.tagService.getAllDesc().pipe(map(result => {
+      return {
+        tags: result.tags.map(tag => {
+          return {
+            id: tag._id,
+            name: tag.name,
+            usages: tag.usages
+          };
+        })
+      };
+    })).subscribe(result => {
+      this.tagObjects = Object.assign([], result.tags);
+      result.tags.forEach(element => {
+        this.allTags.push(element.name);
+      });
     });
   }
 

@@ -3,6 +3,7 @@ import { Review } from './review.model';
 
 export class Company {
   constructor(
+    public id: string,
     public name: string,
     public userId: string,
     public contact: {
@@ -14,6 +15,5 @@ export class Company {
     public location: LocationDefining,
     public tags: string[],
     public bio: string,
-    public reviews: Review[],
-    public website: string[]) { }
+    public reviews: Review[]) { }
 }

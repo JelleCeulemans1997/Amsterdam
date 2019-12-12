@@ -27,4 +27,10 @@ export class UserService {
   getUserbyId(userId: string) {
     return this.http.get<User>(this.baseURL + '/user/getById/' + userId);
   }
+
+  getUserId() {
+    const jwtData = this.localStorageService.getToken().split('.')[1];
+    const decodedJwt = window.atob(jwtData);
+    return JSON.parse(decodedJwt)._id;
+  }
 }
