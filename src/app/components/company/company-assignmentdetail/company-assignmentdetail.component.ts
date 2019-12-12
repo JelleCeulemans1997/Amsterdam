@@ -1,0 +1,38 @@
+import { Component, OnInit } from '@angular/core';
+import {Assignment} from '../../../models/assignment.model';
+import {AssignmentService} from '../../../services/assignment.service';
+import {ActivatedRoute, ParamMap} from '@angular/router';
+import { MatAutocompleteSelectedEvent, MatChipInputEvent, MatAutocomplete } from '@angular/material';
+
+
+@Component({
+  selector: 'app-company-assignmentdetail',
+  templateUrl: './company-assignmentdetail.component.html',
+  styleUrls: ['./company-assignmentdetail.component.scss']
+})
+export class CompanyAssignmentdetailComponent implements OnInit {
+
+  assignmentId = '';
+  assignment = null;
+
+  constructor(public route: ActivatedRoute, private assignmentService: AssignmentService) { }
+
+  ngOnInit() {
+    this.route.paramMap.subscribe((paramMap: ParamMap) => {
+      if (paramMap.has('assignmentId')) {
+        this.assignmentId = paramMap.get('assignmentId');
+        this.assignmentService.getAssignment(this.assignmentId).subscribe(assignmentData => {
+          this.assignment = assignmentData;
+          console.log('assignment:');
+          console.log(this.assignment);
+        });
+      } else {
+        this.assignmentId = null;
+      }
+    });
+  }
+
+}
+
+
+

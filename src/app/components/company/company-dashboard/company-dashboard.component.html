@@ -1,18 +1,61 @@
 <div class="container mt-5 mb-5">
-  <h1>Company component</h1>
+<!--  <h1>Company component</h1>-->
 
-  <p>Wat moet er hier komen ?</p>
-  <ul>
-    <li>mat-card om de company te informeren dat er een nieuw(e) applies zijn
-      (misschien een melding met een aantal en een doorklik knop naar een andere component waar alle applies te zien zijn.
-    En op die volgende pagina kunnen da applies ge accept of gedeclined worden. Wat ik in gedachten was de assignment te
-     tonen en aar alle applies bijvoegen (enkel assignments tonen die een apply bevatten). Bij een appy bekijken met er ook doorgeklikt moeten worden naar de devoloper's page.</li>
-    <li>Knop om hun persoonlijke informatie aan te passen (Jelle is met deze page in progress)</li>
-    <li>Review sectie</li>
-    <li>lijst met al hun assignments op datum</li>
-  </ul>
+<!--  <p>Wat moet er hier komen ?</p>-->
+<!--  <ul>-->
+<!--    <li>mat-card om de company te informeren dat er een nieuw(e) applies zijn-->
+<!--      (misschien een melding met een aantal en een doorklik knop naar een andere component waar alle applies te zien zijn.-->
+<!--    En op die volgende pagina kunnen da applies ge accept of gedeclined worden. Wat ik in gedachten was de assignment te-->
+<!--     tonen en aar alle applies bijvoegen (enkel assignments tonen die een apply bevatten). Bij een appy bekijken met er ook doorgeklikt moeten worden naar de devoloper's page.</li>-->
+<!--    <li>Knop om hun persoonlijke informatie aan te passen (Jelle is met deze page in progress)</li>-->
+<!--    <li>Review sectie</li>-->
+<!--    <li>lijst met al hun assignments op datum</li>-->
+<!--  </ul>-->
+<!--</div>-->
+
+  <div class="row">
+    <div class="col-md-4"><app-navigation></app-navigation></div>
+    <div class="col-md-8">
+
+
+
+      <mat-accordion multi="true">
+        <mat-expansion-panel *ngFor="let assignment of assignments" hideToggle>
+          <mat-expansion-panel-header>
+            <mat-panel-title><h5>{{assignment.title}}</h5></mat-panel-title>
+            <!-- <mat-panel-description>
+                  Type your name and age
+                </mat-panel-description> -->
+            <mat-panel-description *ngIf="assignment.applies.length > 0"> 
+              <mat-icon color="warn">notification_important</mat-icon>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+
+          <p>{{assignment.description}}</p>
+          <mat-action-row fxLayoutAlign="center center">
+            <button mat-raised-button color="primary" [routerLink]="['/companyassignmentdetail', assignment.id]"
+                    matBadge="{{assignment.applies.length}}" matBadgePosition="before" matBadgeColor="accent">
+              View Assignment
+            </button>
+<!--            <a mat-button color="accent" [routerLink]="['/editAssignment', assignment.id]">EDIT</a>-->
+          </mat-action-row>
+        </mat-expansion-panel>
+      </mat-accordion>
+
+
+
+
+
+    </div>
+  </div>
+
+
+
+
+
+
+
 
 
 </div>
-
 

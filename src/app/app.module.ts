@@ -15,6 +15,9 @@ import { FormsModule } from '@angular/forms';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { OverviewComponent } from './components/overview/overview.component';
 import { CompanyDashboardComponent } from './components/company/company-dashboard/company-dashboard.component';
+import { NavigationComponent } from './components/company/company-dashboard/navigation/navigation.component';
+import {MatBadgeModule} from '@angular/material/badge';
+import { CompanyAssignmentdetailComponent } from './components/company/company-assignmentdetail/company-assignmentdetail.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +26,9 @@ import { CompanyDashboardComponent } from './components/company/company-dashboar
     HomeComponent,
     TagComponent,
     OverviewComponent,
-    CompanyDashboardComponent
+    CompanyDashboardComponent,
+    NavigationComponent,
+    CompanyAssignmentdetailComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +39,8 @@ import { CompanyDashboardComponent } from './components/company/company-dashboar
     AuthModule,
     HttpClientModule,
     FormsModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatBadgeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

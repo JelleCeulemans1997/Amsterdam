@@ -11,6 +11,7 @@ import { OverviewComponent } from './components/overview/overview.component';
 import { CompanyDashboardComponent } from './components/company/company-dashboard/company-dashboard.component';
 import { SignupComponent } from './components/auth/signup/signup.component';
 import { SignUpCompanyComponent } from './components/auth/sign-up-company/sign-up-company.component';
+import {CompanyAssignmentdetailComponent} from './components/company/company-assignmentdetail/company-assignmentdetail.component';
 
 
 
@@ -24,6 +25,7 @@ const routes: Routes = [
   { path: 'tag', component: TagComponent },
   { path: 'overview', component: OverviewComponent},
   { path: 'company', component: CompanyDashboardComponent},
+  { path: 'companyassignmentdetail/:assignmentId', component: CompanyAssignmentdetailComponent},
   { path: 'signup', component: SignupComponent},
   { path: 'fuckdit', component: SignUpCompanyComponent}
 ];
