@@ -1,4 +1,4 @@
-<h4>Select company</h4>
+<h4>Find assignments</h4>
 <form [formGroup]="searchForm">
   <mat-form-field>
     <mat-label>Select a filter</mat-label>
@@ -8,9 +8,10 @@
       </mat-option>
     </mat-select>
   </mat-form-field>
+  <p *ngIf="!filtered">Please select a filter!</p>
 
   <br />
-
+<div *ngIf="filtered">
   <p>Filtering by {{selection}}</p>
   <mat-form-field *ngIf="selection == 'Tags'; else noTags" style="width:95%" class="example-chip-list">
     <mat-chip-list #chipList aria-label="Fruit selection">
@@ -32,9 +33,10 @@
   <ng-template #noTags>
     <mat-form-field style="width:95%">
       <input matInput type="text" formControlName="searchString" (keyup)="search()"
-        placeholder="Search for assignments" />
+        placeholder="Enter a zipcode" />
     </mat-form-field>
   </ng-template>
+</div>
 </form>
 
 <mat-card (click)="goToDetail(assignment._id)"  *ngFor="let assignment of results">

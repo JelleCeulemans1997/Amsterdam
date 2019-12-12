@@ -23,6 +23,7 @@ export class SearchAssignmentComponent implements OnInit {
   selection: string;
   assignments: any[];
   results: any[];
+  filtered:boolean = false;
 
   visible = true;
   selectable = true;
@@ -44,7 +45,7 @@ export class SearchAssignmentComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.categories = ['Location', 'Tags', 'Company'];
+    this.categories = ['Location', 'Tags'];
     this.results = [];
     this.searchForm = this.fb.group({
       searchString: ['']
@@ -70,8 +71,6 @@ export class SearchAssignmentComponent implements OnInit {
           }
         });
       });
-    } else if (this.selection === 'Company') {
-
     }
     return this.searchForm.get('searchString').value;
 
@@ -85,9 +84,8 @@ export class SearchAssignmentComponent implements OnInit {
   }
 
   onSelectionChange() {
-    if (this.selection === 'Tags') {
-      console.log(this.selection);
-    }
+    this.filtered = true;
+
   }
 
 
