@@ -12,7 +12,7 @@ const router = express.Router();
 
 //user pre save
 exports.createUser = (req, res, next) => {
-   console.log(req.body);
+  console.log(req.body);
   bcryptjs.hash(req.body.password, 10).then(hash => {
     const user = new User({
       email: req.body.email,
@@ -50,9 +50,19 @@ exports.login = async (req, res) => {
     const token = await user.generateAuthToken();
     res.send({ role: user.role, token, id: user._id });
   } catch (error) {
-    res.status(400).send(error);
+    res.status(500).send(error);
   }
 };
+
+exports.getByUserId = async (req, res) => {
+  User.findById(req.params.id)
+    .then(user => {
+      user ? res.status(200).json(user) : res.status(404).json({ message: 'User not found!'});
+    })
+    .catch(error => {
+      res.status(500).json({ message: 'Fetching user failed'});
+    });
+}
 
 
 // router.get("/users", (req, res, next) => {

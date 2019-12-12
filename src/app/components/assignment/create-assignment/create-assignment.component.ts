@@ -177,9 +177,11 @@ export class CreateAssignmentComponent implements OnInit {
       location,
       localStorage.getItem('token'));
     if (!this.editMode) {
+      console.log('add', assignment);
       this.assignmentService.createAssignment(assignment);
     } else {
       assignment.id = this.assignmentId;
+      console.log('update', assignment);
       this.assignmentService.updateAssignment(assignment);
     }
   }
