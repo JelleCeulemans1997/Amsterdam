@@ -1,10 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { AuthenticateService } from '../../../services/authenticate.service';
-import { HttpErrorResponse } from '@angular/common/http';
-import { Router } from '@angular/router';
-import { UserLogin } from '../../../models/user-login.model';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { User } from 'src/app/models/user.model';
+import { UserService } from 'src/app/services/user.service';
+import { Store } from '@ngrx/store';
+import * as fromAuth from '../auth.reducer';
+import * as Auth from '../auth.actions';
+import * as fromRole from '../role.reducer';
+import * as Role from '../role.actions';
+import { LocalStorageService } from 'src/app/services/localStorage.service';
+import * as fromRoot from '../../../app.reducer';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -13,27 +18,21 @@ import { User } from 'src/app/models/user.model';
 })
 export class LoginComponent implements OnInit {
 
-  model = new UserLogin('', '');
+  // model = new UserLogin('', '');
 
-  isCorrect = false;
-  isRegister = true;
-  submitted = false;
+  // isCorrect = false;
+  // isRegister = true;
+  // submitted = false;
 
   constructor(
-    private authenticateService: AuthenticateService,
-    private fb: FormBuilder,
-    private router: Router) {
-    // redirect to home if already logged in
-    this.authenticateService.isLoggedin.subscribe(result => {
-      if (result) {
-        this.router.navigate(['/']);
-      }
-    });
-
-  }
+    private userService: UserService,
+    private localStorageService: LocalStorageService,
+    private store: Store<{ ui: fromAuth.State, us: fromRole.State }>,
+    private router: Router
+    ) { }
 
   loginForm = new FormGroup({
-    email: new FormControl('jelle.ceulemans@hotmail.com', { validators: [Validators.required] }),
+    email: new FormControl('info@jelleceulemans.be', { validators: [Validators.required] }),
     password: new FormControl('azertyuiop', { validators: [Validators.required] })
   });
 
@@ -42,23 +41,22 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    const user = new User('', this.loginForm.value.email, this.loginForm.value.password, null);
-    this.authenticateService.authenticate(user).subscribe(result => {
-      console.log(result);
-      // this.submitted = true;
-      // localStorage.setItem('token', result.token);
-      // this.authenticateService.isLoggedin.next(result.token ? true : false);
-      // this.authenticateService.role.next(result.role);
-      // console.log('User is logged in!');
-      // this.router.navigateByUrl('/signUp');
-      // },
-      // (error: HttpErrorResponse) => {
-      //     const errorPayload = JSON.parse(error.message);
-      //     // ToDo: apply your handling logic e.g.:
-      //     // console.log(errorPayload[0].description
-      //     // this.isCorrect = true;
-      //     this.submitted = false;
-      //     console.log(error.error);
+    const user = new User(null, this.loginForm.value.email, this.loginForm.value.password, null);
+    this.userService.authenticate(user).subscribe(result => {
+      this.store.dispatch(new Auth.SetAuthenticated());
+      this.localStorageService.setToken(result.token);
+      let navigateTo;
+      if (result.role === 'Developer') {
+        navigateTo = '/developerDashboard';
+        this.store.dispatch(new Role.SetDeveloper());
+      } else {
+        navigateTo = '/company';
+        this.store.dispatch(new Role.SetComapny());
+      }
+      console.log(navigateTo);
+      this.router.navigate([navigateTo]);
+    }, error => {
+      console.log(error);
     });
   }
 }

@@ -82,6 +82,53 @@ export class AssignmentService {
     return this.http.get<{ message: string, user: any }>(this.baseURL + '/user/' + userId);
   }
 
+
+
+
+
+
+
+
+
+
+
+
+  acceptApply(assignmentId: string, makerId: string) {
+    const maker = {accepted: [{accept: makerId}]};
+    const removemaker = {applies : {
+        apply: makerId
+      }};
+    this.http.patch('http://localhost:3000/api/assignment/acceptappliedassignment/' + assignmentId, maker).subscribe(response => {
+      console.log(response);
+      console.log('added');
+    });
+    this.http.patch('http://localhost:3000/api/assignment/removeappliedassignment/' + assignmentId, removemaker).subscribe(response => {
+    console.log(response);
+    console.log('deleted');
+    });
+  }
+
+  denyApply(assignmentId: string, makerId: string) {
+    const maker = {denied: [{deny: makerId}]};
+    const removemaker = {applies : {
+        apply: makerId
+      }};
+    this.http.patch('http://localhost:3000/api/assignment/denyappliedassignment/' + assignmentId, maker).subscribe(response => {
+      console.log(response);
+      console.log('added');
+    });
+    this.http.patch('http://localhost:3000/api/assignment/removeappliedassignment/' + assignmentId, removemaker).subscribe(response => {
+    console.log(response);
+    console.log('deleted');
+    });
+  }
+
+
+
+
+
+
+
   // createTag(tag: Tag) {
   //   this.http.post<Tag>(this.baseURL + '/tag/create', tag).subscribe(result => {
   //     console.log(result);

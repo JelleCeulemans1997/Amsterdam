@@ -65,6 +65,7 @@ exports.updateAssignment = (req, res, next) => {
 exports.getAssignment = (req, res, next) => {
   console.log(req.params);
   Assignment.findById(req.params.id)
+    .populate('applies.apply')
   .then(assignment => {
     if (assignment) {
       res.status(200).json({

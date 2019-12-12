@@ -1,0 +1,187 @@
+
+
+
+
+<div class="container mt-5 mb-5">
+  <!--  <h1>Company component</h1>-->
+
+  <!--  <p>Wat moet er hier komen ?</p>-->
+  <!--  <ul>-->
+  <!--    <li>mat-card om de company te informeren dat er een nieuw(e) applies zijn-->
+  <!--      (misschien een melding met een aantal en een doorklik knop naar een andere component waar alle applies te zien zijn.-->
+  <!--    En op die volgende pagina kunnen da applies ge accept of gedeclined worden. Wat ik in gedachten was de assignment te-->
+  <!--     tonen en aar alle applies bijvoegen (enkel assignments tonen die een apply bevatten). Bij een appy bekijken met er ook doorgeklikt moeten worden naar de devoloper's page.</li>-->
+  <!--    <li>Knop om hun persoonlijke informatie aan te passen (Jelle is met deze page in progress)</li>-->
+  <!--    <li>Review sectie</li>-->
+  <!--    <li>lijst met al hun assignments op datum</li>-->
+  <!--  </ul>-->
+  <!--</div>-->
+
+  <div class="row">
+    <div class="col-md-2"><app-navigation></app-navigation></div>
+    <div class="col-md-10">
+
+
+      <div class="row" *ngIf="assignment">
+
+        <div class="col-md-7">
+
+          <mat-card class="example-card">
+            <mat-card-header>
+<!--              <div mat-card-avatar class="example-header-image"></div>-->
+              <mat-card-title ><span style="text-align: center">{{assignment.assignment.title}}</span></mat-card-title>
+<!--              <mat-card-subtitle>Dog Breed</mat-card-subtitle>-->
+            </mat-card-header>
+<!--            <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">-->
+            <mat-card-content>
+<!--              <h1 >{{assignment.assignment.title}}</h1>-->
+              <h3 style="text-align: center">description</h3>
+              <p style="text-align: center">{{assignment.assignment.description}}</p>
+
+              <h3 style="text-align: center">location</h3>
+              <div style="text-align: center" *ngFor="let location of assignment.assignment.location">
+                <p>city: {{location.city}}</p>
+                <p>nr: {{location.nr}}</p>
+                <p>street: {{location.street}}</p>
+                <p>zipcode: {{location.zipcode}}</p>
+              </div>
+              <h3 style="text-align: center">tags</h3>
+<!--              <div style="text-align: center" *ngFor="let tag of assignment.assignment.tags">-->
+<!--                <p>{{tag}}</p>-->
+<!--              </div>-->
+
+                <mat-chip-list *ngFor="let tag of assignment.assignment.tags" >
+                  <mat-chip   color="primary" [selected]="true">{{tag}}</mat-chip>
+                </mat-chip-list>
+
+
+
+            </mat-card-content>
+            <mat-card-actions>
+              <button class="btn btn-primary"  [routerLink]="['/editAssignment', assignment.assignment._id]">EDIT ASSIGNMENT</button>
+            </mat-card-actions>
+          </mat-card>
+
+
+
+
+
+        </div>
+
+
+
+        <div class="col-md-5"><mat-accordion>
+          <mat-expansion-panel (click)="onClickPanel()">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Applies
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-spinner *ngIf="isLoading"></mat-spinner>
+<!--applies-->
+            <mat-expansion-panel *ngFor="let apply of assignment.assignment.applies">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+<!--                  {{apply.apply}}-->
+                  Maker
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+
+                          <mat-list role="list">
+                            <mat-list-item role="listitem">Profile</mat-list-item>
+                            <mat-list-item role="listitem" (click)="onAcceptApply(assignment.assignment._id, apply.apply)">Accept</mat-list-item>
+                            <mat-list-item role="listitem" (click)="onDenyApply(assignment.assignment._id, apply.apply)">Deny</mat-list-item>
+                          </mat-list>
+
+            </mat-expansion-panel>
+<!--            <mat-list role="list">-->
+<!--              <mat-list-item *ngFor="let apply of assignment.assignment.applies" role="listitem">{{apply.apply}} <br>X - V-->
+<!--                <br>-->
+<!--                <button class="btn btn-primary">Profile</button>-->
+<!--                <button>Accept</button>-->
+<!--                <button>Deny</button></mat-list-item>-->
+<!--&lt;!&ndash;              <mat-list-item role="listitem">Item 2</mat-list-item>&ndash;&gt;-->
+<!--&lt;!&ndash;              <mat-list-item role="listitem">Item 3</mat-list-item>&ndash;&gt;-->
+<!--            </mat-list>-->
+
+          </mat-expansion-panel>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Accepted
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-expansion-panel *ngFor="let accept of assignment.assignment.accepted">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+<!--                  {{accept.accept}}-->
+Maker
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+
+              <mat-list role="list">
+                <mat-list-item role="listitem">Profile</mat-list-item>
+<!--                <mat-list-item role="listitem">Accept</mat-list-item>-->
+<!--                <mat-list-item role="listitem">Deny</mat-list-item>-->
+              </mat-list>
+
+            </mat-expansion-panel>
+          </mat-expansion-panel>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Denied
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-expansion-panel *ngFor="let deny of assignment.assignment.denied">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+<!--                  {{deny.deny}}-->
+                  Maker
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+
+              <mat-list role="list">
+                <mat-list-item role="listitem">Profile</mat-list-item>
+<!--                <mat-list-item role="listitem">Accept</mat-list-item>-->
+<!--                <mat-list-item role="listitem">Deny</mat-list-item>-->
+              </mat-list>
+
+            </mat-expansion-panel>
+          </mat-expansion-panel>
+<!--          <mat-expansion-panel>-->
+<!--            <mat-expansion-panel-header>-->
+<!--              <mat-panel-title>-->
+<!--                Denied-->
+<!--              </mat-panel-title>-->
+<!--            </mat-expansion-panel-header>-->
+<!--            <mat-list role="list">-->
+<!--              <mat-list-item role="listitem">Item 1</mat-list-item>-->
+<!--              <mat-list-item role="listitem">Item 2</mat-list-item>-->
+<!--              <mat-list-item role="listitem">Item 3</mat-list-item>-->
+<!--            </mat-list>-->
+
+<!--          </mat-expansion-panel>-->
+
+        </mat-accordion>
+        </div>
+
+      </div>
+
+
+
+
+
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+</div>
+
