@@ -32,6 +32,34 @@ exports.createAssignment = (req, res, next) => {
 //   Assignment.find({email: {$regex : req.params.email}})
 // };
 
+exports.updateAssignment = (req, res, next) => {
+  // console.log(req.body);
+  // console.log(req.params);
+  // console.log(jwt.decode(req.body.creator)._id);
+  const creatorId = jwt.decode(req.body.creator)._id
+  const assignment = new Assignment({
+    _id: req.body.id,
+    title: req.body.title,
+    description: req.body.description,
+    tags: req.body.tags,
+    location: req.body.location,
+    creator: creatorId
+  });
+  Assignment.updateOne({ _id: req.params.id, creator: creatorId}, assignment)
+    .then(result => {
+      if (result.n > 0) {
+        res.status(200).json({ message: 'Update successful!' });
+      } else {
+        res.status(401).json({ message: 'Not authorized!' });
+      }
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: 'Couldn\'t udpate post!'
+      });
+    });
+};
+
 
 
 exports.getAssignment = (req, res, next) => {
@@ -72,4 +100,4 @@ exports.getAssignment = (req, res, next) => {
   //       message: 'Creating a tag failed!'
   //     });
   //   });
-//};
+  //};

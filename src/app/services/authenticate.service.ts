@@ -12,16 +12,17 @@ import { environment } from 'src/environments/environment';
 export class AuthenticateService {
   baseURL = environment.baseURL;
 
-  isLoggedin = new BehaviorSubject(localStorage.getItem('token')? true : false);
+  isLoggedin = new BehaviorSubject(localStorage.getItem('token') ? true : false);
   role = new BehaviorSubject('');
 
-  constructor(private httpClient: HttpClient) { }
-  authenticate(userLogin: UserLogin): Observable<User> {
-    return this.httpClient.post<User>(this.baseURL + '/user/login', userLogin);
+  constructor(private http: HttpClient) { }
+  authenticate(user: User) {
+    console.log(user);
+    return this.http.post<User>(this.baseURL + '/user/login', user);
   }
 
   register(userLogin: UserLogin): Observable<User> {
-    return this.httpClient.post<User>( this.baseURL + '/register', userLogin);
+    return this.http.post<User>( this.baseURL + '/register', userLogin);
   }
 
   loggedIn() {

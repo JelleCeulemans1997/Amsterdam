@@ -1,5 +1,5 @@
 const Company = require('../models/company');
-const Maker = require('../models/student');
+const Maker = require('../models/developer');
 
 exports.createCompany = (req, res, next) => {
   console.log(req.body);
