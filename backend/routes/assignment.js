@@ -6,10 +6,11 @@ const Assignment = require('../models/assignment');
 
 const router = express.Router();
 
-router.post('/create', extractPdf, AssignmentController.createAssignment);
+//router.post('/create', extractPdf, AssignmentController.createAssignment);
 // router.get('/assignment:company', extractPdf, AssignmentController.getAssigment);
 router.post('/create', AssignmentController.createAssignment);
 router.get('/:id', AssignmentController.getAssignment);
+router.put('/:id', AssignmentController.updateAssignment)
 
 // router.get('/allDesc', TagController.getAllDesc);
 // router.put('/update', TagController.putTag);

@@ -1,34 +1,33 @@
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-var companySchema = new Schema({
-    naam: String,
-    userId: String,
-    contact: [
-            {
-                voornaam: String,
-                achternaam: String,
+const companySchema = new Schema({
+    name: String,
+    userId: {type: mongoose.Schema.Types.ObjectId, ref: "User"},
+    contact: {
+                firstname: String,
+                lastname: String,
                 email: String,
-                telefoonnummer: Number
-            }
-        ],
-    locatie: [{
-        straat: String,
-        huisnummer: Number,
-        plaats: String,
-        postcode: Number
-    }],
+                phone: String
+            },
+    location: {
+        street: String,
+        nr: String,
+        city: String,
+        zipcode: String
+    },
     tags: [
         {
             type: String,
         }
     ],
     bio: String,
-    review: [{
-        naam: String,
-        text: String,
-        score: Number
-    }]
+    reviews: [{
+        name: String,
+        score: Number,
+        text: String
+    }],
+    website: String
 });
 
 module.exports = mongoose.model('Company', companySchema);

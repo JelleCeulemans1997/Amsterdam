@@ -1,0 +1,29 @@
+<div class="container mt-5 mb-5">
+
+  <mat-card fxFlex fxLayout="column" fxLayoutAlign="center center">
+    <mat-card-title>
+      <h3>Signup</h3>
+    </mat-card-title>
+    <mat-card-content>
+      <form [formGroup]="signupForm" fxFlex fxLayout="column" fxlayoutGap="40px" fxLayoutAlign="center center">
+        <mat-form-field>
+          <input type="email" matInput placeholder="Email" formControlName="email" />
+          <mat-error>The email field is required!</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input type="password" matInput placeholder="Password" formControlName="password" />
+          <mat-error>The password field is required!</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <input type="password" matInput placeholder="Confirm Password" formControlName="confirmPassword" />
+            <mat-error>The confirm password field is required!</mat-error>
+          </mat-form-field>
+        <h4>Are you ba developer or a company ?</h4>
+        <mat-slide-toggle (change)="changedAccount($event)">{{account}}</mat-slide-toggle>
+      </form>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="signupForm.invalid">Submit</button>
+    </mat-card-actions>
+  </mat-card>
+</div>

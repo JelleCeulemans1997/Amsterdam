@@ -1,22 +1,19 @@
+import { LocationDefining } from './location.model';
+import { Review } from './review.model';
+
 export class Company {
-  companyname: string;
-  street: string;
-  nr: string;
-  zipcode: string;
-  town: string;
-  bio: string;
-  tags: string[];
-  userId: string;
-
-  constructor(companyname: string, street: string, nr: string, zipcode: string, town: string, bio: string, tags: string[], userId?: string){
-    this.companyname = companyname;
-    this.street = street;
-    this.nr = nr;
-    this.zipcode = zipcode;
-    this.town = town;
-    this.bio = bio;
-    this.tags = tags;
-    this.userId = userId;
-  }
-
+  constructor(
+    public name: string,
+    public userId: string,
+    public contact: {
+      firstname: string,
+      lastname: string,
+      email: string
+      phone: string
+    },
+    public location: LocationDefining,
+    public tags: string[],
+    public bio: string,
+    public reviews: Review[],
+    public website: string[]) { }
 }
