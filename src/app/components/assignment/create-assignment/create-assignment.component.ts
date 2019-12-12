@@ -45,18 +45,7 @@ export class CreateAssignmentComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.tagService.getAllDesc().pipe(map(result => {
-      return {
-        tags: result.tags.map(tag => {
-          return {
-            id: tag._id,
-            name: tag.name,
-            usages: tag.usages
-          };
-        })
-      };
-    })).subscribe(result => {
-      this.tagObjects = Object.assign([], result.tags);
+    this.tagService.getAllDesc().subscribe(result => {
       result.tags.forEach(element => {
         this.allTags.push(element.name);
       });
@@ -79,14 +68,15 @@ export class CreateAssignmentComponent implements OnInit {
         this.editMode = true;
         this.assignmentId = paramMap.get('assignmentId');
         this.assignmentService.getAssignmentById(this.assignmentId).subscribe(result => {
-          this.tags = result.tags;
+          const assignment = result.assignment;
+          this.tags = assignment.tags;
           this.assignmentForm.setValue({
-            title: result.title,
-            description: result.description,
-            street: result.location[0].street,
-            nr: result.location[0].nr,
-            zipcode: result.location[0].zipcode,
-            city: result.location[0].city
+            title: assignment.title,
+            description: assignment.description,
+            street: assignment.location.street,
+            nr: assignment.location.nr,
+            zipcode: assignment.location.zipcode,
+            city: assignment.location.city
           });
         });
       } else {

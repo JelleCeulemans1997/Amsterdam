@@ -15,8 +15,15 @@ export class CompanyService {
     private http: HttpClient) { }
 
   createCompany(company: Company) {
-    this.http.post(this.baseURL + '/company/create', company).subscribe(result => {
-      console.log(result);
-    });
+    return this.http.post(this.baseURL + '/company/create', company);
+  }
+
+  getCompanyByUserId(userId: string) {
+    return this.http.get<Company>(this.baseURL + '/company/getByUserId/' + userId);
+  }
+
+  updateCompany(company: Company) {
+    console.log(company);
+    return this.http.put(this.baseURL + '/company/update/' + company.id, company);
   }
 }
