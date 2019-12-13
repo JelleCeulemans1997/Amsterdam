@@ -1,0 +1,78 @@
+<div class="container mt-5 mb-5">
+  <mat-accordion multi="true">
+    <mat-expansion-panel *ngFor="let company of companies">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <h5>{{ company.name }}</h5>
+        </mat-panel-title>
+        <!-- <mat-panel-description>
+              Type your name and age
+            </mat-panel-description> -->
+      </mat-expansion-panel-header>
+
+      <p>{{company.bio}}</p>
+      <div>
+        <h5>Contact:</h5>
+        <div>{{company.contact.firstname}} {{company.contact.lastname}}</div>
+        <div>{{company.contact.email}}</div>
+        <div>{{company.contact.phone}}</div>
+      </div>
+
+      <div>
+        <h5>Location:</h5>
+        <div>{{company.location.street}} {{company.location.nr}}</div>
+        <div>{{company.location.zipcode}} {{company.location.city}}</div>
+      </div>
+
+      <div>
+        <mat-chip-list style="display: inline;" mat-chip-list *ngFor="let tag of company.tags" fxFlex fxLayout="row"
+          fxLayoutGap="5px">
+          <mat-chip color="primary" [selected]="true">{{tag}}</mat-chip>
+        </mat-chip-list>
+      </div>
+
+      <div class="mt-2 mb-2">
+        <!-- review -->
+        <mat-accordion>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>Reviews</mat-panel-title>
+              <!-- <mat-panel-description>
+            </mat-panel-description> -->
+            </mat-expansion-panel-header>
+            <mat-expansion-panel *ngFor="let review of company.reviews">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  {{review.userId}}
+                  <!-- {{review.userId | nicknameDeveloper}} -->
+                </mat-panel-title>
+                <mat-panel-description>
+                  <!-- should be stars -->
+                  {{review.score}}
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <p>{{review.text}}</p>
+            </mat-expansion-panel>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </div>
+
+
+
+
+
+
+
+
+      <!-- <mat-action-row>
+        <a mat-button color="accent" [routerLink]="['/editAssignment', assignment.id]">EDIT</a>
+        <button mat-button color="warn">DELETE</button>
+      </mat-action-row> -->
+
+      <!-- <mat-action-row fxLayoutAlign="center center">
+        <button mat-raised-button color="primary">Apply now!</button>
+      </mat-action-row> -->
+    </mat-expansion-panel>
+  </mat-accordion>
+
+</div>

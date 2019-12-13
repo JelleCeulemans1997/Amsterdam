@@ -8,7 +8,7 @@ import { MaterialModule } from './material.module';
 import { SharedModule } from './shared.module';
 import { CreateAssignmentComponent } from './components/assignment/create-assignment/create-assignment.component';
 import { HomeComponent } from './components/home/home.component';
-import { TagComponent } from './components/tag/tag.component';
+import { AdminTagsComponent } from './components/admin/admin-tags/admin-tags.component';
 import { AuthModule } from './components/auth/auth.module';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
@@ -27,13 +27,16 @@ import { CompanyProfileComponent } from './components/company/company-profile/co
 import { DeveloperCredentialsComponent } from './components/developer/developer-credentials/developer-credentials.component';
 import { DeveloperProfileComponent } from './components/developer/developer-profile/developer-profile.component';
 import { AdminDashboardComponent } from './components/admin/admin-dashboard/admin-dashboard.component';
+import { AdminCompaniesComponent } from './components/admin/admin-companies/admin-companies.component';
+import { MatSortModule } from '@angular/material';
+import { NicknameDeveloperPipe } from './pipes/nicknameDeveloper.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     CreateAssignmentComponent,
     HomeComponent,
-    TagComponent,
+    AdminTagsComponent,
     OverviewComponent,
     CompanyDashboardComponent,
     NavigationComponent,
@@ -42,10 +45,13 @@ import { AdminDashboardComponent } from './components/admin/admin-dashboard/admi
     CompanyProfileComponent,
     DeveloperCredentialsComponent,
     DeveloperProfileComponent,
-    AdminDashboardComponent
+    AdminDashboardComponent,
+    AdminCompaniesComponent,
+    NicknameDeveloperPipe
   ],
   imports: [
     BrowserModule,
+    MatSortModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModule,

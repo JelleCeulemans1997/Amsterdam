@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { CreateAssignmentComponent } from './components/assignment/create-assignment/create-assignment.component';
 import { LoginComponent } from './components/auth/login/login.component';
-import { TagComponent } from './components/tag/tag.component';
+import { AdminTagsComponent } from './components/admin/admin-tags/admin-tags.component';
 
 import { Role } from './models/role.enum';
 import { OverviewComponent } from './components/overview/overview.component';
@@ -17,6 +17,7 @@ import { CompanyProfileComponent } from './components/company/company-profile/co
 import { DeveloperCredentialsComponent } from './components/developer/developer-credentials/developer-credentials.component';
 import { AdminDashboardComponent } from './components/admin/admin-dashboard/admin-dashboard.component';
 import { DeveloperProfileComponent } from './components/developer/developer-profile/developer-profile.component';
+import { AdminCompaniesComponent } from './components/admin/admin-companies/admin-companies.component';
 
 
 
@@ -25,7 +26,7 @@ const routes: Routes = [
   { path: 'createAssignment', component: CreateAssignmentComponent, canActivate: [AuthGuard], data: {role: Role.Company}},
   { path: 'editAssignment/:assignmentId', component: CreateAssignmentComponent, canActivate: [AuthGuard], data: {role: Role.Company}},
   { path: 'login', component: LoginComponent },
-  { path: 'tag', component: TagComponent, canActivate: [AuthGuard], data: {role: Role.Admin} },
+  { path: 'tags', component: AdminTagsComponent, canActivate: [AuthGuard], data: {role: Role.Admin} },
   { path: 'overview', component: OverviewComponent},
   { path: 'companyassignmentdetail/:assignmentId', component: CompanyAssignmentdetailComponent},
   { path: 'signup', component: SignupComponent},
@@ -38,7 +39,9 @@ const routes: Routes = [
   { path: 'adminDashboard', component: AdminDashboardComponent, canActivate: [AuthGuard], data: {role: Role.Admin}},
   { path: 'companyProfile/:creatorId', component: CompanyProfileComponent},
   { path: 'developerCredentials', component: DeveloperCredentialsComponent, canActivate: [AuthGuard], data: {role: Role.Developer} },
-  { path: 'developerProfile/:userId', component: DeveloperProfileComponent}
+  { path: 'developerProfile/:userId', component: DeveloperProfileComponent},
+  { path: 'companies', component: AdminCompaniesComponent, canActivate: [AuthGuard], data: {role: Role.Admin}},
+
 ];
 
 @NgModule({

@@ -14,6 +14,16 @@ const Company = require("../models/company");
 
 // module.exports = router
 
+exports.getAllCompanies = (req, res) => {
+  try {
+    Company.find().exec((error, companies) => {
+      res.status(200).json(companies);
+    });
+  } catch (error) {
+    res.status(400).json({ message: 'Company not found', error });
+  }
+};
+
 exports.getByUserId = (req, res) => {
   try {
     Company.findOne({ userId: req.params.id }).exec((error, company) => {

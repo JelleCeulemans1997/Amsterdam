@@ -28,7 +28,9 @@
                   <li *ngIf="(roles$ | async).Company"><a routerLink="/companyCredentials" routerLinkActive="true">Company credentials</a></li>
                   <li *ngIf="(roles$ | async).Developer"><a routerLink="/developerDashboard" routerLinkActive="true">Dashboard</a></li>
                   <li *ngIf="(roles$ | async).Developer"><a routerLink="/developerCredentials" routerLinkActive="true">Credentials</a></li>
-                  <li *ngIf="(roles$ | async).Admin"><a routerLink="/tag" routerLinkActive="true">Tag</a></li>
+                  <li *ngIf="(roles$ | async).Admin"><a routerLink="/tags" routerLinkActive="true">Tags</a></li>
+                  <li *ngIf="(roles$ | async).Admin"><a routerLink="/companies" routerLinkActive="true">Companies</a></li>
+                  <li *ngIf="(roles$ | async).Admin"><a routerLink="/adminDashboard" routerLinkActive="true">Dashboard</a></li>
                   <!-- <li><a routerLink="/signUp" routerLinkActive="true">Signup</a></li>
                   <li><a routerLink="/companyhomepage" routerLinkActive="true">Company home</a></li>
                   <li><a routerLink="/companydashboard/5defa5ec1abe304418d63b23" routerLinkActive="true">Comp dash</a></li>
