@@ -5,11 +5,11 @@ import { CreateAssignmentComponent } from './components/assignment/create-assign
 import { LoginComponent } from './components/auth/login/login.component';
 import { TagComponent } from './components/tag/tag.component';
 
-import { Role } from './models/role';
+import { Role } from './models/role.enum';
 import { OverviewComponent } from './components/overview/overview.component';
 import { CompanyDashboardComponent } from './components/company/company-dashboard/company-dashboard.component';
 import { SignupComponent } from './components/auth/signup/signup.component';
-import { SignUpCompanyComponent } from './components/auth/sign-up-company/sign-up-company.component';
+import { CompanyCredentialsComponent } from './components/company/company-credentials/company-credentials.component';
 import {CompanyAssignmentdetailComponent} from './components/company/company-assignmentdetail/company-assignmentdetail.component';
 import { DeveloperDashboardComponent } from './components/developer-dashboard/developer-dashboard.component';
 import { AuthGuard } from './components/auth/auth.guard';
@@ -25,9 +25,9 @@ const routes: Routes = [
   { path: 'overview', component: OverviewComponent},
   { path: 'companyassignmentdetail/:assignmentId', component: CompanyAssignmentdetailComponent},
   { path: 'signup', component: SignupComponent},
-  { path: 'fuckdit', component: SignUpCompanyComponent},
   { path: 'company', component: CompanyDashboardComponent, canActivate: [AuthGuard], data: {role: Role.Company}},
-  { path: 'signupCompany', component: SignUpCompanyComponent, canActivate: [AuthGuard], data: {role: Role.Company}},
+  { path: 'signup', component: SignupComponent, },
+  { path: 'companyCredentials', component: CompanyCredentialsComponent, canActivate: [AuthGuard], data: {role: Role.Company}},
   { path: 'developerDashboard', component: DeveloperDashboardComponent, canActivate: [AuthGuard], data: {role: Role.Developer}}
 ];
 

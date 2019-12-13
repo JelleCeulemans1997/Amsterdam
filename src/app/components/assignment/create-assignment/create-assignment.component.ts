@@ -22,7 +22,7 @@ export class CreateAssignmentComponent implements OnInit {
   assignmentForm: FormGroup;
   separatorKeysCodes: number[] = [ENTER, COMMA];
   tagCtrl = new FormControl();
-  filteredTags: Observable<string[]>;
+  filteredTags: Observable<string[]> ;
   tags: string[] = [];
   allTags: string[] = [];
   imagePreview: string;
@@ -45,18 +45,7 @@ export class CreateAssignmentComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.tagService.getAllDesc().pipe(map(result => {
-      return {
-        tags: result.tags.map(tag => {
-          return {
-            id: tag._id,
-            name: tag.name,
-            usages: tag.usages
-          };
-        })
-      };
-    })).subscribe(result => {
-      this.tagObjects = Object.assign([], result.tags);
+    this.tagService.getAllDesc().subscribe(result => {
       result.tags.forEach(element => {
         this.allTags.push(element.name);
       });
@@ -79,32 +68,17 @@ export class CreateAssignmentComponent implements OnInit {
         this.editMode = true;
         this.assignmentId = paramMap.get('assignmentId');
         this.assignmentService.getAssignmentById(this.assignmentId).subscribe(result => {
-          this.tags = result.tags;
+          const assignment = result.assignment;
+          this.tags = assignment.tags;
           this.assignmentForm.setValue({
-            title: result.title,
-            description: result.description,
-            street: result.location[0].street,
-            nr: result.location[0].nr,
-            zipcode: result.location[0].zipcode,
-            city: result.location[0].city
+            title: assignment.title,
+            description: assignment.description,
+            street: assignment.location.street,
+            nr: assignment.location.nr,
+            zipcode: assignment.location.zipcode,
+            city: assignment.location.city
           });
         });
-
-
-        // this.postSService.getPost(this.postId).subscribe(postData => {
-        //   this.post = {
-        //     id: postData._id,
-        //     title: postData.title,
-        //     content: postData.content,
-        //     imagePath: postData.imagePath,
-        //     creator: postData.creator};
-        //   this.assignmentForm.setValue({
-        //     title: this.post.title,
-        //     content: this.post.content,
-        //     image: this.post.imagePath
-        //   });
-        // });
-
       } else {
         this.editMode = false;
         this.assignmentId = null;
@@ -185,6 +159,8 @@ export class CreateAssignmentComponent implements OnInit {
       this.assignmentService.updateAssignment(assignment);
     }
   }
+
+
   // onPdfPicked(event: Event) {
   //   const file = (event.target as HTMLInputElement).files[0];
   //   console.log(file);

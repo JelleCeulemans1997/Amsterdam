@@ -15,7 +15,7 @@ export class TagService {
   constructor( private http: HttpClient) { }
 
   getAllDesc() {
-    return this.http.get<{ tags: any }>(this.baseURL + '/tag/allDesc');
+    return this.http.get<{ tags: Tag[] }>(this.baseURL + '/tag/allDesc');
   }
 
 

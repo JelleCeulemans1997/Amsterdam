@@ -69,7 +69,7 @@ export class OverviewComponent implements OnInit {
     } else if (this.selection === 'Tags') {
       this.assignments.forEach(assignment => {
         this.tags.forEach(tag => {
-          if ( assignment.tags.includes(tag)) {
+          if (assignment.tags.includes(tag)) {
             if (!this.results.includes(assignment)) {
               this.results.push(assignment);
             }

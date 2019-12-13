@@ -41,7 +41,8 @@ exports.createUser = (req, res, next) => {
       role: req.body.role
     });
     console.log(user);
-    user.save()
+    user
+      .save()
       .then(result => {
         console.log(result);
         res.status(201).json({
@@ -62,7 +63,9 @@ exports.login = async (req, res) => {
   console.log(req.body);
   try {
     const { email, password } = req.body;
+    console.log(email, password);
     const user = await User.findByCredentials(email, password);
+    console.log(user);
     if (!user) {
       return res
         .status(401)
@@ -78,13 +81,14 @@ exports.login = async (req, res) => {
 exports.getByUserId = async (req, res) => {
   User.findById(req.params.id)
     .then(user => {
-      user ? res.status(200).json(user) : res.status(404).json({ message: 'User not found!'});
+      user
+        ? res.status(200).json(user)
+        : res.status(404).json({ message: "User not found!" });
     })
     .catch(error => {
-      res.status(500).json({ message: 'Fetching user failed'});
+      res.status(500).json({ message: "Fetching user failed" });
     });
-}
-
+};
 
 // router.get("/users", (req, res, next) => {
 //   try {
@@ -143,8 +147,6 @@ exports.getByUserId = async (req, res) => {
 //     res.status(400).send(error);
 //   }
 // });
-
-
 
 // router.get("/user/me", auth, async (req, res) => {
 //   // View logged in user profile

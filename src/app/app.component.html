@@ -25,7 +25,7 @@
                   <li *ngIf="(roles$ | async).Company" ><a routerLink="/createAssignment" routerLinkActive="true">Create Assignment</a></li>
                   <li><a routerLink="/overview" routerLinkActive="true">Overview</a></li>
                   <li *ngIf="(roles$ | async).Company"><a routerLink="/company" routerLinkActive="true">Company</a></li>
-                  <li *ngIf="(roles$ | async).Company"><a routerLink="/signupCompany" routerLinkActive="true">signup company</a></li>
+                  <li *ngIf="(roles$ | async).Company"><a routerLink="/companyCredentials" routerLinkActive="true">Company credentials</a></li>
                   <li *ngIf="(roles$ | async).Developer"><a routerLink="/developerDashboard" routerLinkActive="true">Dashboard</a></li>
                   <!-- <li><a routerLink="/signUp" routerLinkActive="true">Signup</a></li>
                   <li><a routerLink="/companyhomepage" routerLinkActive="true">Company home</a></li>

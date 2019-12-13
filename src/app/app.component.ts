@@ -14,7 +14,7 @@ import * as fromRole from './components/auth/role.reducer';
 import * as RoleAction from './components/auth/role.actions';
 import { LocalStorageService } from './services/localStorage.service';
 import { UserService } from './services/user.service';
-import { Role } from './models/role';
+import { Role } from './models/role.enum';
 
 @Component({
   selector: 'app-root',
@@ -43,10 +43,7 @@ export class AppComponent implements OnInit {
     if (this.localStorageService.getToken()) {
       // FIX THE NAVIGATE TO LOGIN!!
       const path = window.location.pathname;
-
-      const jwtData = this.localStorageService.getToken().split('.')[1];
-      const decodedJwt = window.atob(jwtData);
-      const userId = JSON.parse(decodedJwt)._id;
+      const userId = this.userService.getUserId();
 
       this.store.dispatch(new Auth.SetAuthenticated());
       this.userService.getUserbyId(userId).subscribe(result => {

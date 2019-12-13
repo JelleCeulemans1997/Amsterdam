@@ -30,13 +30,7 @@ export class AssignmentService {
   }
 
   getAssignmentById(assingmentId: string) {
-    return this.http.get<{ message: string; assignment: any }>(this.baseURL + '/assignment/' + assingmentId)
-      .pipe(map(result => {
-        return {
-          ...result.assignment,
-          id: result.assignment._id
-        };
-      }));
+    return this.http.get<{ message: string; assignment: Assignment }>(this.baseURL + '/assignment/' + assingmentId);
   }
 
   updateAssignment(assignment: Assignment) {

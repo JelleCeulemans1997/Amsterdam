@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 // const userRouter = require('./controllers/user');
 const tagRouter = require('./routes/tag');
 const assignmentRouter = require('./routes/assignment');
-const companyRouter = require('./controllers/company');
+const companyRouter = require('./routes/company');
 const userRouter = require('./routes/user');
 
 const mongoose = require('mongoose');
