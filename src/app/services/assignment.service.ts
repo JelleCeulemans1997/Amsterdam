@@ -102,6 +102,16 @@ export class AssignmentService {
     });
   }
 
+
+
+  sendApply(assignmentId: string, makerId: string) {
+    const maker = {applies: [{apply: makerId}]};
+    this.http.patch('http://localhost:3000/api/assignment/applyassignment/' + assignmentId, maker).subscribe(response => {
+      console.log(response);
+      console.log('added');
+    });
+  }
+
   denyApply(assignmentId: string, makerId: string) {
     const maker = {denied: [{deny: makerId}]};
     const removemaker = {applies : {

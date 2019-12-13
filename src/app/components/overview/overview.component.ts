@@ -7,6 +7,7 @@ import { ENTER, COMMA } from '@angular/cdk/keycodes';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { MatAutocompleteSelectedEvent, MatChipInputEvent, MatAutocomplete } from '@angular/material';
+import {UserService} from '../../services/user.service';
 
 @Component({
   selector: 'app-assignment-overview',
@@ -36,6 +37,7 @@ export class OverviewComponent implements OnInit {
   @ViewChild('auto', {static: false}) matAutocomplete: MatAutocomplete;
 
   constructor(
+    private userService: UserService,
     private assingmentService: AssignmentService,
     private fb: FormBuilder,
     private assignmentService: AssignmentService, private router: Router) {
@@ -141,6 +143,16 @@ export class OverviewComponent implements OnInit {
     console.log(creatorId);
     // go to company profile page
     this.router.navigate(['/companyProfile/' + creatorId]);
+  }
+
+
+  onApply(assignmentId) {
+
+    const makerId = this.userService.getUserId();
+
+    console.log('click assId: ' + assignmentId + ' - makerId: ' + makerId);
+
+    this.assignmentService.sendApply(assignmentId, makerId);
   }
 
 }
