@@ -32,9 +32,9 @@ const routes: Routes = [
   { path: 'signup', component: SignupComponent },
   { path: 'companyCredentials', component: CompanyCredentialsComponent, canActivate: [AuthGuard], data: {role: Role.Company}},
   { path: 'developerDashboard', component: DeveloperDashboardComponent, canActivate: [AuthGuard], data: {role: Role.Developer}},
-  { path: 'companyProfile/:creatorId', component: CompanyProfileComponent, canActivate: [AuthGuard], data: {role: Role.Company}},
+  { path: 'companyProfile/:creatorId', component: CompanyProfileComponent},
   { path: 'developerCredentials', component: DeveloperCredentialsComponent, canActivate: [AuthGuard], data: {role: Role.Developer} },
-  { path: 'developerProfile/:userId', component: DeveloperProfileComponent, canActivate: [AuthGuard], data: {role: Role.Developer} }
+  { path: 'developerProfile/:userId', component: DeveloperProfileComponent}
 ];
 
 @NgModule({
