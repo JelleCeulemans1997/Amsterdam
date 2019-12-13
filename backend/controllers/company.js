@@ -24,6 +24,17 @@ exports.getByUserId = (req, res) => {
   }
 };
 
+exports.getByCreatorId = (req, res) => {
+  try {
+    console.log(req.params.id);
+    Company.findOne({ creator: req.params.id }).exec((error, company) => {
+      res.status(200).json(company);
+    });
+  } catch (error) {
+    res.status(400).json({ message: "Company not found", error });
+  }
+};
+
 exports.createCompany = (req, res) => {
   const company = new Company({
     ...req.body

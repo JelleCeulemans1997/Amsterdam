@@ -8,4 +8,5 @@ router.post('/create', CompanyController.createCompany);
 router.get('/getByUserId/:id', CompanyController.getByUserId);
 router.put('/update/:id', CompanyController.updateCompany);
 
+
 module.exports = router;

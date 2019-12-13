@@ -13,6 +13,7 @@ import { CompanyCredentialsComponent } from './components/company/company-creden
 import {CompanyAssignmentdetailComponent} from './components/company/company-assignmentdetail/company-assignmentdetail.component';
 import { DeveloperDashboardComponent } from './components/developer-dashboard/developer-dashboard.component';
 import { AuthGuard } from './components/auth/auth.guard';
+import { CompanyProfileComponent } from './components/company/company-profile/company-profile.component';
 
 
 
@@ -26,9 +27,10 @@ const routes: Routes = [
   { path: 'companyassignmentdetail/:assignmentId', component: CompanyAssignmentdetailComponent},
   { path: 'signup', component: SignupComponent},
   { path: 'company', component: CompanyDashboardComponent, canActivate: [AuthGuard], data: {role: Role.Company}},
-  { path: 'signup', component: SignupComponent, },
+  { path: 'signup', component: SignupComponent },
   { path: 'companyCredentials', component: CompanyCredentialsComponent, canActivate: [AuthGuard], data: {role: Role.Company}},
-  { path: 'developerDashboard', component: DeveloperDashboardComponent, canActivate: [AuthGuard], data: {role: Role.Developer}}
+  { path: 'developerDashboard', component: DeveloperDashboardComponent, canActivate: [AuthGuard], data: {role: Role.Developer}},
+  { path: 'companyProfile/:creatorId', component: CompanyProfileComponent },
 ];
 
 @NgModule({

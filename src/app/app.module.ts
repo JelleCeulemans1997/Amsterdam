@@ -23,6 +23,7 @@ import { DeveloperDashboardComponent } from './components/developer-dashboard/de
 import { StoreModule } from '@ngrx/store';
 import { reducers } from './app.reducer';
 import { AuthGuard } from './components/auth/auth.guard';
+import { CompanyProfileComponent } from './components/company/company-profile/company-profile.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { AuthGuard } from './components/auth/auth.guard';
     CompanyDashboardComponent,
     NavigationComponent,
     CompanyAssignmentdetailComponent,
-    DeveloperDashboardComponent
+    DeveloperDashboardComponent,
+    CompanyProfileComponent
   ],
   imports: [
     BrowserModule,

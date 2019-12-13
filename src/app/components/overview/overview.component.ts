@@ -137,4 +137,10 @@ export class OverviewComponent implements OnInit {
     this.router.navigateByUrl('/assignmentDetail/' + id);
   }
 
+  showCompantDetails(creatorId: string) {
+    console.log(creatorId);
+    // go to company profile page
+    this.router.navigate(['/companyProfile/' + creatorId]);
+  }
+
 }
