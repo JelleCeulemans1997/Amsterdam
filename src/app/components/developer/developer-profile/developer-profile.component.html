@@ -12,16 +12,16 @@
         </mat-chip-list>
       </div>
       <div>
-        <h4>Contact</h4>
-        <div>
-          <mat-icon>contact_mail</mat-icon><a [href]="mailtoLink">{{developer.email}}</a>
+        <h4 class="profile-title">Contact</h4>
+        <div class="contact-container">
+          <mat-icon>contact_mail</mat-icon><a class="contact-link" [href]="mailtoLink">{{developer.email}}</a>
         </div>
-        <div>
-          <mat-icon>contact_phone</mat-icon><a [href]="telLink">{{developer.phone}}</a>
+        <div  class="contact-container">
+          <mat-icon>contact_phone</mat-icon><a class="contact-link" [href]="telLink">{{developer.phone}}</a>
         </div>
       </div>
       <div>
-        <h4>Location</h4>
+        <h4 class="profile-title">Location</h4>
         <div>{{developer.location.zipcode}} {{developer.location.city}}</div>
       </div>
     </mat-card-content>
