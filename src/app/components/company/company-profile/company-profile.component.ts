@@ -7,6 +7,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from 'src/app/services/user.service';
 import { ReviewService } from 'src/app/services/review.service';
 import { Developer } from 'src/app/models/developer.model';
+import { LocationDefining } from 'src/app/models/location.model';
 
 @Component({
   selector: 'app-company-profile',
@@ -41,6 +42,9 @@ export class CompanyProfileComponent implements OnInit {
     this.reviews.push(review);
     this.company.reviews = this.reviews;
     this.companyService.updateCompany(this.company).subscribe();
+    if (this.reviews.length < 5) {
+      this.splicedData.push(review);
+    }
   }
 
   onClick(star: number) {
@@ -75,8 +79,8 @@ export class CompanyProfileComponent implements OnInit {
         if (res) {
           this.user = res;
         } else {
-          this.user = null;
-          // new Developer('', '', '', '', '', new Date(), '', '', [], null, []);
+          const location: LocationDefining = { city: '', street: '', nr: '', zipcode: '' };
+          this.user = new Developer('User not found', '', '', '', '', '', '', new Date(), '', '', [], location, []);
           console.log(this.user);
         }
       });

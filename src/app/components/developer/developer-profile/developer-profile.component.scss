@@ -1,0 +1,39 @@
+.star:hover {
+  color: darkorange;
+  cursor: pointer;
+}
+
+.selectedStar{
+  color: darkorange;
+}
+
+.starContainer{
+  display:flex;
+  color: darkorange;
+}
+
+.review{
+  margin: 15px;
+  padding-top:15px;
+}
+
+.contact-link{
+  text-decoration: none;
+  margin-left: 16px;
+  color: #000;
+
+}
+
+.contact-link:hover{
+  color: darkorange;
+}
+
+.contact-container{
+  display: flex;
+  align-items: center;
+  margin: 8px;
+}
+
+.profile-title{
+  margin-top: 16px;
+}

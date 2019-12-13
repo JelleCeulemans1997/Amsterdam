@@ -16,6 +16,7 @@ import { AuthGuard } from './components/auth/auth.guard';
 import { CompanyProfileComponent } from './components/company/company-profile/company-profile.component';
 import { DeveloperCredentialsComponent } from './components/developer/developer-credentials/developer-credentials.component';
 import { AdminDashboardComponent } from './components/admin/admin-dashboard/admin-dashboard.component';
+import { DeveloperProfileComponent } from './components/developer/developer-profile/developer-profile.component';
 
 
 
@@ -34,7 +35,10 @@ const routes: Routes = [
   { path: 'developerDashboard', component: DeveloperDashboardComponent, canActivate: [AuthGuard], data: {role: Role.Developer}},
   { path: 'companyProfile/:creatorId', component: CompanyProfileComponent, canActivate: [AuthGuard], data: {role: Role.Company}},
   { path: 'developerCredentials', component: DeveloperCredentialsComponent, canActivate: [AuthGuard], data: {role: Role.Developer}},
-  { path: 'adminDashboard', component: AdminDashboardComponent, canActivate: [AuthGuard], data: {role: Role.Admin}}
+  { path: 'adminDashboard', component: AdminDashboardComponent, canActivate: [AuthGuard], data: {role: Role.Admin}},
+  { path: 'companyProfile/:creatorId', component: CompanyProfileComponent},
+  { path: 'developerCredentials', component: DeveloperCredentialsComponent, canActivate: [AuthGuard], data: {role: Role.Developer} },
+  { path: 'developerProfile/:userId', component: DeveloperProfileComponent}
 ];
 
 @NgModule({
