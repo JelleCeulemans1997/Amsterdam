@@ -1,0 +1,47 @@
+<div class="container mt-5 mb-5" *ngIf="company" fxFlex fxLayout="column" fxLayoutGap="20px">
+  <mat-card>
+    <mat-card-title>
+      <h3>{{ company.name }}</h3>
+    </mat-card-title>
+    <mat-card-content>
+      <p>{{ company.bio }}</p>
+      <div>
+        <mat-chip-list style="display: inline;" mat-chip-list *ngFor="let tag of company.tags" fxFlex fxLayout="row"
+          fxLayoutGap="5px">
+          <mat-chip color="primary" [selected]="true">{{tag}}</mat-chip>
+        </mat-chip-list>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <div>{{company.contact.firstname}} {{company.contact.lastname}}</div>
+        <div>
+          <mat-icon>contact_mail</mat-icon><a [href]="mailtoLink">{{company.contact.email}}</a>
+        </div>
+        <div>
+          <mat-icon>contact_phone</mat-icon><a [href]="telLink">{{company.contact.phone}}</a>
+        </div>
+      </div>
+      <div>
+        <h4>Location</h4>
+        <div>{{company.location.street}} {{company.location.nr}}</div>
+        <div>{{company.location.zipcode}} {{company.location.city}}</div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card>
+    <mat-card-title>
+      <h3> Write Review</h3>
+    </mat-card-title>
+  </mat-card>
+
+
+  <mat-card>
+      <mat-card-title>
+        <h3>Reviews</h3>
+      </mat-card-title>
+      <mat-card-content>
+        <p>Maybe with paginator ?</p>
+      </mat-card-content>
+    </mat-card>
+</div>
