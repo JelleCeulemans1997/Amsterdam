@@ -61,7 +61,7 @@ export class AssignmentService {
           assignments: result.assignments.map(assignment => {
             return {
               ...assignment,
-              id: assignment._id
+              id: assignment.id
             };
           })
         };
@@ -99,6 +99,16 @@ export class AssignmentService {
     this.http.patch('http://localhost:3000/api/assignment/removeappliedassignment/' + assignmentId, removemaker).subscribe(response => {
     console.log(response);
     console.log('deleted');
+    });
+  }
+
+
+
+  sendApply(assignmentId: string, makerId: string) {
+    const maker = {applies: [{apply: makerId}]};
+    this.http.patch('http://localhost:3000/api/assignment/applyassignment/' + assignmentId, maker).subscribe(response => {
+      console.log(response);
+      console.log('added');
     });
   }
 

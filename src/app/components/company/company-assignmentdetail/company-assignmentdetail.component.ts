@@ -32,10 +32,7 @@ isLoading = false;
     });
   }
 
-  onClickPanel() {
-    console.log('clicked panel');
-    // this.isLoading = true;
-  }
+
 
   onAcceptApply(assignmentId, makerId) {
     console.log('click assId: ' + assignmentId + ' - makerId: ' + makerId);

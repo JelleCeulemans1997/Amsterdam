@@ -58,7 +58,7 @@
 
             </mat-card-content>
             <mat-card-actions>
-              <button class="btn btn-primary"  [routerLink]="['/editAssignment', assignment.assignment._id]">EDIT ASSIGNMENT</button>
+              <button class="btn btn-primary"  [routerLink]="['/editAssignment', assignment.assignment.id]">EDIT ASSIGNMENT</button>
             </mat-card-actions>
           </mat-card>
 
@@ -71,7 +71,7 @@
 
 
         <div class="col-md-5"><mat-accordion>
-          <mat-expansion-panel (click)="onClickPanel()">
+          <mat-expansion-panel>
             <mat-expansion-panel-header>
               <mat-panel-title>
                 Applies
@@ -89,8 +89,8 @@
 
                           <mat-list role="list">
                             <mat-list-item role="listitem">Profile</mat-list-item>
-                            <mat-list-item role="listitem" (click)="onAcceptApply(assignment.assignment._id, apply.apply)">Accept</mat-list-item>
-                            <mat-list-item role="listitem" (click)="onDenyApply(assignment.assignment._id, apply.apply)">Deny</mat-list-item>
+                            <mat-list-item role="listitem" (click)="onAcceptApply(assignment.assignment.id, apply.apply.id)">Accept</mat-list-item>
+                            <mat-list-item role="listitem" (click)="onDenyApply(assignment.assignment.id, apply.apply.id)">Deny</mat-list-item>
                           </mat-list>
 
             </mat-expansion-panel>

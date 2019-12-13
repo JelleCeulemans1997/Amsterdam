@@ -41,14 +41,11 @@ app.use((req, res, next) => {
   next();
 });
 
-// app.use('/api', userRouter);
 app.use('/api/tag', tagRouter);
 app.use('/api/assignment', assignmentRouter);
 app.use('/api/company', companyRouter);
 app.use('/api/user', userRouter);
 app.use('/api/developer', developerRouter);
-
-//app.use('/api/posts', postRoutes);
 
 
 module.exports = app;

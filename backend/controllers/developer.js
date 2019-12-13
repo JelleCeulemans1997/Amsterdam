@@ -14,6 +14,7 @@ exports.createDeveloper = (req, res) => {
 };
 
 exports.getByUserId = (req, res) => {
+  console.log(req.params)
   try {
     Developer.findOne({ userId: req.params.id }).exec((error, developer) => {
       res.status(200).json(developer);
@@ -40,3 +41,4 @@ exports.updateDeveloper = (req, res) => {
       });
     });
   }
+
