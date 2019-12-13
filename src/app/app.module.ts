@@ -26,6 +26,7 @@ import { AuthGuard } from './components/auth/auth.guard';
 import { CompanyProfileComponent } from './components/company/company-profile/company-profile.component';
 import { DeveloperCredentialsComponent } from './components/developer/developer-credentials/developer-credentials.component';
 import { DeveloperProfileComponent } from './components/developer/developer-profile/developer-profile.component';
+import { AdminDashboardComponent } from './components/admin/admin-dashboard/admin-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { DeveloperProfileComponent } from './components/developer/developer-prof
     DeveloperDashboardComponent,
     CompanyProfileComponent,
     DeveloperCredentialsComponent,
-    DeveloperProfileComponent
+    DeveloperProfileComponent,
+    AdminDashboardComponent
   ],
   imports: [
     BrowserModule,
