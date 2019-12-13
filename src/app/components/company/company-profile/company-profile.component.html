@@ -33,6 +33,20 @@
     <mat-card-title>
       <h3> Write Review</h3>
     </mat-card-title>
+    <mat-card-content>
+      <form [formGroup]="reviewForm">
+          <mat-icon class="star" id="star1" (click)="onClick(1)">star_border</mat-icon>
+          <mat-icon class="star" id="star2" (click)="onClick(2)">star_border</mat-icon>
+          <mat-icon class="star" id="star3" (click)="onClick(3)">star_border</mat-icon>
+          <mat-icon class="star" id="star4" (click)="onClick(4)">star_border</mat-icon>
+          <mat-icon class="star" id="star5" (click)="onClick(5)">star_border</mat-icon>
+        <br/>
+        <mat-form-field>
+          <textarea matInput formControlName="text" placeholder="Write a review"></textarea>
+        </mat-form-field><br/>
+        <button mat-button (click)="onSubmit()">Submit</button>
+      </form>
+    </mat-card-content>
   </mat-card>
 
 
@@ -40,8 +54,25 @@
       <mat-card-title>
         <h3>Reviews</h3>
       </mat-card-title>
+      <mat-divider></mat-divider>
+
       <mat-card-content>
-        <p>Maybe with paginator ?</p>
+        <div *ngFor="let review of splicedData" class="review" >
+          <div class="starContainer">
+            <div *ngFor="let star of showStars(review)" >
+              <mat-icon *ngIf="star == 'full'">star</mat-icon>
+              <mat-icon *ngIf="star == 'empty'">star_border</mat-icon>
+            </div>
+          </div>
+          <p>"{{review.text}}" - {{getUser(review)}} {{user.nickname}}</p>
+
+        <mat-divider ></mat-divider>
+        </div>
+
+      <mat-paginator (page)="pageChangeEvent($event)" [length]="reviews.length"
+      [pageSize]="5"
+      ></mat-paginator>
       </mat-card-content>
+
     </mat-card>
 </div>
