@@ -29,23 +29,25 @@
           <mat-card class="example-card">
             <mat-card-header>
 <!--              <div mat-card-avatar class="example-header-image"></div>-->
-              <mat-card-title ><span style="text-align: center">{{assignment.assignment.title}}</span></mat-card-title>
+              <mat-card-title ><span>{{assignment.assignment.title}}</span></mat-card-title>
 <!--              <mat-card-subtitle>Dog Breed</mat-card-subtitle>-->
             </mat-card-header>
 <!--            <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">-->
             <mat-card-content>
 <!--              <h1 >{{assignment.assignment.title}}</h1>-->
-              <h3 style="text-align: center">description</h3>
-              <p style="text-align: center">{{assignment.assignment.description}}</p>
+              <h3>Description</h3>
+              <p>{{assignment.assignment.description}}</p>
 
-              <h3 style="text-align: center">location</h3>
-              <div style="text-align: center" *ngFor="let location of assignment.assignment.location">
-                <p>city: {{location.city}}</p>
-                <p>nr: {{location.nr}}</p>
-                <p>street: {{location.street}}</p>
-                <p>zipcode: {{location.zipcode}}</p>
+              <h3>Location</h3>
+              <div *ngFor="let location of assignment.assignment.location">
+                <div>Street: {{location.street}} - Nr: {{location.nr}} </div>
+                <div>City: {{location.city}} - Zipcode: {{location.zipcode}} </div>
+<!--                <p>city: {{location.city}}</p>-->
+<!--                <p>nr: {{location.nr}}</p>-->
+<!--                <p>street: {{location.street}}</p>-->
+<!--                <p>zipcode: {{location.zipcode}}</p>-->
               </div>
-              <h3 style="text-align: center">tags</h3>
+              <h3>Tags</h3>
 <!--              <div style="text-align: center" *ngFor="let tag of assignment.assignment.tags">-->
 <!--                <p>{{tag}}</p>-->
 <!--              </div>-->
@@ -58,7 +60,7 @@
 
             </mat-card-content>
             <mat-card-actions>
-              <button class="btn btn-primary"  [routerLink]="['/editAssignment', assignment.assignment.id]">EDIT ASSIGNMENT</button>
+              <button mat-button color="primary" [routerLink]="['/editAssignment', assignment.assignment.id]">EDIT ASSIGNMENT</button>
             </mat-card-actions>
           </mat-card>
 
