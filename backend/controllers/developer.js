@@ -6,6 +6,7 @@ exports.createDeveloper = (req, res) => {
   });
   developer.save()
     .then(developer => {
+      console.log('developer is added to the databaseeee');
       res.status(201).json({ message: 'Developer added successfully', developer });
     })
     .catch(error => {

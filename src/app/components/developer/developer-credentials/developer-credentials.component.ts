@@ -6,7 +6,6 @@ import { Developer } from 'src/app/models/developer.model';
 import { Tag } from 'src/app/models/tag.model';
 import { MatAutocomplete, MatChipInputEvent, MatAutocompleteSelectedEvent } from '@angular/material';
 import { UserService } from 'src/app/services/user.service';
-import { CompanyService } from 'src/app/services/company.service';
 import { TagService } from 'src/app/services/tag.service';
 import { startWith, map } from 'rxjs/operators';
 import { LocationDefining } from 'src/app/models/location.model';
@@ -19,7 +18,6 @@ import { DeveloperService } from 'src/app/services/developer.service';
 })
 export class DeveloperCredentialsComponent implements OnInit {
 
-  developer: Developer;
   developerForm: FormGroup;
   visible = true;
   selectable = true;
@@ -103,12 +101,10 @@ export class DeveloperCredentialsComponent implements OnInit {
     const userId = this.userService.getUserId();
     const developer = new Developer('', nickname, userId, firstname, lastname, email, phone, dob, bio, linkedin, this.tags, location, null);
 
-    this.developerService.createDeveloper(developer).subscribe(result => {
-      console.log(result);
-    });
 
     if (this.editMode) {
-      this.developer.id = this.developerId;
+      developer.id = this.developerId;
+      console.log(this.developerId);
       this.developerService.updateDeveloper(developer).subscribe(result => {
         console.log(result);
         this.ngOnInit();

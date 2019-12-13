@@ -1,5 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { AuthenticateService } from './services/authenticate.service';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import * as fromRoot from './app.reducer';

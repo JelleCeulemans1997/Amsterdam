@@ -69,13 +69,14 @@ export class CompanyProfileComponent implements OnInit {
   }
 
   getUser(review: Review) {
-    if (!this.user){
+    if (!this.user) {
       this.reviewService.getDeveloperByUserId(review.userId).subscribe(res => {
         console.log(res);
         if (res) {
           this.user = res;
         } else {
-          this.user = new Developer('User not found', '', '', '', '', new Date(), '', '', [], null, []);
+          this.user = null;
+          // new Developer('', '', '', '', '', new Date(), '', '', [], null, []);
           console.log(this.user);
         }
       });
