@@ -18,7 +18,7 @@
                   <mat-icon>menu</mat-icon>
               </button>
           </div>
-          <div>Amsterdam</div>
+          <div>DEV-COM connect</div>
           <div fxFlex fxLayout fxLayoutAlign="flex-end" class="navigation-items" fxHide.lt-sm>
               <ul fxLayout fxLayoutGap="20px" class="navigation-items">
                   <li><a routerLink="/" routerLinkActive="true" class="home">Home</a></li>
@@ -27,6 +27,7 @@
                   <li *ngIf="(roles$ | async).Company"><a routerLink="/company" routerLinkActive="true">Company</a></li>
                   <li *ngIf="(roles$ | async).Company"><a routerLink="/companyCredentials" routerLinkActive="true">Company credentials</a></li>
                   <li *ngIf="(roles$ | async).Developer"><a routerLink="/developerDashboard" routerLinkActive="true">Dashboard</a></li>
+                  <li *ngIf="(roles$ | async).Developer"><a routerLink="/developerCredentials" routerLinkActive="true">Credentials</a></li>
                   <!-- <li><a routerLink="/signUp" routerLinkActive="true">Signup</a></li>
                   <li><a routerLink="/companyhomepage" routerLinkActive="true">Company home</a></li>
                   <li><a routerLink="/tag" routerLinkActive="true">Tag</a></li>

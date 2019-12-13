@@ -12,18 +12,20 @@ import { TagComponent } from './components/tag/tag.component';
 import { AuthModule } from './components/auth/auth.module';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { MatAutocompleteModule} from '@angular/material/autocomplete';
 import { OverviewComponent } from './components/overview/overview.component';
 import { CompanyDashboardComponent } from './components/company/company-dashboard/company-dashboard.component';
 import { NavigationComponent } from './components/company/company-dashboard/navigation/navigation.component';
-import {MatBadgeModule} from '@angular/material/badge';
+import { MatBadgeModule} from '@angular/material/badge';
 import { CompanyAssignmentdetailComponent } from './components/company/company-assignmentdetail/company-assignmentdetail.component';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import { DeveloperDashboardComponent } from './components/developer-dashboard/developer-dashboard.component';
+import { MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { DeveloperDashboardComponent } from './components/developer/developer-dashboard/developer-dashboard.component';
 import { StoreModule } from '@ngrx/store';
 import { reducers } from './app.reducer';
 import { AuthGuard } from './components/auth/auth.guard';
 import { CompanyProfileComponent } from './components/company/company-profile/company-profile.component';
+import { DeveloperCredentialsComponent } from './components/developer/developer-credentials/developer-credentials.component';
+import { DeveloperProfileComponent } from './components/developer/developer-profile/developer-profile.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,9 @@ import { CompanyProfileComponent } from './components/company/company-profile/co
     NavigationComponent,
     CompanyAssignmentdetailComponent,
     DeveloperDashboardComponent,
-    CompanyProfileComponent
+    CompanyProfileComponent,
+    DeveloperCredentialsComponent,
+    DeveloperProfileComponent
   ],
   imports: [
     BrowserModule,

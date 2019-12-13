@@ -11,9 +11,10 @@ import { CompanyDashboardComponent } from './components/company/company-dashboar
 import { SignupComponent } from './components/auth/signup/signup.component';
 import { CompanyCredentialsComponent } from './components/company/company-credentials/company-credentials.component';
 import {CompanyAssignmentdetailComponent} from './components/company/company-assignmentdetail/company-assignmentdetail.component';
-import { DeveloperDashboardComponent } from './components/developer-dashboard/developer-dashboard.component';
+import { DeveloperDashboardComponent } from './components/developer/developer-dashboard/developer-dashboard.component';
 import { AuthGuard } from './components/auth/auth.guard';
 import { CompanyProfileComponent } from './components/company/company-profile/company-profile.component';
+import { DeveloperCredentialsComponent } from './components/developer/developer-credentials/developer-credentials.component';
 
 
 
@@ -30,7 +31,8 @@ const routes: Routes = [
   { path: 'signup', component: SignupComponent },
   { path: 'companyCredentials', component: CompanyCredentialsComponent, canActivate: [AuthGuard], data: {role: Role.Company}},
   { path: 'developerDashboard', component: DeveloperDashboardComponent, canActivate: [AuthGuard], data: {role: Role.Developer}},
-  { path: 'companyProfile/:creatorId', component: CompanyProfileComponent },
+  { path: 'companyProfile/:creatorId', component: CompanyProfileComponent, canActivate: [AuthGuard], data: {role: Role.Company}},
+  { path: 'developerCredentials', component: DeveloperCredentialsComponent, canActivate: [AuthGuard], data: {role: Role.Developer} }
 ];
 
 @NgModule({
