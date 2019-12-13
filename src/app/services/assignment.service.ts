@@ -61,7 +61,7 @@ export class AssignmentService {
           assignments: result.assignments.map(assignment => {
             return {
               ...assignment,
-              id: assignment._id
+              id: assignment.id
             };
           })
         };
