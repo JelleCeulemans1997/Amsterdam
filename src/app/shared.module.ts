@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatGridListModule } from '@angular/material/grid-list';
-import { MatChipsModule, MatAutocompleteModule } from '@angular/material';
+import { MatChipsModule, MatAutocompleteModule, MatPaginatorModule } from '@angular/material';
 
 
 
@@ -17,7 +17,8 @@ import { MatChipsModule, MatAutocompleteModule } from '@angular/material';
     MatGridListModule,
     MatChipsModule,
     MatAutocompleteModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatPaginatorModule
   ],
   exports: [
     FlexLayoutModule,
@@ -26,7 +27,8 @@ import { MatChipsModule, MatAutocompleteModule } from '@angular/material';
     MatGridListModule,
     MatChipsModule,
     MatAutocompleteModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatPaginatorModule
   ]
 })
 export class SharedModule { }
