@@ -64,7 +64,7 @@
               <mat-icon *ngIf="star == 'empty'">star_border</mat-icon>
             </div>
           </div>
-          <p>"{{review.text}}" - user</p>
+          <p>"{{review.text}}" - {{getUser(review)}} {{user.nickname}}</p>
 
         <mat-divider ></mat-divider>
         </div>

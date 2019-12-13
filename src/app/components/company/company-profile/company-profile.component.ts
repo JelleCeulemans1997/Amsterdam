@@ -5,6 +5,8 @@ import { Company } from 'src/app/models/company.model';
 import { Review } from 'src/app/models/review.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from 'src/app/services/user.service';
+import { ReviewService } from 'src/app/services/review.service';
+import { Developer } from 'src/app/models/developer.model';
 
 @Component({
   selector: 'app-company-profile',
@@ -23,11 +25,14 @@ export class CompanyProfileComponent implements OnInit {
 
   starsShown: string[];
 
+  user: Developer;
+
   constructor(
     private route: ActivatedRoute,
     private companyService: CompanyService,
     private fb: FormBuilder,
-    private userService: UserService) { }
+    private userService: UserService,
+    private reviewService: ReviewService) { }
 
   onSubmit() {
     const stars = document.getElementsByClassName('selectedStar');
@@ -63,12 +68,18 @@ export class CompanyProfileComponent implements OnInit {
     return this.starsShown;
   }
 
-  getUser(review: Review){
-    let user;
-    this.userService.getUserbyId(review.userId).subscribe(res => {
-      user = res.email;
-    });
-    return user;
+  getUser(review: Review) {
+    if (!this.user){
+      this.reviewService.getDeveloperByUserId(review.userId).subscribe(res => {
+        console.log(res);
+        if (res) {
+          this.user = res;
+        } else {
+          this.user = new Developer('User not found', '', '', '', '', new Date(), '', '', [], null, []);
+          console.log(this.user);
+        }
+      });
+    }
   }
 
   pageChangeEvent(event) {

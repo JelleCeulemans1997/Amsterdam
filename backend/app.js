@@ -6,6 +6,7 @@ const tagRouter = require('./routes/tag');
 const assignmentRouter = require('./routes/assignment');
 const companyRouter = require('./routes/company');
 const userRouter = require('./routes/user');
+const developerRouter = require('./routes/developer');
 
 const mongoose = require('mongoose');
 mongoose.set('useCreateIndex', true)
@@ -45,6 +46,7 @@ app.use('/api/tag', tagRouter);
 app.use('/api/assignment', assignmentRouter);
 app.use('/api/company', companyRouter);
 app.use('/api/user', userRouter);
+app.use('/api/developer', developerRouter);
 //app.use('/api/posts', postRoutes);
 
 
