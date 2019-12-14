@@ -29,9 +29,8 @@
     </mat-card-content>
   </mat-card>
 
-  <!-- Moet verplaatst worden -->
 
-  <!-- <mat-card>
+ <mat-card *ngIf="allowed">
     <mat-card-title>
       <h3> Write Review</h3>
     </mat-card-title>
@@ -44,12 +43,14 @@
           <mat-icon class="star" id="star5" (click)="onClick(5)">star_border</mat-icon>
         <br/>
         <mat-form-field>
-          <textarea matInput formControlName="text" placeholder="Write a review"></textarea>
-        </mat-form-field><br/>
+          <textarea matInput id="reviewCompanyTextArea" formControlName="text" placeholder="Write a review"></textarea>
+        </mat-form-field>
+        <p *ngIf="!allowed">You cannot write a review for this company since you have not yet worked with them. Thank you for your understanding.</p>
+        <br/>
         <button mat-button (click)="onSubmit()">Submit</button>
       </form>
     </mat-card-content>
-  </mat-card> -->
+  </mat-card>
 
 
   <mat-card *ngIf="splicedData.length > 0">

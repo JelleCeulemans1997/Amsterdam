@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Assignment } from '../models/assignment.model';
 import { LocationDefining } from '../models/location.model';
 import { map } from 'rxjs/operators';
+import { User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -50,6 +51,11 @@ export class AssignmentService {
   getAllAsignments() {
     return this.http.get<{ message: string, assignments: Assignment[] }>(this.baseURL + '/assignment');
   }
+
+  getAllByCompany(userId: string) {
+    return this.http.get<{ message: string, assignments: Assignment[] }>(this.baseURL + '/assignment/getByCompany/' + userId);
+  }
+
 
   getAssignment(assignmentId: string) {
     return this.http.get<{ message: string, assignment: any }>(this.baseURL + '/assignment/' + assignmentId);
