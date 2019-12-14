@@ -3,7 +3,7 @@ const Developer = require("../models/developer");
 exports.getAll = (req, res) => {
   console.log(req.params)
   try {
-    Developer.find().exec((error, developers) => {
+    Developer.find().populate('reviews.company').exec((error, developers) => {
       res.status(200).json(developers);
     });
   } catch (error) {
@@ -29,7 +29,7 @@ exports.createDeveloper = (req, res) => {
 exports.getByUserId = (req, res) => {
   console.log(req.params)
   try {
-    Developer.findOne({ userId: req.params.id }).exec((error, developer) => {
+    Developer.findOne({ userId: req.params.id }).populate('reviews.company').exec((error, developer) => {
       res.status(200).json(developer);
     });
   } catch (error) {
