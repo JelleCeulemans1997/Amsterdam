@@ -31,8 +31,13 @@ export class DeveloperProfileComponent implements OnInit {
   user: Company;
 
 
-  constructor( private developerService: DeveloperService, private route: ActivatedRoute,
-    private fb: FormBuilder, private userService: UserService, private reviewService: ReviewService) { }
+  constructor(
+    private developerService: DeveloperService,
+    private route: ActivatedRoute,
+    private fb: FormBuilder,
+    private userService: UserService,
+    private reviewService: ReviewService,
+    private assignmentService: AssignmentService) { }
 
   onSubmit() {
     const stars = document.getElementsByClassName('selectedStar');
@@ -104,8 +109,13 @@ export class DeveloperProfileComponent implements OnInit {
           }
           console.log(result);
         });
+        this.userService.getUserbyId(paramMap.get('userId')).subscribe(res => {
+          console.log(res)
+          this.assignmentService.getAllByAppliedDev(res.id).subscribe(response => {
+            console.log(response);
+          });
+        });
       }
     });
   }
-
 }

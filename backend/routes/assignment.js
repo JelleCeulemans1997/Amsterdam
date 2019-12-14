@@ -38,6 +38,27 @@ router.get('/getByCompany/:creatorId', (req, res, next) => {
     });
 });
 
+router.get('/getByDeveloper/:userId', (req, res, next) => {
+  console.log(req.params.userId)
+  //INSERT FUNCTION GET USER BY USERID THEN FIND USER: USER
+  Assignment.find()
+    .then(documents => {
+      documents.map(document => {
+        document.applies.find({user: req.params.userId})
+        .then(assignments => {
+          res.status(200).json({
+            message: 'assignments fetched succesully',
+            assignments: assignments
+          });
+        })
+      })
+    }).catch(error => {
+      res.status(500).json({
+        message: 'Couldn\'t fetch assignments'
+      });
+    });
+});
+
 // router.get("/:id", (req, res, next) => {
 //   Assignment.find({_id: req.params.id})
 //     .then(document => {
