@@ -1,4 +1,5 @@
 import { LocationDefining } from '../models/location.model';
+import { User } from './user.model';
 import { Company } from './company.model';
 
 export class Assignment {
@@ -9,6 +10,7 @@ export class Assignment {
     public tags: string[],
     public location: LocationDefining,
     public creator: string,
+    public accepted: string[],
     public company?: Company
     // ,
     // public pdf: string

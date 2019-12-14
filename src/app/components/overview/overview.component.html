@@ -33,8 +33,12 @@
 
       <ng-template #noTags>
         <mat-form-field style="width:95%">
-          <input matInput type="text" formControlName="searchString" (keyup)="search()"
-            placeholder="Search for assignments" />
+          <input *ngIf="selection == 'Location'" matInput type="text" formControlName="searchString" (keyup)="search()"
+            placeholder="Enter a zipcode" />
+          <input *ngIf="selection == 'Company'" matInput type="text" formControlName="searchString" (keyup)="search()"
+            placeholder="Enter a company name" />
+            <input *ngIf="selection == 'Keywords'" matInput type="text" formControlName="searchString" (keyup)="search()"
+              placeholder="Enter keywords" />
         </mat-form-field>
       </ng-template>
     </div>
@@ -59,8 +63,8 @@
       <p>{{assignment.description}}</p>
       <div>
           <h5>Location:</h5>
-          <div>{{assignment.location[0].street}} {{assignment.location[0].nr}}</div>
-          <div>{{assignment.location[0].zipcode}} {{assignment.location[0].city}}</div>
+          <div>{{assignment.location.street}} {{assignment.location.nr}}</div>
+          <div>{{assignment.location.zipcode}} {{assignment.location.city}}</div>
       </div>
 
       <div>

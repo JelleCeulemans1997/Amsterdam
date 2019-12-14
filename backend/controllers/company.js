@@ -38,7 +38,7 @@ exports.getAllCompanies = (req, res) => {
 
 exports.getByUserId = (req, res) => {
   try {
-    Company.findOne({ userId: req.params.id }).exec((error, company) => {
+    Company.findOne({ userId: req.params.id }).populate('reviews.developer').exec((error, company) => {
       res.status(200).json(company);
     });
   } catch (error) {

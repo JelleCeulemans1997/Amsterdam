@@ -113,7 +113,8 @@ export class CreateAssignmentComponent implements OnInit {
       this.assignmentForm.value.description,
       this.tags,
       location,
-      localStorage.getItem('token'));
+      localStorage.getItem('token'),
+      []);
     if (!this.editMode) {
       this.assignmentService.createAssignment(assignment).subscribe(result => {
         console.log(result);

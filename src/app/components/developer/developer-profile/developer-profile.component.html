@@ -27,7 +27,8 @@
     </mat-card-content>
   </mat-card>
 
-  <mat-card>
+
+  <mat-card *ngIf="allowed">
     <mat-card-title>
       <h3> Write Review</h3>
     </mat-card-title>
@@ -48,7 +49,7 @@
   </mat-card>
 
 
-  <mat-card>
+  <mat-card *ngIf="splicedData.length > 0">
       <mat-card-title>
         <h3>Reviews</h3>
       </mat-card-title>
@@ -62,7 +63,7 @@
               <mat-icon *ngIf="star == 'empty'">star_border</mat-icon>
             </div>
           </div>
-          <p>"{{review.text}}" - {{getUser(review)}} {{user.name}}</p>
+          <p>"{{review.text}}" - {{review.company.name}}</p>
 
         <mat-divider ></mat-divider>
         </div>

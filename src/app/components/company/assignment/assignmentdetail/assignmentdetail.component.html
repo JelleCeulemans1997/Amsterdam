@@ -12,11 +12,11 @@
       <div>
         <a [routerLink]="['/companyProfile/' + assignment.creator]">{{assignment.company.name}}</a>
       </div>
-      <div>{{assignment.location.street }} {{assignment.location.street}}</div>
+      <div>{{assignment.location.street }} {{assignment.location.nr}}</div>
       <div>{{assignment.location.zipcode}} {{assignment.location.city}}</div>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-button color="warn">DELETE</button>
+      <button mat-button color="warn" (click)="deleteAssignment(assignment.id)">DELETE</button>
     </mat-card-actions>
   </mat-card>
 </div>

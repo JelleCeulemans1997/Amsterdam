@@ -8,6 +8,8 @@ import { Company } from 'src/app/models/company.model';
 import { UserService } from 'src/app/services/user.service';
 import { ReviewService } from 'src/app/services/review.service';
 import { LocationDefining } from 'src/app/models/location.model';
+import { AssignmentService } from 'src/app/services/assignment.service';
+import { Assignment } from 'src/app/models/assignment.model';
 
 @Component({
   selector: 'app-developer-profile',
@@ -29,9 +31,18 @@ export class DeveloperProfileComponent implements OnInit {
 
   user: Company;
 
+  assignments: Assignment[];
 
-  constructor( private developerService: DeveloperService, private route: ActivatedRoute,
-    private fb: FormBuilder, private userService: UserService, private reviewService: ReviewService) { }
+  allowed: boolean = false;
+
+
+  constructor(
+    private developerService: DeveloperService,
+    private route: ActivatedRoute,
+    private fb: FormBuilder,
+    private userService: UserService,
+    private reviewService: ReviewService,
+    private assignmentService: AssignmentService) { }
 
   onSubmit() {
     const stars = document.getElementsByClassName('selectedStar');
@@ -67,20 +78,20 @@ export class DeveloperProfileComponent implements OnInit {
     return this.starsShown;
   }
 
-  getUser(review: Review) {
-    if (!this.user){
-      this.reviewService.getCompanyByUserId(review.userId).subscribe(res => {
-        console.log(res);
-        if (res) {
-          this.user = res;
-        } else {
-          const location: LocationDefining = { city: '', street: '', nr: '', zipcode: '' };
-          this.user = new Company('', 'Company not found', '', null, null, [], '', []);
-          console.log(this.user);
-        }
-      });
-    }
-  }
+  // getUser(review: Review) {
+  //   if (!this.user){
+  //     this.reviewService.getCompanyByUserId(review.userId).subscribe(res => {
+  //       console.log(res);
+  //       if (res) {
+  //         this.user = res;
+  //       } else {
+  //         const location: LocationDefining = { city: '', street: '', nr: '', zipcode: '' };
+  //         this.user = new Company('', 'Company not found', '', null, null, [], '', []);
+  //         console.log(this.user);
+  //       }
+  //     });
+  //   }
+  // }
 
   pageChangeEvent(event) {
     const offset = ((event.pageIndex + 1) - 1) * event.pageSize;
@@ -103,8 +114,21 @@ export class DeveloperProfileComponent implements OnInit {
           }
           console.log(result);
         });
+        this.userService.getUserbyId(paramMap.get('userId')).subscribe(res => {
+          this.assignmentService.getAllAsignments().subscribe(response => {
+            this.assignments = response.assignments;
+            this.assignments.forEach(assignment => {
+              assignment.accepted.forEach(apply => {
+                if (apply === this.developer.userId) {
+                  this.allowed = true;
+                }else{
+                  this.allowed = false;
+                }
+              });
+            });
+          });
+        });
       }
     });
   }
-
 }
