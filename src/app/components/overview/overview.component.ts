@@ -64,7 +64,7 @@ export class OverviewComponent implements OnInit {
     this.results.splice(0, this.results.length);
     if (this.selection === 'Location') {
       this.assignments.forEach(assignment => {
-        if ( assignment.location[0].zipcode === this.searchForm.get('searchString').value ) {
+        if ( assignment.location.zipcode === this.searchForm.get('searchString').value ) {
           this.results.push(assignment);
         }
       });
