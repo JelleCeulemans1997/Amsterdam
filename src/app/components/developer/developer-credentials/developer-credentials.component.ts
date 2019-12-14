@@ -119,7 +119,7 @@ export class DeveloperCredentialsComponent implements OnInit {
       linkedin,
       this.tags,
       location,
-      null,
+      [],
       this.imagePreview);
 
     if (this.editMode) {

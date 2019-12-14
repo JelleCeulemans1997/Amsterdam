@@ -10,8 +10,10 @@ export class Assignment {
     public tags: string[],
     public location: LocationDefining,
     public creator: string,
-    public accepted: string[],
     public pdf: string,
+    public accepted: { accept: string; }[],
+    public applied: { apply: string; }[],
+    public denied: { deny: string; }[],
     public company?: Company
     ) { }
 }

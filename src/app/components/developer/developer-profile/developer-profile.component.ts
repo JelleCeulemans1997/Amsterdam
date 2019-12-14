@@ -34,6 +34,7 @@ export class DeveloperProfileComponent implements OnInit {
   assignments: Assignment[];
 
   allowed = false;
+  accepterByCompany: string[] = [];
 
 
   constructor(
@@ -46,7 +47,7 @@ export class DeveloperProfileComponent implements OnInit {
 
   onSubmit() {
     const stars = document.getElementsByClassName('selectedStar');
-    const review: Review = {text: this.reviewForm.get('text').value, score: stars.length, userId: this.userService.getUserId()};
+    const review: Review = { text: this.reviewForm.get('text').value, score: stars.length, userId: this.userService.getUserId() };
     console.log(review);
     this.reviews.push(review);
     this.developer.reviews = this.reviews;
@@ -95,25 +96,26 @@ export class DeveloperProfileComponent implements OnInit {
           this.telLink = 'tel:' + result.phone;
           this.developer = result;
           console.log(result);
-          if (result.reviews) {
+          if (result.reviews.length > 0) {
             this.reviews = result.reviews;
             this.splicedData = result.reviews.slice(((0 + 1) - 1) * 5).slice(0, 5);
           }
           console.log(this.reviews);
         });
-        this.userService.getUserbyId(paramMap.get('userId')).subscribe(res => {
-          this.assignmentService.getAllAsignments().subscribe(response => {
-            this.assignments = response.assignments;
-            this.assignments.forEach(assignment => {
-              assignment.accepted.forEach(apply => {
-                if (apply === this.developer.userId) {
-                  this.allowed = true;
-                } else {
-                  this.allowed = false;
-                }
-              });
+        this.assignmentService.getAllAsignments().subscribe(response => {
+          console.log(response.assignments);
+          if (response.assignments) {
+            response.assignments.forEach(element => {
+              if (element.accepted) {
+                element.accepted.forEach(item => {
+                  this.accepterByCompany.push(item.accept);
+                });
+              }
             });
-          });
+            const userId = this.userService.getUserId();
+            this.allowed = this.accepterByCompany.includes(userId);
+            console.log(this.allowed);
+          }
         });
       }
     });

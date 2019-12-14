@@ -119,8 +119,10 @@ export class CreateAssignmentComponent implements OnInit {
       this.tags,
       location,
       this.userService.getUserId(),
+      this.pdf,
       null,
-      this.pdf);
+      null,
+      null);
     if (!this.editMode) {
       console.log(assignment);
       this.assignmentService.createAssignment(assignment).subscribe(result => {

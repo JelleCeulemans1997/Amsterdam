@@ -106,7 +106,7 @@ export class CompanyCredentialsComponent implements OnInit {
     const contact = { firstname, lastname, email, phone };
     const location: LocationDefining = { street, nr, zipcode, city };
     const userId = this.userService.getUserId();
-    const company = new Company('', name, userId, contact, location, this.tags, bio, null, null);
+    const company = new Company('', name, userId, contact, location, this.tags, bio, [], null) ;
 
     if (this.editMode) {
       company.id = this.companyId;
