@@ -65,12 +65,13 @@ exports.updateAssignment = (req, res, next) => {
 exports.getAssignment = (req, res, next) => {
   console.log(req.params);
   Assignment.findById(req.params.id)
-    .populate('applies.apply')
+    .populate('applies.apply company')
   .then(assignment => {
+    console.log(assignment);
     if (assignment) {
       res.status(200).json({
         message: 'Fetching assignment succeeded',
-        assignment: assignment
+        assignment
       });
     } else {
       res.status(404).json({ message: 'Assignment not found!' });
