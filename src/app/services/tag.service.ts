@@ -20,7 +20,7 @@ export class TagService {
 
 
   createTag(tag: Tag) {
-    return this.http.post<Tag>(this.baseURL + '/tag/create', tag);
+    return this.http.post<Tag>(this.baseURL + '/tag/create', tag).subscribe(result => console.log(result));
   }
 
   updateTag(tag: Tag) {

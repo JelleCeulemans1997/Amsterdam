@@ -31,6 +31,7 @@ import { MatSortModule } from '@angular/material';
 import { NicknameDeveloperPipe } from './pipes/nicknameDeveloper.pipe';
 import { AdminDevelopersComponent } from './components/admin/admin-developers/admin-developers.component';
 import { AdminAssignmentsComponent } from './components/admin/admin-assignments/admin-assignments.component';
+import { AssignmentdetailComponent } from './components/company/assignment/assignmentdetail/assignmentdetail.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { AdminAssignmentsComponent } from './components/admin/admin-assignments/
     AdminCompaniesComponent,
     NicknameDeveloperPipe,
     AdminDevelopersComponent,
-    AdminAssignmentsComponent
+    AdminAssignmentsComponent,
+    AssignmentdetailComponent
   ],
   imports: [
     BrowserModule,

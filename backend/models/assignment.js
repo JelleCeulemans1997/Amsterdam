@@ -33,4 +33,14 @@ const assignmentSchema = new Schema(
   }
 );
 
+// assignmentSchema.virtual('creator', {
+//   ref: 'Company', // The model to use
+//   localField: 'creator', // Find people where `localField`
+//   foreignField: 'band', // is equal to `foreignField`
+//   // If `justOne` is true, 'members' will be a single doc as opposed to
+//   // an array. `justOne` is false by default.
+//   justOne: false
+//   // options: { sort: { name: -1 }, limit: 5 } // Query options, see http://bit.ly/mongoose-query-options
+// });
+
 module.exports = mongoose.model("Assignment", assignmentSchema);
