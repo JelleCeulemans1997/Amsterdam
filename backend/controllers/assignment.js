@@ -1,6 +1,23 @@
 const Assignment = require('../models/assignment');
 const jwt = require('jsonwebtoken');
 
+
+exports.getAll =  (req, res, next) => {
+  Assignment.find().populate('company')
+    .then(documents => {
+      res.status(200).json({
+        message: 'assignment fetched succesully',
+        assignments: documents
+      });
+    }).catch(error => {
+      res.status(500).json({
+        message: 'Fetching assignments failed!'
+      });
+    });;
+}
+
+
+
 exports.createAssignment = (req, res, next) => {
   console.log(req.body.title, req.body.description);
   const assignment = new Assignment({

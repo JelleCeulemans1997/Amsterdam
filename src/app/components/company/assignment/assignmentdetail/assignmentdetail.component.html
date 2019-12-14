@@ -4,14 +4,14 @@
     <mat-card-content fxFlex fxLayout="column" fxLayoutAlign="center center">
 
       <p>{{assignment.description}}</p>
-      <div>
-        <a [routerLink]="['/companyProfile/' + assignment.creator]">COMPANY NAME</a>
-      </div>
       <mat-chip-list>
         <mat-chip *ngFor="let tag of assignment.tags">{{tag}}</mat-chip>
       </mat-chip-list>
       <br />
-      <h5>Location</h5>
+      <h5>Company</h5>
+      <div>
+        <a [routerLink]="['/companyProfile/' + assignment.creator]">{{assignment.company.name}}</a>
+      </div>
       <div>{{assignment.location.street }} {{assignment.location.street}}</div>
       <div>{{assignment.location.zipcode}} {{assignment.location.city}}</div>
     </mat-card-content>

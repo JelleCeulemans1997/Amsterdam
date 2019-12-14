@@ -13,9 +13,7 @@ export class AssignmentdetailComponent implements OnInit {
   id: string;
   assignment: Assignment;
 
-  constructor(private activated: ActivatedRoute, private assignmentService: AssignmentService) {
-
-   }
+  constructor(private activated: ActivatedRoute, private assignmentService: AssignmentService) { }
 
   ngOnInit() {
     this.id = this.activated.snapshot.paramMap.get('assignmentId');
@@ -26,20 +24,7 @@ export class AssignmentdetailComponent implements OnInit {
     });
   }
 
-
-  // getUser() {
-  //   this.assignmentService.getUser(this.assignment.creator).subscribe(res => {
-  //     if (res.user) {
-  //       this.creator = res.user.email; // TODO connect with companyname
-  //     }
-  //   },
-  //   err => {
-  //     if (err) {
-  //       this.creator = 'User not found, creatorId = ' + this.assignment.creator;
-  //     }
-  //   });
-  // }
-
-
-
+  deleteAssignment(assignmentId: string) {
+    console.log(assignmentId);
+  }
 }
