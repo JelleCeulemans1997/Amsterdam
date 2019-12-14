@@ -11,7 +11,7 @@ export class AssignmentdetailComponent implements OnInit {
 
   id: string;
   assignment: any;
-  creator:any;
+  creator: any;
 
   constructor(private activated: ActivatedRoute, private assignmentService: AssignmentService) {
 
@@ -19,8 +19,8 @@ export class AssignmentdetailComponent implements OnInit {
 
   ngOnInit() {
     this.id = this.activated.snapshot.paramMap.get('assignmentId');
-    this.assignmentService.getAssignment(this.id).subscribe(res => {
-      this.assignment = res.assignment;
+    this.assignmentService.getAssignment(this.id).subscribe(result => {
+      this.assignment = result.assignment;
       console.log(this.assignment);
       this.getUser();
     });
@@ -34,7 +34,7 @@ export class AssignmentdetailComponent implements OnInit {
       }
     },
     err => {
-      if(err){
+      if (err) {
         this.creator = 'User not found, creatorId = ' + this.assignment.creator;
       }
     });

@@ -30,4 +30,8 @@ export class CompanyService {
   getAllCompanies() {
     return this.http.get<Company[]>(this.baseURL + '/company');
   }
+
+  deleteCompany(companyId: string) {
+    return this.http.delete(this.baseURL + '/company/' + companyId);
+  }
 }

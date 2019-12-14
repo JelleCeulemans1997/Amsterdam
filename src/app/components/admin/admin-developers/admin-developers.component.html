@@ -1,0 +1,19 @@
+<div class="container mt-5 mb-5">
+  <mat-card>
+    <mat-card-title>Assignments</mat-card-title>
+    <mat-card-header>Click on the name to go to the developer's profile page</mat-card-header>
+    <div class="mt-5 mb-5"><mat-divider></mat-divider></div>
+    <mat-card-content>
+      <mat-nav-list>
+        <mat-list-item *ngFor="let developer of developers">
+           <a matLine [routerLink]="['/developerProfile/' + developer.userId]">
+             {{developer.nickname}}
+           </a>
+           <button mat-icon-button >
+              <mat-icon>info</mat-icon>
+           </button>
+        </mat-list-item>
+      </mat-nav-list>
+    </mat-card-content>
+  </mat-card>
+</div>

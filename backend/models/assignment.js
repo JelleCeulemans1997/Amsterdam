@@ -10,14 +10,12 @@ const assignmentSchema = new Schema(
         type: String
       }
     ],
-    location: [
-      {
-        street: String,
-        nr: String,
-        city: String,
-        zipcode: String
-      }
-    ],
+    location: {
+      street: String,
+      nr: String,
+      city: String,
+      zipcode: String
+    },
     creator: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
     applies: [{ apply: { type: mongoose.Schema.Types.ObjectId, ref: "User" } }],
     accepted: [

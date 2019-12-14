@@ -33,8 +33,8 @@ export class LoginComponent implements OnInit {
     ) { }
 
   loginForm = new FormGroup({
-    email: new FormControl('info@jelleceulemans.be', { validators: [Validators.required] }),
-    password: new FormControl('azertyuiop', { validators: [Validators.required] })
+    email: new FormControl('admin@admin.com', { validators: [Validators.required] }),
+    password: new FormControl('admin', { validators: [Validators.required] })
   });
 
 
@@ -54,7 +54,7 @@ export class LoginComponent implements OnInit {
         navigateTo = '/company';
         this.store.dispatch(new RoleActions.SetComapny());
       } else if (result.role === Role.Admin) {
-        navigateTo = '/adminDashboard';
+        navigateTo = '/overview';
         this.store.dispatch(new RoleActions.SetAdmin());
       }
       console.log(navigateTo);

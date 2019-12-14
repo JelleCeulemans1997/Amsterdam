@@ -17,7 +17,7 @@ export class UserService {
     private localStorageService: LocalStorageService) { }
 
   createUser(user: User) {
-    this.http.post<User>(this.baseURL + '/user/create', user).subscribe();
+    return this.http.post<User>(this.baseURL + '/user/create', user);
   }
 
   authenticate(user: User) {

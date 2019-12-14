@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 import { SharedModule } from './shared.module';
-import { CreateAssignmentComponent } from './components/assignment/create-assignment/create-assignment.component';
+import { CreateAssignmentComponent } from './components/company/assignment/create-assignment/create-assignment.component';
 import { HomeComponent } from './components/home/home.component';
 import { AdminTagsComponent } from './components/admin/admin-tags/admin-tags.component';
 import { AuthModule } from './components/auth/auth.module';
@@ -26,10 +26,11 @@ import { AuthGuard } from './components/auth/auth.guard';
 import { CompanyProfileComponent } from './components/company/company-profile/company-profile.component';
 import { DeveloperCredentialsComponent } from './components/developer/developer-credentials/developer-credentials.component';
 import { DeveloperProfileComponent } from './components/developer/developer-profile/developer-profile.component';
-import { AdminDashboardComponent } from './components/admin/admin-dashboard/admin-dashboard.component';
 import { AdminCompaniesComponent } from './components/admin/admin-companies/admin-companies.component';
 import { MatSortModule } from '@angular/material';
 import { NicknameDeveloperPipe } from './pipes/nicknameDeveloper.pipe';
+import { AdminDevelopersComponent } from './components/admin/admin-developers/admin-developers.component';
+import { AdminAssignmentsComponent } from './components/admin/admin-assignments/admin-assignments.component';
 
 @NgModule({
   declarations: [
@@ -45,9 +46,10 @@ import { NicknameDeveloperPipe } from './pipes/nicknameDeveloper.pipe';
     CompanyProfileComponent,
     DeveloperCredentialsComponent,
     DeveloperProfileComponent,
-    AdminDashboardComponent,
     AdminCompaniesComponent,
-    NicknameDeveloperPipe
+    NicknameDeveloperPipe,
+    AdminDevelopersComponent,
+    AdminAssignmentsComponent
   ],
   imports: [
     BrowserModule,

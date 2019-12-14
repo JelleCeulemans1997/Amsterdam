@@ -1,0 +1,20 @@
+<div class="container mt-5 mb-5">
+  <mat-card>
+    <mat-card-title>Developers</mat-card-title>
+    <mat-card-header>Click on the name to go to the detailed assignment page</mat-card-header>
+    <div class="mt-5 mb-5"><mat-divider></mat-divider></div>
+    <mat-card-content>
+      <mat-nav-list>
+        <mat-list-item *ngFor="let assignment of assignments">
+           <a matLine [routerLink]="['/assignmentdetail/' + assignment.id]">
+             {{assignment.title}}
+           </a>
+           <button mat-icon-button >
+              <mat-icon>info</mat-icon>
+           </button>
+        </mat-list-item>
+      </mat-nav-list>
+    </mat-card-content>
+  </mat-card>
+</div>
+

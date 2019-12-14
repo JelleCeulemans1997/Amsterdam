@@ -1,13 +1,49 @@
 <div class="container mt-5 mb-5">
-  <mat-accordion multi="true">
+
+  <div class="container mt-5 mb-5">
+    <mat-card>
+      <mat-card-title>Companies</mat-card-title>
+      <mat-card-header>Click on the name to go to the detailed company page</mat-card-header>
+      <div class="mt-5 mb-5"><mat-divider></mat-divider></div>
+      <mat-card-content>
+        <mat-nav-list>
+          <mat-list-item *ngFor="let company of companies">
+             <a matLine [routerLink]="['/companyProfile/' + company.userId]">
+               {{company.name}}
+             </a>
+             <mat-icon>info</mat-icon>
+             <!-- <button mat-icon-button >
+
+             </button> -->
+          </mat-list-item>
+        </mat-nav-list>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- <mat-accordion multi="true">
     <mat-expansion-panel *ngFor="let company of companies">
       <mat-expansion-panel-header>
         <mat-panel-title>
           <h5>{{ company.name }}</h5>
         </mat-panel-title>
-        <!-- <mat-panel-description>
-              Type your name and age
-            </mat-panel-description> -->
       </mat-expansion-panel-header>
 
       <p>{{company.bio}}</p>
@@ -32,22 +68,17 @@
       </div>
 
       <div class="mt-2 mb-2">
-        <!-- review -->
         <mat-accordion>
           <mat-expansion-panel>
             <mat-expansion-panel-header>
               <mat-panel-title>Reviews</mat-panel-title>
-              <!-- <mat-panel-description>
-            </mat-panel-description> -->
             </mat-expansion-panel-header>
             <mat-expansion-panel *ngFor="let review of company.reviews">
               <mat-expansion-panel-header>
                 <mat-panel-title>
                   {{review.userId}}
-                  <!-- {{review.userId | nicknameDeveloper}} -->
                 </mat-panel-title>
                 <mat-panel-description>
-                  <!-- should be stars -->
                   {{review.score}}
                 </mat-panel-description>
               </mat-expansion-panel-header>
@@ -56,23 +87,10 @@
           </mat-expansion-panel>
         </mat-accordion>
       </div>
-
-
-
-
-
-
-
-
-      <!-- <mat-action-row>
-        <a mat-button color="accent" [routerLink]="['/editAssignment', assignment.id]">EDIT</a>
-        <button mat-button color="warn">DELETE</button>
-      </mat-action-row> -->
-
-      <!-- <mat-action-row fxLayoutAlign="center center">
-        <button mat-raised-button color="primary">Apply now!</button>
-      </mat-action-row> -->
+      <mat-action-row>
+        <button mat-button color="warn" (click)="deleteCompany(company.id)">DELETE</button>
+      </mat-action-row>
     </mat-expansion-panel>
-  </mat-accordion>
+  </mat-accordion> -->
 
 </div>

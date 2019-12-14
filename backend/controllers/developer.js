@@ -1,5 +1,17 @@
 const Developer = require("../models/developer");
 
+exports.getAll = (req, res) => {
+  console.log(req.params)
+  try {
+    Developer.find().exec((error, developers) => {
+      res.status(200).json(developers);
+    });
+  } catch (error) {
+    res.status(400).json({ message: 'Developers not found', error });
+  }
+};
+
+
 exports.createDeveloper = (req, res) => {
   const developer = new Developer({
     ...req.body

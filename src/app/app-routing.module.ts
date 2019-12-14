@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
-import { CreateAssignmentComponent } from './components/assignment/create-assignment/create-assignment.component';
+import { CreateAssignmentComponent } from './components/company/assignment/create-assignment/create-assignment.component';
 import { LoginComponent } from './components/auth/login/login.component';
 import { AdminTagsComponent } from './components/admin/admin-tags/admin-tags.component';
 
@@ -15,9 +15,11 @@ import { DeveloperDashboardComponent } from './components/developer/developer-da
 import { AuthGuard } from './components/auth/auth.guard';
 import { CompanyProfileComponent } from './components/company/company-profile/company-profile.component';
 import { DeveloperCredentialsComponent } from './components/developer/developer-credentials/developer-credentials.component';
-import { AdminDashboardComponent } from './components/admin/admin-dashboard/admin-dashboard.component';
 import { DeveloperProfileComponent } from './components/developer/developer-profile/developer-profile.component';
 import { AdminCompaniesComponent } from './components/admin/admin-companies/admin-companies.component';
+import { AdminDevelopersComponent } from './components/admin/admin-developers/admin-developers.component';
+import { AdminAssignmentsComponent } from './components/admin/admin-assignments/admin-assignments.component';
+import { AssignmentdetailComponent } from './components/company/assignment/assignmentdetail/assignmentdetail.component';
 
 
 
@@ -28,7 +30,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'tags', component: AdminTagsComponent, canActivate: [AuthGuard], data: {role: Role.Admin} },
   { path: 'overview', component: OverviewComponent},
-  { path: 'companyassignmentdetail/:assignmentId', component: CompanyAssignmentdetailComponent},
+  { path: 'assignmentdetail/:assignmentId', component: CompanyAssignmentdetailComponent},
   { path: 'signup', component: SignupComponent},
   { path: 'company', component: CompanyDashboardComponent, canActivate: [AuthGuard], data: {role: Role.Company}},
   { path: 'signup', component: SignupComponent },
@@ -36,12 +38,12 @@ const routes: Routes = [
   { path: 'developerDashboard', component: DeveloperDashboardComponent, canActivate: [AuthGuard], data: {role: Role.Developer}},
   { path: 'companyProfile/:creatorId', component: CompanyProfileComponent},
   { path: 'developerCredentials', component: DeveloperCredentialsComponent, canActivate: [AuthGuard], data: {role: Role.Developer}},
-  { path: 'adminDashboard', component: AdminDashboardComponent, canActivate: [AuthGuard], data: {role: Role.Admin}},
   { path: 'companyProfile/:creatorId', component: CompanyProfileComponent},
   { path: 'developerCredentials', component: DeveloperCredentialsComponent, canActivate: [AuthGuard], data: {role: Role.Developer} },
   { path: 'developerProfile/:userId', component: DeveloperProfileComponent},
   { path: 'companies', component: AdminCompaniesComponent, canActivate: [AuthGuard], data: {role: Role.Admin}},
-
+  { path: 'developers', component: AdminDevelopersComponent, canActivate: [AuthGuard], data: {role: Role.Admin}},
+  { path: 'assignments', component: AdminAssignmentsComponent, canActivate: [AuthGuard], data: {role: Role.Admin}},
 ];
 
 @NgModule({

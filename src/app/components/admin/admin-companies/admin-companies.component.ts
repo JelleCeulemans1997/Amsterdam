@@ -21,42 +21,15 @@ export class AdminCompaniesComponent implements OnInit {
     });
   }
 
-  // getAllDesc() {
-  //   this.tagService.getAllDesc().subscribe(result => {
-  //     console.log(result);
-  //   });
-  // }
-
-  // createTag() {
-  //   if (this.tag && this.tag !== '') {
-  //     const tag: Tag = {
-  //       id: null,
-  //       name: this.tag,
-  //       usages: 0
-  //     };
-  //     this.tagService.createTag(tag).subscribe(result => {
-  //       console.log(result);
-  //       this.tag = '';
-  //       this.ngOnInit();
-  //     });
-  //   } else {
-  //     // show snackbar that field is empty
-  //   }
-  // }
-
-  // updateTag() {
-  //   const tag: Tag = {
-  //     id: '5dee4c6cc93f7069c461d0e2',
-  //     name: 'C',
-  //     usages: 400
-  //   };
-  //   this.tagService.updateTag(tag);
-  // }
-
-  // deleteTag(tagId: string) {
-  //   this.tagService.deleteTag(tagId).subscribe(result => {
+  // deleteCompany(companyId: string) {
+  //   this.companyService.deleteCompany(companyId).subscribe(result => {
   //     console.log(result);
   //     this.ngOnInit();
+  //     // delete also all the assignments of this company
   //   });
+  // }
+
+
+
   // }
 }

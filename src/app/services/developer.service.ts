@@ -24,4 +24,8 @@ export class DeveloperService {
   updateDeveloper(developer: Developer) {
     return this.http.put<Developer>(this.baseURL + '/developer/update/' + developer.id, developer);
   }
+
+  getAll() {
+    return this.http.get<Developer[]>(this.baseURL + '/developer');
+  }
 }
