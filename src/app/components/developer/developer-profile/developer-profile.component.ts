@@ -8,6 +8,7 @@ import { Company } from 'src/app/models/company.model';
 import { UserService } from 'src/app/services/user.service';
 import { ReviewService } from 'src/app/services/review.service';
 import { LocationDefining } from 'src/app/models/location.model';
+import { AssignmentService } from 'src/app/services/assignment.service';
 
 @Component({
   selector: 'app-developer-profile',

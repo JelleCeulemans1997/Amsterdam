@@ -8,6 +8,8 @@ import { UserService } from 'src/app/services/user.service';
 import { ReviewService } from 'src/app/services/review.service';
 import { Developer } from 'src/app/models/developer.model';
 import { LocationDefining } from 'src/app/models/location.model';
+import { AssignmentService } from 'src/app/services/assignment.service';
+import { User } from 'src/app/models/user.model';
 
 @Component({
   selector: 'app-company-profile',
@@ -26,25 +28,40 @@ export class CompanyProfileComponent implements OnInit {
 
   starsShown: string[];
 
-  user: Developer;
+  user: User;
+  userId: string;
+  dev: Developer;
+
+  allowed: boolean = true;
 
   constructor(
     private route: ActivatedRoute,
     private companyService: CompanyService,
     private fb: FormBuilder,
     private userService: UserService,
-    private reviewService: ReviewService) { }
+    private reviewService: ReviewService,
+    private assignmentService: AssignmentService) { }
 
   onSubmit() {
-    const stars = document.getElementsByClassName('selectedStar');
-    const review: Review = {text: this.reviewForm.get('text').value, score: stars.length, userId: this.userService.getUserId()};
-    console.log(review);
-    this.reviews.push(review);
-    this.company.reviews = this.reviews;
-    this.companyService.updateCompany(this.company).subscribe();
-    if (this.reviews.length < 5) {
-      this.splicedData.push(review);
-    }
+    this.assignmentService.getAllByCompany(this.company.userId).subscribe(res => {
+      const assignments = res.assignments;
+      console.log(res);
+      assignments.forEach(assignment => {
+        if (assignment.applies.includes(this.user)) {
+          const stars = document.getElementsByClassName('selectedStar');
+          const review: Review = { text: this.reviewForm.get('text').value, score: stars.length, userId: this.userId };
+          console.log(review);
+          this.reviews.push(review);
+          this.company.reviews = this.reviews;
+          this.companyService.updateCompany(this.company).subscribe();
+          if (this.reviews.length < 5) {
+            this.splicedData.push(review);
+          }
+        } else {
+          this.allowed = false;
+        }
+      })
+    });
   }
 
   onClick(star: number) {
@@ -73,15 +90,15 @@ export class CompanyProfileComponent implements OnInit {
   }
 
   getUser(review: Review) {
-    if (!this.user) {
+    if (!this.dev) {
       this.reviewService.getDeveloperByUserId(review.userId).subscribe(res => {
         console.log(res);
         if (res) {
-          this.user = res;
+          this.dev = res;
         } else {
           const location: LocationDefining = { city: '', street: '', nr: '', zipcode: '' };
-          this.user = new Developer('User not found', '', '', '', '', '', '', new Date(), '', '', [], location, []);
-          console.log(this.user);
+          this.dev = new Developer('User not found', '', '', '', '', '', '', new Date(), '', '', [], location, []);
+          console.log(this.dev);
         }
       });
     }
@@ -94,6 +111,10 @@ export class CompanyProfileComponent implements OnInit {
 
 
   ngOnInit() {
+    this.userId = this.userService.getUserId();
+    this.userService.getUserbyId(this.userId).subscribe(res => {
+      this.user = res;
+    });
     this.reviewForm = this.fb.group({
       text: ['', Validators.required]
     });
@@ -103,7 +124,7 @@ export class CompanyProfileComponent implements OnInit {
           this.mailtoLink = 'mailto:' + result.contact.email;
           this.telLink = 'tel:' + result.contact.phone;
           this.company = result;
-          if(result.reviews){
+          if (result.reviews) {
             this.reviews = result.reviews;
             this.splicedData = result.reviews.slice(((0 + 1) - 1) * 5).slice(0, 5);
           }

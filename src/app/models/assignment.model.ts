@@ -1,4 +1,5 @@
 import { LocationDefining } from '../models/location.model';
+import { User } from './user.model';
 
 export class Assignment {
   constructor(
@@ -7,7 +8,8 @@ export class Assignment {
     public description: string,
     public tags: string[],
     public location: LocationDefining,
-    public creator: string
+    public creator: string,
+    public applies: User[]
     // ,
     // public pdf: string
     ) { }
