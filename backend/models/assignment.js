@@ -18,6 +18,7 @@ const assignmentSchema = new Schema(
       city: String,
       zipcode: String
     },
+    pdf: String,
     creator: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
     applies: [{ apply: { type: mongoose.Schema.Types.ObjectId, ref: "User" }}],
     accepted: [{ accept: { type: mongoose.Schema.Types.ObjectId, ref: "User" }}],

@@ -33,7 +33,7 @@ export class DeveloperProfileComponent implements OnInit {
 
   assignments: Assignment[];
 
-  allowed: boolean = false;
+  allowed = false;
 
 
   constructor(
@@ -78,24 +78,10 @@ export class DeveloperProfileComponent implements OnInit {
     return this.starsShown;
   }
 
-  // getUser(review: Review) {
-  //   if (!this.user){
-  //     this.reviewService.getCompanyByUserId(review.userId).subscribe(res => {
-  //       console.log(res);
-  //       if (res) {
-  //         this.user = res;
-  //       } else {
-  //         const location: LocationDefining = { city: '', street: '', nr: '', zipcode: '' };
-  //         this.user = new Company('', 'Company not found', '', null, null, [], '', []);
-  //         console.log(this.user);
-  //       }
-  //     });
-  //   }
-  // }
-
   pageChangeEvent(event) {
     const offset = ((event.pageIndex + 1) - 1) * event.pageSize;
     this.splicedData = this.reviews.slice(offset).slice(0, event.pageSize);
+
   }
 
   ngOnInit() {
@@ -108,11 +94,12 @@ export class DeveloperProfileComponent implements OnInit {
           this.mailtoLink = 'mailto:' + result.email;
           this.telLink = 'tel:' + result.phone;
           this.developer = result;
+          console.log(result);
           if (result.reviews) {
             this.reviews = result.reviews;
             this.splicedData = result.reviews.slice(((0 + 1) - 1) * 5).slice(0, 5);
           }
-          console.log(result);
+          console.log(this.reviews);
         });
         this.userService.getUserbyId(paramMap.get('userId')).subscribe(res => {
           this.assignmentService.getAllAsignments().subscribe(response => {
@@ -121,7 +108,7 @@ export class DeveloperProfileComponent implements OnInit {
               assignment.accepted.forEach(apply => {
                 if (apply === this.developer.userId) {
                   this.allowed = true;
-                }else{
+                } else {
                   this.allowed = false;
                 }
               });

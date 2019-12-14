@@ -18,13 +18,9 @@ exports.getAll = (req, res, next) => {
 };
 
 exports.createAssignment = (req, res, next) => {
-  console.log(req.body.title, req.body.description);
+  console.log(req.body);
   const assignment = new Assignment({
-    title: req.body.title,
-    description: req.body.description,
-    tags: req.body.tags,
-    location: req.body.location,
-    creator: jwt.decode(req.body.creator)._id
+    ...req.body
   });
   assignment
     .save()

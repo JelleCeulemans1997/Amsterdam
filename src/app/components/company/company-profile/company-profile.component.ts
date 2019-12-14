@@ -27,12 +27,9 @@ export class CompanyProfileComponent implements OnInit {
   reviewForm: FormGroup;
 
   starsShown: string[];
-
-  user: User;
-  userId: string;
   dev: Developer;
 
-  allowed: boolean = false;
+  allowed = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -46,10 +43,11 @@ export class CompanyProfileComponent implements OnInit {
     this.assignmentService.getAllByCompany(this.company.userId).subscribe(res => {
       const assignments = res.assignments;
       console.log(res);
+      const userId = this.userService.getUserId();
       assignments.forEach(assignment => {
-        if (assignment.accepted.includes(this.userId)) {
+        if (assignment.accepted.includes(userId)) {
           const stars = document.getElementsByClassName('selectedStar');
-          const review: Review = { text: this.reviewForm.get('text').value, score: stars.length, userId: this.userId };
+          const review: Review = { text: this.reviewForm.get('text').value, score: stars.length, userId };
           console.log(review);
           this.reviews.push(review);
           this.company.reviews = this.reviews;
@@ -61,7 +59,7 @@ export class CompanyProfileComponent implements OnInit {
         } else {
           this.allowed = false;
         }
-      })
+      });
     });
   }
 
@@ -97,10 +95,6 @@ export class CompanyProfileComponent implements OnInit {
 
 
   ngOnInit() {
-    this.userId = this.userService.getUserId();
-    this.userService.getUserbyId(this.userId).subscribe(res => {
-      this.user = res;
-    });
     this.reviewForm = this.fb.group({
       text: ['', Validators.required]
     });

@@ -15,5 +15,6 @@ export class Company {
     public location: LocationDefining,
     public tags: string[],
     public bio: string,
-    public reviews: Review[]) { }
+    public reviews: Review[],
+    public image: string) { }
 }

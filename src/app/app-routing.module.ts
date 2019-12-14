@@ -24,14 +24,14 @@ import { AssignmentdetailComponent } from './components/company/assignment/assig
 
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
+  // { path: '', component: HomeComponent },
   { path: 'createAssignment', component: CreateAssignmentComponent, canActivate: [AuthGuard], data: {role: Role.Company}},
   { path: 'editAssignment/:assignmentId', component: CreateAssignmentComponent, canActivate: [AuthGuard], data: {role: Role.Company}},
   { path: 'login', component: LoginComponent },
   { path: 'tags', component: AdminTagsComponent, canActivate: [AuthGuard], data: {role: Role.Admin} },
-  { path: 'overview', component: OverviewComponent},
+  { path: '', component: OverviewComponent},
   { path: 'companyAssignmentdetail/:assignmentId', component: CompanyAssignmentdetailComponent},
-  { path: 'assignmentdetail/:assignmentId', component: AssignmentdetailComponent, canActivate: [AuthGuard], data: {role: Role.Admin}},
+  { path: 'assignmentdetail/:assignmentId', component: AssignmentdetailComponent},
   { path: 'signup', component: SignupComponent},
   { path: 'company', component: CompanyDashboardComponent, canActivate: [AuthGuard], data: {role: Role.Company}},
   { path: 'signup', component: SignupComponent },

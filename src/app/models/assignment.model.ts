@@ -11,8 +11,7 @@ export class Assignment {
     public location: LocationDefining,
     public creator: string,
     public accepted: string[],
+    public pdf: string,
     public company?: Company
-    // ,
-    // public pdf: string
     ) { }
 }

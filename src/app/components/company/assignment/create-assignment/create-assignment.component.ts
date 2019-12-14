@@ -5,13 +5,16 @@ import { Observable } from 'rxjs';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {map, startWith} from 'rxjs/operators';
 import { TagService } from 'src/app/services/tag.service';
-import { mimeTypeImage } from './mime-type-image.validator';
+import { mimeTypeImage } from '../../../../file-validators/mime-type-image.validator';
 import { AssignmentService } from 'src/app/services/assignment.service';
-import { mimeTypePdf } from './mime-type-pdf.validator';
+import { mimeTypePdf } from '../../../../file-validators/mime-type-pdf.validator';
 import { LocationDefining } from '../../../../models/location.model';
 import { Assignment } from 'src/app/models/assignment.model';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Tag } from 'src/app/models/tag.model';
+import * as firebase from 'firebase/app';
+import { LocalStorageService } from 'src/app/services/localStorage.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-create-assignment',
@@ -31,6 +34,7 @@ export class CreateAssignmentComponent implements OnInit {
   editMode = false;
   assignmentId: string;
   tagObjects: Tag[];
+  pdf: string;
 
   @ViewChild('tagInput', {static: false}) tagInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto', {static: false}) matAutocomplete: MatAutocomplete;
@@ -39,7 +43,8 @@ export class CreateAssignmentComponent implements OnInit {
     private tagService: TagService,
     private assignmentService: AssignmentService,
     private route: ActivatedRoute,
-    private router: Router) {
+    private router: Router,
+    private userService: UserService) {
     this.filteredTags = this.tagCtrl.valueChanges.pipe(
         startWith(null),
         map((fruit: string | null) => fruit ? this._filter(fruit) : this.allTags.slice()));
@@ -113,9 +118,11 @@ export class CreateAssignmentComponent implements OnInit {
       this.assignmentForm.value.description,
       this.tags,
       location,
-      localStorage.getItem('token'),
-      []);
+      this.userService.getUserId(),
+      null,
+      this.pdf);
     if (!this.editMode) {
+      console.log(assignment);
       this.assignmentService.createAssignment(assignment).subscribe(result => {
         console.log(result);
         this.router.navigate(['/company']);
@@ -171,12 +178,41 @@ export class CreateAssignmentComponent implements OnInit {
 
 
 
-  // onPdfPicked(event: Event) {
+  onPdfPicked(event: Event) {
+    const file = (event.target as HTMLInputElement).files[0];
+    console.log(file);
+    this.filename = file.name;
+
+    const path = `pdf/${new Date().getTime()}_${file.name}`;
+    const customMetadata = { contentType: file.type, app: 'DEV-COM connect' };
+    const storageRef: firebase.storage.Reference = firebase.storage().ref(path);
+    storageRef.put(file, customMetadata).then(() => {
+      storageRef.getDownloadURL().then(result => {
+        console.log(result);
+        this.pdf = result;
+      });
+    });
+    // this.assignmentForm.patchValue({ pdf: file });
+    // this.assignmentForm.get('pdf').updateValueAndValidity();
+  }
+
+  // onImagePicked(event: Event) {
   //   const file = (event.target as HTMLInputElement).files[0];
-  //   console.log(file);
-  //   this.filename = file.name;
-  //   this.assignmentForm.patchValue({ pdf: file });
-  //   this.assignmentForm.get('pdf').updateValueAndValidity();
+  //   // this.developerForm.patchValue({ image: file });
+  //   // this.developerForm.get('image').updateValueAndValidity();
+  //   const reader = new FileReader();
+  //   reader.onload = () => {
+  //     this.imagePreview = reader.result as string;
+  //   };
+  //   reader.readAsDataURL(file);
+  //   const path = `images/${new Date().getTime()}_${file.name}`;
+  //   const customMetadata = { contentType: file.type, app: 'DEV-COM connect' };
+  //   const storageRef: firebase.storage.Reference = firebase.storage().ref(path);
+  //   storageRef.put(file, customMetadata).then(() => {
+  //     storageRef.getDownloadURL().then(result => {
+  //       this.developerForm.patchValue({ image: result });
+  //     });
+  //   });
   // }
 
   // onImagePicked(event: Event) {

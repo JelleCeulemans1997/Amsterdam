@@ -20,6 +20,7 @@ export class Developer {
       zipcode: string,
       city: string
     },
-    public reviews: Review[]
+    public reviews: Review[],
+    public image: string
     ) { }
 }

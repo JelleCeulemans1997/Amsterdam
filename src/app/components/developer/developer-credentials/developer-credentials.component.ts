@@ -10,6 +10,8 @@ import { TagService } from 'src/app/services/tag.service';
 import { startWith, map } from 'rxjs/operators';
 import { LocationDefining } from 'src/app/models/location.model';
 import { DeveloperService } from 'src/app/services/developer.service';
+import { mimeTypeImage } from 'src/app/file-validators/mime-type-image.validator';
+import * as firebase from 'firebase/app';
 
 @Component({
   selector: 'app-developer-credentials',
@@ -32,6 +34,7 @@ export class DeveloperCredentialsComponent implements OnInit {
   editMode = false;
   userId: string;
   developerId: string;
+  imagePreview: string;
 
   @ViewChild('tagInput', { static: false }) tagInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto', { static: false }) matAutocomplete: MatAutocomplete;
@@ -57,7 +60,8 @@ export class DeveloperCredentialsComponent implements OnInit {
       email: new FormControl(null, { validators: [Validators.required, Validators.email] }),
       phone: new FormControl(null, { validators: [Validators.required] }),
       zipcode: new FormControl(null, { validators: [Validators.required] }),
-      city: new FormControl(null, { validators: [Validators.required] })
+      city: new FormControl(null, { validators: [Validators.required] }),
+      // image: new FormControl(null, { validators: [], asyncValidators: [mimeTypeImage] }),
     });
 
 
@@ -68,8 +72,10 @@ export class DeveloperCredentialsComponent implements OnInit {
         console.log(result);
         this.editMode = true;
         this.developerId = result.id;
-        const { nickname, firstname, lastname, dob, linkedIn, bio, experience, email, phone, location } = result;
+        const { nickname, firstname, lastname, dob, linkedIn, bio, experience, email, phone, location, image } = result;
         this.tags = experience;
+        this.imagePreview = image;
+        console.log(this.imagePreview);
 
         this.developerForm.setValue({
           nickname,
@@ -82,6 +88,7 @@ export class DeveloperCredentialsComponent implements OnInit {
           phone,
           zipcode: location.zipcode,
           city: location.city,
+          // image: null
         });
       } else {
         this.editMode = false;
@@ -99,22 +106,51 @@ export class DeveloperCredentialsComponent implements OnInit {
     const { nickname, firstname, lastname, email, phone, dob, zipcode, city, bio, linkedin } = this.developerForm.value;
     const location = { zipcode, city };
     const userId = this.userService.getUserId();
-    const developer = new Developer('', nickname, userId, firstname, lastname, email, phone, dob, bio, linkedin, this.tags, location, null);
-
+    const developer = new Developer(
+      '',
+      nickname,
+      userId,
+      firstname,
+      lastname,
+      email,
+      phone,
+      dob,
+      bio,
+      linkedin,
+      this.tags,
+      location,
+      null,
+      this.imagePreview);
 
     if (this.editMode) {
       developer.id = this.developerId;
-      console.log(this.developerId);
       this.developerService.updateDeveloper(developer).subscribe(result => {
-        console.log(result);
         this.ngOnInit();
       });
     } else {
       this.developerService.createDeveloper(developer).subscribe(result => {
-        console.log(result);
         this.ngOnInit();
       });
     }
+  }
+
+  onImagePicked(event: Event) {
+    const file = (event.target as HTMLInputElement).files[0];
+    // this.developerForm.patchValue({ image: file });
+    // this.developerForm.get('image').updateValueAndValidity();
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imagePreview = reader.result as string;
+    };
+    reader.readAsDataURL(file);
+    const path = `images/${new Date().getTime()}_${file.name}`;
+    const customMetadata = { contentType: file.type, app: 'DEV-COM connect' };
+    const storageRef: firebase.storage.Reference = firebase.storage().ref(path);
+    storageRef.put(file, customMetadata).then(() => {
+      storageRef.getDownloadURL().then(result => {
+        this.developerForm.patchValue({ image: result });
+      });
+    });
   }
 
 

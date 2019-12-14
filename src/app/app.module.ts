@@ -33,6 +33,14 @@ import { AdminDevelopersComponent } from './components/admin/admin-developers/ad
 import { AdminAssignmentsComponent } from './components/admin/admin-assignments/admin-assignments.component';
 import { AssignmentdetailComponent } from './components/company/assignment/assignmentdetail/assignmentdetail.component';
 
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireStorageModule } from '@angular/fire/storage';
+import { environment } from '../environments/environment';
+
+import * as firebase from 'firebase/app';
+
+firebase.initializeApp(environment.firebaseConfig);
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -54,6 +62,7 @@ import { AssignmentdetailComponent } from './components/company/assignment/assig
     AssignmentdetailComponent
   ],
   imports: [
+    // AngularFireModule.initializeApp(environment.firebaseConfig),
     BrowserModule,
     MatSortModule,
     AppRoutingModule,
@@ -66,7 +75,8 @@ import { AssignmentdetailComponent } from './components/company/assignment/assig
     MatAutocompleteModule,
     MatBadgeModule,
     MatProgressSpinnerModule,
-    StoreModule.forRoot(reducers)
+    StoreModule.forRoot(reducers),
+    AngularFireStorageModule
   ],
   providers: [AuthGuard],
   bootstrap: [AppComponent]

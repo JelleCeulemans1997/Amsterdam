@@ -1,5 +1,8 @@
 <div class="container mt-5 mb-5" *ngIf="developer" fxFlex fxLayout="column" fxLayoutGap="20px">
   <mat-card>
+    <mat-card-header>
+      <img [src]="developer.image" [alt]="developer.firstname" height="100px" width="100px"/>
+    </mat-card-header>
     <mat-card-title>
       <h3>{{ developer.firstname }} {{developer.lastname}}</h3>
     </mat-card-title>
@@ -48,8 +51,9 @@
     </mat-card-content>
   </mat-card>
 
+  <!-- fout met reviews from database -->
+  <!-- <mat-card *ngIf="splicedData.length > 0">
 
-  <mat-card *ngIf="splicedData.length > 0">
       <mat-card-title>
         <h3>Reviews</h3>
       </mat-card-title>
@@ -73,5 +77,5 @@
       ></mat-paginator>
       </mat-card-content>
 
-    </mat-card>
+    </mat-card> -->
 </div>

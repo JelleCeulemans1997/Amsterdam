@@ -27,7 +27,8 @@ const DeveloperSchema = new Schema(
         score: Number,
         text: String
       }
-    ]
+    ],
+    image: String
   },
   {
     toJSON: {

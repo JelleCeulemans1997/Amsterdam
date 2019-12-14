@@ -54,7 +54,7 @@ export class LoginComponent implements OnInit {
         navigateTo = '/company';
         this.store.dispatch(new RoleActions.SetComapny());
       } else if (result.role === Role.Admin) {
-        navigateTo = '/overview';
+        navigateTo = '';
         this.store.dispatch(new RoleActions.SetAdmin());
       }
       console.log(navigateTo);
