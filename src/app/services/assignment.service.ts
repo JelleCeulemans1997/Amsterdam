@@ -71,10 +71,8 @@ export class AssignmentService {
 
 
   acceptApply(assignmentId: string, makerId: string) {
-    const maker = {accepted: [{accept: makerId}]};
-    const removemaker = {applies : {
-        apply: makerId
-      }};
+    const maker = {accepted: { accept: makerId }};
+    const removemaker = {applies: { apply: makerId }};
     this.http.patch('http://localhost:3000/api/assignment/acceptappliedassignment/' + assignmentId, maker).subscribe(response => {
       console.log(response);
       console.log('added');
@@ -88,18 +86,25 @@ export class AssignmentService {
 
 
   sendApply(assignmentId: string, makerId: string) {
-    const maker = {applies: [{apply: makerId}]};
+    const maker = {applies: { apply: makerId }};
     this.http.patch('http://localhost:3000/api/assignment/applyassignment/' + assignmentId, maker).subscribe(response => {
       console.log(response);
       console.log('added');
     });
   }
 
+  checkAlreadyApplied(assignmentId: string, makerId: string) {
+    // const maker = {applies: { apply: makerId }};
+    return this.http.get<{ message: string, assignment: any }>(this.baseURL + '/assignment/' + assignmentId);
+    // this.http.patch('http://localhost:3000/api/assignment/applyassignment/' + assignmentId, maker).subscribe(response => {
+    //   console.log(response);
+    //   console.log('added');
+    // });
+  }
+
   denyApply(assignmentId: string, makerId: string) {
-    const maker = {denied: [{deny: makerId}]};
-    const removemaker = {applies : {
-        apply: makerId
-      }};
+    const maker = {denied: { deny: makerId }};
+    const removemaker = {applies: { apply: makerId }};
     this.http.patch('http://localhost:3000/api/assignment/denyappliedassignment/' + assignmentId, maker).subscribe(response => {
       console.log(response);
       console.log('added');

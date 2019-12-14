@@ -23,6 +23,7 @@ isLoading = false;
         this.assignmentId = paramMap.get('assignmentId');
         this.assignmentService.getAssignment(this.assignmentId).subscribe(assignmentData => {
           this.assignment = assignmentData.assignment;
+          console.log(this.assignment);
         });
       } else {
         this.assignmentId = null;

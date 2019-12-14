@@ -149,10 +149,36 @@ export class OverviewComponent implements OnInit {
   onApply(assignmentId) {
 
     const makerId = this.userService.getUserId();
-
     console.log('click assId: ' + assignmentId + ' - makerId: ' + makerId);
 
-    this.assignmentService.sendApply(assignmentId, makerId);
+
+    this.assignmentService.checkAlreadyApplied(assignmentId, makerId).subscribe(response => {
+      const assignment = response.assignment;
+      let applied = false;
+      for (const check of assignment.applies) {
+        if (check.apply === makerId) {
+          applied = true;
+        }
+      }
+      for (const check of assignment.accepted) {
+        if (check.accept === makerId) {
+          applied = true;
+        }
+      }
+      for (const check of assignment.denied) {
+        if (check.deny === makerId) {
+          applied = true;
+        }
+      }
+      console.log('service applied: ' + applied);
+      if (applied === false) {
+        this.assignmentService.sendApply(assignmentId, makerId);
+        console.log('apply send');
+      } else {
+        console.log('hier moet iets komen om te zeggen dat het niet mogelijk is...');
+      }
+    });
+
   }
 
 }

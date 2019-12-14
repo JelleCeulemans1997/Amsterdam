@@ -79,7 +79,7 @@ router.patch("/denyappliedassignment/:id", (req, res, next) => {
 //verwijder de apply na het accepteren of denyen van een apply
 //id is assignmentdId en req.body is userId
 router.patch("/removeappliedassignment/:id", (req, res, next) => {
-  Assignment.updateOne({_id: req.params.id}, {$pull: {"applies": req.body.applies}}).then(result => {
+  Assignment.updateOne({_id: req.params.id}, {$pull: {applies: req.body.applies}}).then(result => {
     if (result.nModified > 0) {
       res.status(200).json({message: "update successful!"});
     } else {

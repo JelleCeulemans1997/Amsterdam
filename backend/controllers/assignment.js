@@ -82,7 +82,7 @@ exports.updateAssignment = (req, res, next) => {
 exports.getAssignment = (req, res, next) => {
   console.log(req.params);
   Assignment.findById(req.params.id)
-    .populate('applies.apply company')
+    .populate('accepted.developer applies.developer denied.developer company')
   .then(assignment => {
     console.log(assignment);
     if (assignment) {
