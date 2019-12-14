@@ -118,7 +118,7 @@ export class DeveloperProfileComponent implements OnInit {
           this.assignmentService.getAllAsignments().subscribe(response => {
             this.assignments = response.assignments;
             this.assignments.forEach(assignment => {
-              assignment.applies.forEach(apply => {
+              assignment.accepted.forEach(apply => {
                 if (apply === this.developer.userId) {
                   this.allowed = true;
                 }
