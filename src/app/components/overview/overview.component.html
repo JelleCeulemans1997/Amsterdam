@@ -92,16 +92,16 @@
     <mat-expansion-panel *ngFor="let assignment of assignments">
       <mat-expansion-panel-header>
         <mat-panel-title><h5>{{assignment.title}}</h5></mat-panel-title>
-        <!-- <mat-panel-description>
-              Type your name and age
-            </mat-panel-description> -->
+        <mat-panel-description>
+              {{assignment.company.name}}
+            </mat-panel-description>
       </mat-expansion-panel-header>
 
       <p>{{assignment.description}}</p>
       <div>
           <h5>Location:</h5>
-          <div>{{assignment.location[0].street}} {{assignment.location[0].nr}}</div>
-          <div>{{assignment.location[0].zipcode}} {{assignment.location[0].city}}</div>
+          <div>{{assignment.location.street}} {{assignment.location.nr}}</div>
+          <div>{{assignment.location.zipcode}} {{assignment.location.city}}</div>
       </div>
 
       <div>

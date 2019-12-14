@@ -89,21 +89,6 @@ export class CompanyProfileComponent implements OnInit {
     return this.starsShown;
   }
 
-  getUser(review: Review) {
-    if (!this.dev) {
-      this.reviewService.getDeveloperByUserId(review.userId).subscribe(res => {
-        console.log(res);
-        if (res) {
-          this.dev = res;
-        } else {
-          const location: LocationDefining = { city: '', street: '', nr: '', zipcode: '' };
-          this.dev = new Developer('User not found', '', '', '', '', '', '', new Date(), '', '', [], location, []);
-          console.log(this.dev);
-        }
-      });
-    }
-  }
-
   pageChangeEvent(event) {
     const offset = ((event.pageIndex + 1) - 1) * event.pageSize;
     this.splicedData = this.reviews.slice(offset).slice(0, event.pageSize);

@@ -27,7 +27,9 @@
     </mat-card-content>
   </mat-card>
 
-  <mat-card>
+  <!-- Moet verplaatst worden -->
+
+  <!-- <mat-card>
     <mat-card-title>
       <h3> Write Review</h3>
     </mat-card-title>
@@ -45,10 +47,10 @@
         <button mat-button (click)="onSubmit()">Submit</button>
       </form>
     </mat-card-content>
-  </mat-card>
+  </mat-card> -->
 
 
-  <mat-card>
+  <mat-card *ngIf="splicedData.length > 0">
       <mat-card-title>
         <h3>Reviews</h3>
       </mat-card-title>

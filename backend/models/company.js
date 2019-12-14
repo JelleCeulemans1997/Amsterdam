@@ -33,6 +33,7 @@ const companySchema = new Schema(
   },
   {
     toJSON: {
+      virtuals: true,
       transform: (doc, ret) => {
         ret.id = ret._id;
         delete ret._id;
@@ -41,15 +42,17 @@ const companySchema = new Schema(
   }
 );
 
-// companySchema.methods.rewriteObject = async function(company) {
-//   //var obj = this.toObject();
-//   //Rename fields
 
-//   // company.id = company._id;
-//   // delete company._id;
-//   // console.log(company);
-//   return company;
-// };
+companySchema.virtual('reviews.developer', {
+  ref: 'Developer', // The model to use
+  localField: 'reviews.userId', // Find people where `localField`
+  foreignField: 'userId', // is equal to `foreignField`
+  // If `justOne` is true, 'members' will be a single doc as opposed to
+  // an array. `justOne` is false by default.
+  justOne: true
+  // options: { sort: { name: -1 }, limit: 5 } // Query options, see http://bit.ly/mongoose-query-options
+});
+
 
 const Company = mongoose.model("Company", companySchema);
 

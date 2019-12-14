@@ -47,6 +47,7 @@ export class CreateAssignmentComponent implements OnInit {
 
   ngOnInit() {
     this.tagService.getAllDesc().subscribe(result => {
+      this.tagObjects = result.tags;
       result.tags.forEach(element => {
         this.allTags.push(element.name);
       });
@@ -90,17 +91,16 @@ export class CreateAssignmentComponent implements OnInit {
 
   onSaveAssignment() {
 
-    // FIXME
-    // // Add or update tags in database
-    // this.tags.forEach(element => {
-    //   if (!this.allTags.includes(element)) {
-    //     // this.tagService.createTag(new Tag('', element, 1));
-    //   } else if (!this.editMode) {
-    //     const tag = this.tagObjects.find(t => t.name === element);
-    //     tag.usages++;
-    //     this.tagService.updateTag(tag);
-    //   }
-    // });
+    // Add or update tags in database
+    this.tags.forEach(element => {
+      if (!this.allTags.includes(element)) {
+        this.tagService.createTag(new Tag('', element, 1));
+      } else if (!this.editMode) {
+        const tag = this.tagObjects.find(t => t.name === element);
+        tag.usages++;
+        this.tagService.updateTag(tag);
+      }
+    });
     const location: LocationDefining = {
       street: this.assignmentForm.value.street,
       nr: this.assignmentForm.value.nr,
