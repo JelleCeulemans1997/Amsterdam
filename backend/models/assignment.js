@@ -46,4 +46,4 @@ assignmentSchema.virtual('company', {
   // options: { sort: { name: -1 }, limit: 5 } // Query options, see http://bit.ly/mongoose-query-options
 });
 
-module.exports = mongoose.model("Assignment", assignmentSchema);
+module.exports = mongoose.model('Assignment', assignmentSchema);
