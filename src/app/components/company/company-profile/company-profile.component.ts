@@ -32,7 +32,7 @@ export class CompanyProfileComponent implements OnInit {
   userId: string;
   dev: Developer;
 
-  allowed: boolean = true;
+  allowed: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -57,6 +57,7 @@ export class CompanyProfileComponent implements OnInit {
           if (this.reviews.length < 5) {
             this.splicedData.push(review);
           }
+          this.allowed = true;
         } else {
           this.allowed = false;
         }
