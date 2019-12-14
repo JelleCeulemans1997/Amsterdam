@@ -65,6 +65,18 @@ export class AssignmentService {
     return this.http.delete(this.baseURL + '/assignment/' + assignmentId);
   }
 
+  getApplied(developerId: string) {
+    return this.http.get<{message: string, assignments: Assignment[]}>(this.baseURL + '/assignment/applies/' + developerId);
+  }
+
+  getAccepted(developerId: string) {
+    return this.http.get<{message: string, assignments: Assignment[]}>(this.baseURL + '/assignment/accepted/' + developerId);
+  }
+
+  getDenied(developerId: string) {
+    return this.http.get<{message: string, assignments: Assignment[]}>(this.baseURL + '/assignment/denied/' + developerId);
+  }
+
   // getUser(userId: string) {
   //   return this.http.get<{ message: string, user: any }>(this.baseURL + '/user/' + userId);
   // }

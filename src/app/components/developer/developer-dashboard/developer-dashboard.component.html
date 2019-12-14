@@ -1,1 +1,47 @@
-<p>developer-dashboard works!</p>
+<div class="container mt-5 mb-5">
+  <mat-card>
+    <mat-card-title><h4>Applied assignments</h4></mat-card-title>
+    <mat-card-content>
+      <mat-nav-list>
+        <mat-list-item *ngFor="let assignment of applies">
+           <a matLine [routerLink]="['/assignmentdetail/' + assignment.id]">
+             {{assignment.title}}
+           </a>
+           <mat-icon>info</mat-icon>
+        </mat-list-item>
+      </mat-nav-list>
+    </mat-card-content>
+  </mat-card>
+
+  <div class="mt-5">
+    <mat-card>
+      <mat-card-title><h4>Accepted assignments</h4></mat-card-title>
+      <mat-card-content>
+        <mat-nav-list>
+          <mat-list-item *ngFor="let assignment of accepted">
+             <a matLine [routerLink]="['/assignmentdetail/' + assignment.id]">
+              {{assignment.title}}
+             </a>
+             <mat-icon>info</mat-icon>
+          </mat-list-item>
+        </mat-nav-list>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div class="mt-5">
+    <mat-card>
+      <mat-card-title><h4>Denied assignments</h4></mat-card-title>
+      <mat-card-content>
+        <mat-nav-list>
+          <mat-list-item *ngFor="let assignment of denied">
+             <a matLine [routerLink]="['/assignmentdetail/' + assignment.id]">
+                {{assignment.title}}
+             </a>
+             <mat-icon>info</mat-icon>
+          </mat-list-item>
+        </mat-nav-list>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

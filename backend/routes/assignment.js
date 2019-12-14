@@ -11,6 +11,9 @@ router.get('/:id', AssignmentController.getAssignment);
 router.put('/:id', AssignmentController.updateAssignment)
 router.get('', AssignmentController.getAll);
 router.delete('/:id', AssignmentController.deleteAssignment);
+router.get('/applies/:id', AssignmentController.getAllApplied);
+router.get('/accepted/:id', AssignmentController.getAllAccepted);
+router.get('/denied/:id', AssignmentController.getAllDenied);
 
 
 
