@@ -121,6 +121,8 @@ export class DeveloperProfileComponent implements OnInit {
               assignment.accepted.forEach(apply => {
                 if (apply === this.developer.userId) {
                   this.allowed = true;
+                }else{
+                  this.allowed = false;
                 }
               });
             });
