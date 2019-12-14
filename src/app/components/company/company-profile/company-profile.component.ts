@@ -47,7 +47,7 @@ export class CompanyProfileComponent implements OnInit {
       const assignments = res.assignments;
       console.log(res);
       assignments.forEach(assignment => {
-        if (assignment.applies.includes(this.user)) {
+        if (assignment.applies.includes(this.userId)) {
           const stars = document.getElementsByClassName('selectedStar');
           const review: Review = { text: this.reviewForm.get('text').value, score: stars.length, userId: this.userId };
           console.log(review);
