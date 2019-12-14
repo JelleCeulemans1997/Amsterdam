@@ -8,6 +8,7 @@ import { UserService } from 'src/app/services/user.service';
 import { ReviewService } from 'src/app/services/review.service';
 import { Developer } from 'src/app/models/developer.model';
 import { LocationDefining } from 'src/app/models/location.model';
+import { User } from 'src/app/models/user.model';
 
 @Component({
   selector: 'app-company-profile',
@@ -35,9 +36,30 @@ export class CompanyProfileComponent implements OnInit {
     private userService: UserService,
     private reviewService: ReviewService) { }
 
+
+  ngOnInit() {
+    this.reviewForm = this.fb.group({
+      text: ['', Validators.required]
+    });
+    this.route.paramMap.subscribe((paramMap: ParamMap) => {
+      if (paramMap.has('creatorId')) {
+        this.companyService.getCompanyByUserId(paramMap.get('creatorId')).subscribe(result => {
+          this.mailtoLink = 'mailto:' + result.contact.email;
+          this.telLink = 'tel:' + result.contact.phone;
+          this.company = result;
+          if (result.reviews) {
+            this.reviews = result.reviews;
+            this.splicedData = result.reviews.slice(((0 + 1) - 1) * 5).slice(0, 5);
+          }
+          console.log(result);
+        });
+      }
+    });
+  }
+
   onSubmit() {
     const stars = document.getElementsByClassName('selectedStar');
-    const review: Review = {text: this.reviewForm.get('text').value, score: stars.length, userId: this.userService.getUserId()};
+    const review: Review = { text: this.reviewForm.get('text').value, score: stars.length, userId: this.userService.getUserId() };
     console.log(review);
     this.reviews.push(review);
     this.company.reviews = this.reviews;
@@ -72,47 +94,8 @@ export class CompanyProfileComponent implements OnInit {
     return this.starsShown;
   }
 
-  getUser(review: Review) {
-    if (!this.user) {
-      this.reviewService.getDeveloperByUserId(review.userId).subscribe(res => {
-        console.log(res);
-        if (res) {
-          this.user = res;
-        } else {
-          const location: LocationDefining = { city: '', street: '', nr: '', zipcode: '' };
-          this.user = new Developer('User not found', '', '', '', '', '', '', new Date(), '', '', [], location, []);
-          console.log(this.user);
-        }
-      });
-    }
-  }
-
   pageChangeEvent(event) {
     const offset = ((event.pageIndex + 1) - 1) * event.pageSize;
     this.splicedData = this.reviews.slice(offset).slice(0, event.pageSize);
   }
-
-
-  ngOnInit() {
-    this.reviewForm = this.fb.group({
-      text: ['', Validators.required]
-    });
-    this.route.paramMap.subscribe((paramMap: ParamMap) => {
-      if (paramMap.has('creatorId')) {
-        this.companyService.getCompanyByUserId(paramMap.get('creatorId')).subscribe(result => {
-          this.mailtoLink = 'mailto:' + result.contact.email;
-          this.telLink = 'tel:' + result.contact.phone;
-          this.company = result;
-          if(result.reviews){
-            this.reviews = result.reviews;
-            this.splicedData = result.reviews.slice(((0 + 1) - 1) * 5).slice(0, 5);
-          }
-          console.log(result);
-        });
-      }
-    });
-  }
-
-
-
 }

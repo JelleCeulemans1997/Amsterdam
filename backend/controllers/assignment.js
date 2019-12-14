@@ -101,6 +101,22 @@ exports.getAssignment = (req, res, next) => {
   });
 }
 
+exports.deleteAssignment = (req, res, next) => {
+  Assignment.deleteOne({ _id: req.params.id })
+    .then(result => {
+      if (result.n > 0) {
+        res.status(200).json({ message: 'Deletion successful!' });
+      } else {
+        res.status(401).json({ message: 'Not authorized!' });
+      }
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: 'Deleting assignment failed!'
+      });
+    });
+};
+
   // const tag = new Tag({
   //   name: req.body.name,
   //   usages: req.body.usages,

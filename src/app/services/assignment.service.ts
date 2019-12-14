@@ -55,9 +55,14 @@ export class AssignmentService {
     return this.http.get<{ message: string, assignment: any }>(this.baseURL + '/assignment/' + assignmentId);
   }
 
-  getUser(userId: string) {
-    return this.http.get<{ message: string, user: any }>(this.baseURL + '/user/' + userId);
+  deleteAssignment(assignmentId: string) {
+    return this.http.delete(this.baseURL + '/assignment/' + assignmentId);
   }
+
+  // getUser(userId: string) {
+  //   return this.http.get<{ message: string, user: any }>(this.baseURL + '/user/' + userId);
+  // }
+
 
 
 

@@ -6,25 +6,12 @@ const Assignment = require('../models/assignment');
 
 const router = express.Router();
 
-//router.post('/create', extractPdf, AssignmentController.createAssignment);
-// router.get('/assignment:company', extractPdf, AssignmentController.getAssigment);
 router.post('/create', AssignmentController.createAssignment);
 router.get('/:id', AssignmentController.getAssignment);
 router.put('/:id', AssignmentController.updateAssignment);
-router.get('', AssignmentController.getAll)
+router.get('', AssignmentController.getAll);
+router.delete('/:id', AssignmentController.deleteAssignment);
 
-
-
-
-// router.get("/:id", (req, res, next) => {
-//   Assignment.find({_id: req.params.id})
-//     .then(document => {
-//       res.status(200).json({
-//         message: 'assignment fetched succesully',
-//         assignment: document
-//       });
-//     });
-// });
 
 
 

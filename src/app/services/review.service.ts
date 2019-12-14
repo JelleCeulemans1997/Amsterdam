@@ -13,11 +13,11 @@ export class ReviewService {
 
   constructor(private http: HttpClient) { }
 
-  getDeveloperByUserId(userId: string) {
-    return this.http.get<Developer>(this.baseURL + '/developer/getByUserId/' + userId);
-  }
+  // getDeveloperByUserId(userId: string) {
+  //   return this.http.get<Developer>(this.baseURL + '/developer/getByUserId/' + userId);
+  // }
 
-  getCompanyByUserId(userId: string){
+  getCompanyByUserId(userId: string) {
     return this.http.get<Company>(this.baseURL + '/company/getByUserId/' + userId);
   }
 
