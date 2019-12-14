@@ -10,7 +10,7 @@ export class Assignment {
     public tags: string[],
     public location: LocationDefining,
     public creator: string,
-    public applies: User[],
+    public applies: string[],
     public company?: Company
     // ,
     // public pdf: string

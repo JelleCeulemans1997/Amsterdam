@@ -9,6 +9,7 @@ import { UserService } from 'src/app/services/user.service';
 import { ReviewService } from 'src/app/services/review.service';
 import { LocationDefining } from 'src/app/models/location.model';
 import { AssignmentService } from 'src/app/services/assignment.service';
+import { Assignment } from 'src/app/models/assignment.model';
 
 @Component({
   selector: 'app-developer-profile',
@@ -29,6 +30,10 @@ export class DeveloperProfileComponent implements OnInit {
   starsShown: string[];
 
   user: Company;
+
+  assignments: Assignment[];
+
+  allowed: boolean = false;
 
 
   constructor(
@@ -110,9 +115,15 @@ export class DeveloperProfileComponent implements OnInit {
           console.log(result);
         });
         this.userService.getUserbyId(paramMap.get('userId')).subscribe(res => {
-          console.log(res)
-          this.assignmentService.getAllByAppliedDev(res.id).subscribe(response => {
-            console.log(response);
+          this.assignmentService.getAllAsignments().subscribe(response => {
+            this.assignments = response.assignments;
+            this.assignments.forEach(assignment => {
+              assignment.applies.forEach(apply => {
+                if (apply === this.developer.userId) {
+                  this.allowed = true;
+                }
+              });
+            });
           });
         });
       }

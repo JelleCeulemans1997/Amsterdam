@@ -56,9 +56,6 @@ export class AssignmentService {
     return this.http.get<{ message: string, assignments: Assignment[] }>(this.baseURL + '/assignment/getByCompany/' + userId);
   }
 
-  getAllByAppliedDev(userId: string) {
-    return this.http.get<{ message: string, assignments: Assignment[] }>(this.baseURL + '/assignment/getByDeveloper/' + userId);
-  }
 
   getAssignment(assignmentId: string) {
     return this.http.get<{ message: string, assignment: any }>(this.baseURL + '/assignment/' + assignmentId);
