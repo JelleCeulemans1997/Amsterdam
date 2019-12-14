@@ -51,7 +51,7 @@ export class OverviewComponent implements OnInit {
       console.log(this.assignments);
     });
 
-    this.categories = ['Location', 'Tags', 'Company'];
+    this.categories = ['Location', 'Tags', 'Company', 'Keywords'];
     this.results = [];
     this.searchForm = this.fb.group({
       searchString: ['']
@@ -81,6 +81,12 @@ export class OverviewComponent implements OnInit {
     } else if (this.selection === 'Company') {
       this.assignments.forEach(assignment => {
         if(assignment.company.name.toLowerCase().includes(this.searchForm.get('searchString').value.toLowerCase())) {
+          this.results.push(assignment);
+        }
+      })
+    } else if (this.selection === 'Keywords') {
+      this.assignments.forEach(assignment => {
+        if(assignment.title.toLowerCase().includes(this.searchForm.get('searchString').value.toLowerCase())) {
           this.results.push(assignment);
         }
       })
