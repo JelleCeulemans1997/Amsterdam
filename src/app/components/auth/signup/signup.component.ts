@@ -3,6 +3,7 @@ import { FormGroup, FormControlName, Validators, FormControl } from '@angular/fo
 import { MatSlideToggleChange } from '@angular/material';
 import { User } from 'src/app/models/user.model';
 import { UserService } from 'src/app/services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -12,7 +13,9 @@ import { UserService } from 'src/app/services/user.service';
 export class SignupComponent implements OnInit {
   signupForm: FormGroup;
   account: string;
-  constructor(private userService: UserService) { }
+  constructor(
+    private userService: UserService,
+    private router: Router) { }
 
   ngOnInit() {
     this.account = 'Developer';
@@ -29,7 +32,11 @@ export class SignupComponent implements OnInit {
 
   onSubmit() {
     if (this.signupForm.value.password === this.signupForm.value.confirmPassword) {
-      this.userService.createUser(new User('', this.signupForm.value.email, this.signupForm.value.password, this.account));
+      const user = new User('', this.signupForm.value.email, this.signupForm.value.password, this.account)
+      this.userService.createUser(user).subscribe(result => {
+        console.log(result);
+        this.router.navigate(['/login'])
+      });
     } else {
       // show message that passwords aren't identical withh snackbar
     }

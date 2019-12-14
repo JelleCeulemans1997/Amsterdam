@@ -1,5 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { AuthenticateService } from './services/authenticate.service';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import * as fromRoot from './app.reducer';
@@ -49,8 +48,10 @@ export class AppComponent implements OnInit {
       this.userService.getUserbyId(userId).subscribe(result => {
         if (result.role === Role.Developer) {
           this.store.dispatch(new RoleAction.SetDeveloper());
-        } else {
+        } else if (result.role === Role.Company) {
           this.store.dispatch(new RoleAction.SetComapny());
+        } else if (result.role === Role.Admin) {
+          this.store.dispatch(new RoleAction.SetAdmin());
         }
         this.router.navigate([path]);
       });

@@ -1,0 +1,22 @@
+<div class="container mb-5 mt-5" *ngIf="assignment">
+  <mat-card fxFlex fxLayout="column" fxLayoutAlign="center center">
+    <mat-card-title><h4>{{assignment.title}}</h4></mat-card-title>
+    <mat-card-content fxFlex fxLayout="column" fxLayoutAlign="center center">
+
+      <p>{{assignment.description}}</p>
+      <div>
+        <a [routerLink]="['/companyProfile/' + assignment.creator]">COMPANY NAME</a>
+      </div>
+      <mat-chip-list>
+        <mat-chip *ngFor="let tag of assignment.tags">{{tag}}</mat-chip>
+      </mat-chip-list>
+      <br />
+      <h5>Location</h5>
+      <div>{{assignment.location.street }} {{assignment.location.street}}</div>
+      <div>{{assignment.location.zipcode}} {{assignment.location.city}}</div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button color="warn">DELETE</button>
+    </mat-card-actions>
+  </mat-card>
+</div>

@@ -26,4 +26,12 @@ export class CompanyService {
     console.log(company);
     return this.http.put(this.baseURL + '/company/update/' + company.id, company);
   }
+
+  getAllCompanies() {
+    return this.http.get<Company[]>(this.baseURL + '/company');
+  }
+
+  deleteCompany(companyId: string) {
+    return this.http.delete(this.baseURL + '/company/' + companyId);
+  }
 }

@@ -8,23 +8,19 @@ const DeveloperSchema = new Schema(
     firstname: String,
     lastname: String,
     email: String,
+    phone: String,
     dob: Date,
-    skills: [
+    experience: [
       {
         type: String
       }
     ],
     bio: String,
     linkedIn: String,
-    experience: String,
-    location: [
-      {
-        street: String,
-        nr: String,
-        zipcode: String,
-        city: String
-      }
-    ],
+    location: {
+      zipcode: String,
+      city: String
+    },
     reviews: [
       {
         name: String,

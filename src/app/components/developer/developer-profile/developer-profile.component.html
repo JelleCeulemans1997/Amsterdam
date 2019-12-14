@@ -1,30 +1,28 @@
-<div class="container mt-5 mb-5" *ngIf="company" fxFlex fxLayout="column" fxLayoutGap="20px">
+<div class="container mt-5 mb-5" *ngIf="developer" fxFlex fxLayout="column" fxLayoutGap="20px">
   <mat-card>
     <mat-card-title>
-      <h3>{{ company.name }}</h3>
+      <h3>{{ developer.firstname }} {{developer.lastname}}</h3>
     </mat-card-title>
     <mat-card-content>
-      <p>{{ company.bio }}</p>
+      <p>{{ developer.bio }}</p>
       <div>
-        <mat-chip-list style="display: inline;" mat-chip-list *ngFor="let tag of company.tags" fxFlex fxLayout="row"
+        <mat-chip-list style="display: inline;" mat-chip-list *ngFor="let tag of developer.experience" fxFlex fxLayout="row"
           fxLayoutGap="5px">
           <mat-chip color="primary" [selected]="true">{{tag}}</mat-chip>
         </mat-chip-list>
       </div>
       <div>
-        <h4  class="profile-title">Contact</h4>
-        <div>{{company.contact.firstname}} {{company.contact.lastname}}</div>
+        <h4 class="profile-title">Contact</h4>
         <div class="contact-container">
-          <mat-icon>contact_mail</mat-icon><a class="contact-link" [href]="mailtoLink">{{company.contact.email}}</a>
+          <mat-icon>contact_mail</mat-icon><a class="contact-link" [href]="mailtoLink">{{developer.email}}</a>
         </div>
-        <div class="contact-container">
-          <mat-icon>contact_phone</mat-icon><a class="contact-link" [href]="telLink">{{company.contact.phone}}</a>
+        <div  class="contact-container">
+          <mat-icon>contact_phone</mat-icon><a class="contact-link" [href]="telLink">{{developer.phone}}</a>
         </div>
       </div>
       <div>
         <h4 class="profile-title">Location</h4>
-        <div>{{company.location.street}} {{company.location.nr}}</div>
-        <div>{{company.location.zipcode}} {{company.location.city}}</div>
+        <div>{{developer.location.zipcode}} {{developer.location.city}}</div>
       </div>
     </mat-card-content>
   </mat-card>
@@ -64,7 +62,7 @@
               <mat-icon *ngIf="star == 'empty'">star_border</mat-icon>
             </div>
           </div>
-          <p>"{{review.text}}" - {{getUser(review)}} {{user.nickname}}</p>
+          <p>"{{review.text}}" - {{getUser(review)}} {{user.name}}</p>
 
         <mat-divider ></mat-divider>
         </div>

@@ -6,10 +6,11 @@ import { Store } from '@ngrx/store';
 import * as fromAuth from '../auth.reducer';
 import * as Auth from '../auth.actions';
 import * as fromRole from '../role.reducer';
-import * as Role from '../role.actions';
+import * as RoleActions from '../role.actions';
 import { LocalStorageService } from 'src/app/services/localStorage.service';
 import * as fromRoot from '../../../app.reducer';
 import { Router } from '@angular/router';
+import { Role } from 'src/app/models/role.enum';
 
 @Component({
   selector: 'app-login',
@@ -32,8 +33,8 @@ export class LoginComponent implements OnInit {
     ) { }
 
   loginForm = new FormGroup({
-    email: new FormControl('info@jelleceulemans.be', { validators: [Validators.required] }),
-    password: new FormControl('azertyuiop', { validators: [Validators.required] })
+    email: new FormControl('admin@admin.com', { validators: [Validators.required] }),
+    password: new FormControl('admin', { validators: [Validators.required] })
   });
 
 
@@ -46,12 +47,15 @@ export class LoginComponent implements OnInit {
       this.store.dispatch(new Auth.SetAuthenticated());
       this.localStorageService.setToken(result.token);
       let navigateTo;
-      if (result.role === 'Developer') {
+      if (result.role === Role.Developer) {
         navigateTo = '/developerDashboard';
-        this.store.dispatch(new Role.SetDeveloper());
-      } else {
+        this.store.dispatch(new RoleActions.SetDeveloper());
+      } else  if (result.role === Role.Company) {
         navigateTo = '/company';
-        this.store.dispatch(new Role.SetComapny());
+        this.store.dispatch(new RoleActions.SetComapny());
+      } else if (result.role === Role.Admin) {
+        navigateTo = '/overview';
+        this.store.dispatch(new RoleActions.SetAdmin());
       }
       console.log(navigateTo);
       this.router.navigate([navigateTo]);

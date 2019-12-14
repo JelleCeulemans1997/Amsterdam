@@ -20,9 +20,7 @@ export class TagService {
 
 
   createTag(tag: Tag) {
-    this.http.post<Tag>(this.baseURL + '/tag/create', tag).subscribe(result => {
-      console.log(result);
-    });
+    return this.http.post<Tag>(this.baseURL + '/tag/create', tag);
   }
 
   updateTag(tag: Tag) {
@@ -32,8 +30,6 @@ export class TagService {
   }
 
   deleteTag(tagId: string) {
-    return this.http.delete(this.baseURL + '/tag/delete/' + tagId).subscribe(result => {
-      console.log(result);
-    });
+    return this.http.delete(this.baseURL + '/tag/delete/' + tagId);
   }
 }

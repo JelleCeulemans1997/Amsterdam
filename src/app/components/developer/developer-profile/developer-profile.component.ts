@@ -1,23 +1,24 @@
 import { Component, OnInit } from '@angular/core';
-import { ParamMap, ActivatedRoute } from '@angular/router';
-import { CompanyService } from 'src/app/services/company.service';
-import { Company } from 'src/app/models/company.model';
+import { DeveloperService } from 'src/app/services/developer.service';
+import { ActivatedRoute, ParamMap } from '@angular/router';
+import { Developer } from 'src/app/models/developer.model';
 import { Review } from 'src/app/models/review.model';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { Company } from 'src/app/models/company.model';
 import { UserService } from 'src/app/services/user.service';
 import { ReviewService } from 'src/app/services/review.service';
-import { Developer } from 'src/app/models/developer.model';
 import { LocationDefining } from 'src/app/models/location.model';
 
 @Component({
-  selector: 'app-company-profile',
-  templateUrl: './company-profile.component.html',
-  styleUrls: ['./company-profile.component.scss']
+  selector: 'app-developer-profile',
+  templateUrl: './developer-profile.component.html',
+  styleUrls: ['./developer-profile.component.scss']
 })
-export class CompanyProfileComponent implements OnInit {
-  company: Company;
+export class DeveloperProfileComponent implements OnInit {
+
   mailtoLink: string;
   telLink: string;
+  developer: Developer;
 
   reviews: Review[] = [];
   splicedData: Review[] = [];
@@ -26,25 +27,19 @@ export class CompanyProfileComponent implements OnInit {
 
   starsShown: string[];
 
-  user: Developer;
+  user: Company;
 
-  constructor(
-    private route: ActivatedRoute,
-    private companyService: CompanyService,
-    private fb: FormBuilder,
-    private userService: UserService,
-    private reviewService: ReviewService) { }
+
+  constructor( private developerService: DeveloperService, private route: ActivatedRoute,
+    private fb: FormBuilder, private userService: UserService, private reviewService: ReviewService) { }
 
   onSubmit() {
     const stars = document.getElementsByClassName('selectedStar');
     const review: Review = {text: this.reviewForm.get('text').value, score: stars.length, userId: this.userService.getUserId()};
     console.log(review);
     this.reviews.push(review);
-    this.company.reviews = this.reviews;
-    this.companyService.updateCompany(this.company).subscribe();
-    if (this.reviews.length < 5) {
-      this.splicedData.push(review);
-    }
+    this.developer.reviews = this.reviews;
+    this.developerService.updateDeveloper(this.developer).subscribe();
   }
 
   onClick(star: number) {
@@ -73,14 +68,14 @@ export class CompanyProfileComponent implements OnInit {
   }
 
   getUser(review: Review) {
-    if (!this.user) {
-      this.reviewService.getDeveloperByUserId(review.userId).subscribe(res => {
+    if (!this.user){
+      this.reviewService.getCompanyByUserId(review.userId).subscribe(res => {
         console.log(res);
         if (res) {
           this.user = res;
         } else {
           const location: LocationDefining = { city: '', street: '', nr: '', zipcode: '' };
-          this.user = new Developer('User not found', '', '', '', '', '', '', new Date(), '', '', [], location, []);
+          this.user = new Company('', 'Company not found', '', null, null, [], '', []);
           console.log(this.user);
         }
       });
@@ -92,18 +87,17 @@ export class CompanyProfileComponent implements OnInit {
     this.splicedData = this.reviews.slice(offset).slice(0, event.pageSize);
   }
 
-
   ngOnInit() {
     this.reviewForm = this.fb.group({
       text: ['', Validators.required]
     });
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
-      if (paramMap.has('creatorId')) {
-        this.companyService.getCompanyByUserId(paramMap.get('creatorId')).subscribe(result => {
-          this.mailtoLink = 'mailto:' + result.contact.email;
-          this.telLink = 'tel:' + result.contact.phone;
-          this.company = result;
-          if(result.reviews){
+      if (paramMap.has('userId')) {
+        this.developerService.getByUserId(paramMap.get('userId')).subscribe(result => {
+          this.mailtoLink = 'mailto:' + result.email;
+          this.telLink = 'tel:' + result.phone;
+          this.developer = result;
+          if (result.reviews) {
             this.reviews = result.reviews;
             this.splicedData = result.reviews.slice(((0 + 1) - 1) * 5).slice(0, 5);
           }
@@ -112,7 +106,5 @@ export class CompanyProfileComponent implements OnInit {
       }
     });
   }
-
-
 
 }

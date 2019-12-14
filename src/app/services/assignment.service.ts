@@ -22,11 +22,7 @@ export class AssignmentService {
     // postData.append('location', JSON.stringify(location));
     // postData.append('pdf', pdf, title);
     // console.log(postData);
-    console.log(assignment);
-    this.http.post<{ message: string; assignment: Assignment }>(this.baseURL + '/assignment/create', assignment)
-      .subscribe(responseData => {
-        console.log(responseData);
-      });
+    return this.http.post<{ message: string; assignment: Assignment }>(this.baseURL + '/assignment/create', assignment);
   }
 
   getAssignmentById(assingmentId: string) {
@@ -34,10 +30,7 @@ export class AssignmentService {
   }
 
   updateAssignment(assignment: Assignment) {
-    this.http.put<AssignmentService>(this.baseURL + '/assignment/' + assignment.id, assignment).subscribe(result => {
-      console.log(result);
-      return result;
-    });
+    return this.http.put<AssignmentService>(this.baseURL + '/assignment/' + assignment.id, assignment);
   }
 
   // getAllDesc() {
@@ -55,17 +48,7 @@ export class AssignmentService {
   // }
 
   getAllAsignments() {
-    return this.http.get<{ message: string, assignments: any }>(this.baseURL + '/assignment')
-      .pipe(map(result => {
-        return {
-          assignments: result.assignments.map(assignment => {
-            return {
-              ...assignment,
-              id: assignment.id
-            };
-          })
-        };
-      }));
+    return this.http.get<{ message: string, assignments: Assignment[] }>(this.baseURL + '/assignment');
   }
 
   getAssignment(assignmentId: string) {

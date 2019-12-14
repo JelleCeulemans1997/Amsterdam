@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+//const Company = require('./company');
+
 const assignmentSchema = new Schema(
   {
     title: String,
@@ -10,14 +12,12 @@ const assignmentSchema = new Schema(
         type: String
       }
     ],
-    location: [
-      {
-        street: String,
-        nr: String,
-        city: String,
-        zipcode: String
-      }
-    ],
+    location: {
+      street: String,
+      nr: String,
+      city: String,
+      zipcode: String
+    },
     creator: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
     applies: [{ apply: { type: mongoose.Schema.Types.ObjectId, ref: "User" } }],
     accepted: [
@@ -27,6 +27,7 @@ const assignmentSchema = new Schema(
   },
   {
     toJSON: {
+      virtuals: true,
       transform: (doc, ret) => {
         ret.id = ret._id;
         delete ret._id;
@@ -34,5 +35,15 @@ const assignmentSchema = new Schema(
     }
   }
 );
+
+assignmentSchema.virtual('company', {
+  ref: 'Company', // The model to use
+  localField: 'creator', // Find people where `localField`
+  foreignField: 'userId', // is equal to `foreignField`
+  // If `justOne` is true, 'members' will be a single doc as opposed to
+  // an array. `justOne` is false by default.
+  justOne: true
+  // options: { sort: { name: -1 }, limit: 5 } // Query options, see http://bit.ly/mongoose-query-options
+});
 
 module.exports = mongoose.model("Assignment", assignmentSchema);

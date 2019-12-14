@@ -15,7 +15,8 @@ import {
   MatTableModule,
   MatSelectModule,
   MatExpansionModule,
-  MatSlideToggleModule} from '@angular/material';
+  MatSlideToggleModule,
+  MatTreeModule} from '@angular/material';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import {
     MatTableModule,
     MatSelectModule,
     MatExpansionModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatTreeModule
   ],
   exports: [
     MatToolbarModule,
@@ -52,7 +54,8 @@ import {
     MatTableModule,
     MatSelectModule,
     MatExpansionModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatTreeModule
   ]
 })
 export class MaterialModule { }
