@@ -51,7 +51,7 @@ export class OverviewComponent implements OnInit {
       console.log(this.assignments);
     });
 
-    this.categories = ['Location', 'Tags'];
+    this.categories = ['Location', 'Tags', 'Company', 'Keywords'];
     this.results = [];
     this.searchForm = this.fb.group({
       searchString: ['']
@@ -64,7 +64,7 @@ export class OverviewComponent implements OnInit {
     this.results.splice(0, this.results.length);
     if (this.selection === 'Location') {
       this.assignments.forEach(assignment => {
-        if ( assignment.location[0].zipcode === this.searchForm.get('searchString').value ) {
+        if ( assignment.location.zipcode === this.searchForm.get('searchString').value ) {
           this.results.push(assignment);
         }
       });
@@ -79,7 +79,17 @@ export class OverviewComponent implements OnInit {
         });
       });
     } else if (this.selection === 'Company') {
-
+      this.assignments.forEach(assignment => {
+        if(assignment.company.name.toLowerCase().includes(this.searchForm.get('searchString').value.toLowerCase())) {
+          this.results.push(assignment);
+        }
+      })
+    } else if (this.selection === 'Keywords') {
+      this.assignments.forEach(assignment => {
+        if(assignment.title.toLowerCase().includes(this.searchForm.get('searchString').value.toLowerCase())) {
+          this.results.push(assignment);
+        }
+      })
     }
     return this.searchForm.get('searchString').value;
 
@@ -149,10 +159,36 @@ export class OverviewComponent implements OnInit {
   onApply(assignmentId) {
 
     const makerId = this.userService.getUserId();
-
     console.log('click assId: ' + assignmentId + ' - makerId: ' + makerId);
 
-    this.assignmentService.sendApply(assignmentId, makerId);
+
+    this.assignmentService.checkAlreadyApplied(assignmentId, makerId).subscribe(response => {
+      const assignment = response.assignment;
+      let applied = false;
+      for (const check of assignment.applies) {
+        if (check.apply === makerId) {
+          applied = true;
+        }
+      }
+      for (const check of assignment.accepted) {
+        if (check.accept === makerId) {
+          applied = true;
+        }
+      }
+      for (const check of assignment.denied) {
+        if (check.deny === makerId) {
+          applied = true;
+        }
+      }
+      console.log('service applied: ' + applied);
+      if (applied === false) {
+        this.assignmentService.sendApply(assignmentId, makerId);
+        console.log('apply send');
+      } else {
+        console.log('hier moet iets komen om te zeggen dat het niet mogelijk is...');
+      }
+    });
+
   }
 
 }

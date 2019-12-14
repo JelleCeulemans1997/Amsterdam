@@ -14,6 +14,7 @@
 
           <mat-card class="example-card">
             <mat-card-header>
+
               <mat-card-title ><span style="text-align: center">{{assignment.title}}</span></mat-card-title>
             </mat-card-header>
 <!--            <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">-->
@@ -27,8 +28,9 @@
                 <p>nr: {{assignment.location.nr}}</p>
                 <p>street: {{assignment.location.street}}</p>
                 <p>zipcode: {{assignment.location.zipcode}}</p>
+
               </div>
-              <h3 style="text-align: center">tags</h3>
+              <h3>Tags</h3>
 <!--              <div style="text-align: center" *ngFor="let tag of assignment.assignment.tags">-->
 <!--                <p>{{tag}}</p>-->
 <!--              </div>-->
@@ -41,7 +43,9 @@
 
             </mat-card-content>
             <mat-card-actions>
+
               <button class="btn btn-primary"  [routerLink]="['/editAssignment', assignment.id]">EDIT ASSIGNMENT</button>
+
             </mat-card-actions>
           </mat-card>
 
@@ -56,27 +60,32 @@
         <div class="col-md-5"><mat-accordion>
           <mat-expansion-panel>
             <mat-expansion-panel-header>
-              <mat-panel-title>
+              <mat-panel-title style="font-weight:bold;">
                 Applies
               </mat-panel-title>
             </mat-expansion-panel-header>
             <mat-spinner *ngIf="isLoading"></mat-spinner>
 <!--applies-->
+            <div *ngIf="assignment.applies.length < 1"><p>No applies!</p></div>
+            <div *ngIf="assignment.applies.length > 0" >
             <mat-expansion-panel *ngFor="let apply of assignment.applies">
               <mat-expansion-panel-header>
                 <mat-panel-title>
-<!--                  {{apply.apply}}-->
-                  Maker
+                  {{apply.developer.nickname}}
+
                 </mat-panel-title>
               </mat-expansion-panel-header>
 
                           <mat-list role="list">
                             <mat-list-item role="listitem">Profile</mat-list-item>
-                            <mat-list-item role="listitem" (click)="onAcceptApply(assignment.id, apply.apply.id)">Accept</mat-list-item>
-                            <mat-list-item role="listitem" (click)="onDenyApply(assignment.id, apply.apply.id)">Deny</mat-list-item>
+                            <mat-list-item role="listitem" (click)="onAcceptApply(assignment.id, apply.apply)">Accept</mat-list-item>
+                            <mat-list-item role="listitem" (click)="onDenyApply(assignment.id, apply.apply)">Deny</mat-list-item>
                           </mat-list>
 
+
             </mat-expansion-panel>
+
+            </div>
 <!--            <mat-list role="list">-->
 <!--              <mat-list-item *ngFor="let apply of assignment.assignment.applies" role="listitem">{{apply.apply}} <br>X - V-->
 <!--                <br>-->
@@ -90,15 +99,16 @@
           </mat-expansion-panel>
           <mat-expansion-panel>
             <mat-expansion-panel-header>
-              <mat-panel-title>
+              <mat-panel-title style="font-weight:bold;">
                 Accepted
               </mat-panel-title>
             </mat-expansion-panel-header>
+            <div *ngIf="assignment.accepted.length < 1"><p>No developers accepted yet!</p></div>
+            <div *ngIf="assignment.accepted.length > 0" >
             <mat-expansion-panel *ngFor="let accept of assignment.accepted">
               <mat-expansion-panel-header>
                 <mat-panel-title>
-<!--                  {{accept.accept}}-->
-Maker
+                  {{accept.developer.nickname}}
                 </mat-panel-title>
               </mat-expansion-panel-header>
 
@@ -109,18 +119,21 @@ Maker
               </mat-list>
 
             </mat-expansion-panel>
+              </div>
           </mat-expansion-panel>
           <mat-expansion-panel>
             <mat-expansion-panel-header>
-              <mat-panel-title>
+              <mat-panel-title style="font-weight:bold;">
                 Denied
               </mat-panel-title>
             </mat-expansion-panel-header>
+            <div *ngIf="assignment.denied.length < 1"><p>No developers denied yet!</p></div>
+            <div *ngIf="assignment.denied.length > 0" >
             <mat-expansion-panel *ngFor="let deny of assignment.denied">
               <mat-expansion-panel-header>
                 <mat-panel-title>
-<!--                  {{deny.deny}}-->
-                  Maker
+                  {{deny.developer.nickname}}
+
                 </mat-panel-title>
               </mat-expansion-panel-header>
 
@@ -131,6 +144,7 @@ Maker
               </mat-list>
 
             </mat-expansion-panel>
+              </div>
           </mat-expansion-panel>
 <!--          <mat-expansion-panel>-->
 <!--            <mat-expansion-panel-header>-->
