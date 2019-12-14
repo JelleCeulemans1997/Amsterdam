@@ -67,20 +67,20 @@ export class DeveloperProfileComponent implements OnInit {
     return this.starsShown;
   }
 
-  getUser(review: Review) {
-    if (!this.user){
-      this.reviewService.getCompanyByUserId(review.userId).subscribe(res => {
-        console.log(res);
-        if (res) {
-          this.user = res;
-        } else {
-          const location: LocationDefining = { city: '', street: '', nr: '', zipcode: '' };
-          this.user = new Company('', 'Company not found', '', null, null, [], '', []);
-          console.log(this.user);
-        }
-      });
-    }
-  }
+  // getUser(review: Review) {
+  //   if (!this.user){
+  //     this.reviewService.getCompanyByUserId(review.userId).subscribe(res => {
+  //       console.log(res);
+  //       if (res) {
+  //         this.user = res;
+  //       } else {
+  //         const location: LocationDefining = { city: '', street: '', nr: '', zipcode: '' };
+  //         this.user = new Company('', 'Company not found', '', null, null, [], '', []);
+  //         console.log(this.user);
+  //       }
+  //     });
+  //   }
+  // }
 
   pageChangeEvent(event) {
     const offset = ((event.pageIndex + 1) - 1) * event.pageSize;
