@@ -202,7 +202,7 @@ canApply = false;
             }
             if (applied === false) {
               this.assignmentService.sendApply(assignmentId, userId);
-              this.router.navigate(['/developerDashboard']);
+
             } else {
               this.openSnackBar('You already applied', 'Failed');
             }
