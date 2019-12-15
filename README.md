@@ -1,5 +1,5 @@
 # DEV-COM Connect
-This project has been in as an assignment for the Application Challenge from Jstack, Qframe and Grasshoppers Academy
+This project has been made for the Application Challenge from Jstack, Qframe and Grasshoppers Academy.
 
 
 
