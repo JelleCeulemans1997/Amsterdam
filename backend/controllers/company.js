@@ -1,18 +1,5 @@
-// const express = require("express");
 const Company = require("../models/company");
-// const router = express.Router()
 
-// router.get('/companies', (req, res, next) => {
-//     try {
-//         Company.find().exec((err, companies) => {
-//             res.json(companies);
-//         });
-//     } catch (error) {
-//         res.status(400).send(error)
-//     }
-// });
-
-// module.exports = router
 
 exports.deleteCompany = (req, res, next) => {
   Company.deleteOne({ _id: req.params.id })
@@ -60,8 +47,8 @@ exports.getByCreatorId = (req, res) => {
 exports.createCompany = (req, res) => {
   const company = new Company({
     ...req.body
-  })
-    .save()
+  });
+  company.save()
     .then(cratedCompany => {
       res.status(201).json({
         message: "Company added successfully",
@@ -91,18 +78,4 @@ exports.updateCompany = (req, res) => {
         message: 'Couldn\'t udpate company!'
       });
     });
-
-  // Company.updateOne({ _id: req.params.id }, company)
-  //   .then(result => {
-  //     if (result.n > 0) {
-  //       res.status(200).json({ message: "Update successful!" });
-  //     } else {
-  //       res.status(401).json({ message: "Not authorized!" });
-  //     }
-  //   })
-  //   .catch(error => {
-  //     res.status(500).json({
-  //       message: "Couldn't udpate post!"
-  //     });
-  //   });
 };

@@ -17,6 +17,75 @@ exports.getAll = (req, res, next) => {
     });
 };
 
+// user deny apply for an assignment
+//id is the assignment id, req.body is the id of the user
+exports.denyAppliedAssignment = (req, res, next) => {
+  console.log(req.body.applies);
+  Assignment.updateOne({_id: req.params.id}, {$push: {denied: req.body.denied}}).then(result => {
+    if (result.nModified > 0) {
+      res.status(200).json({message: "update successful!"});
+    } else {
+      res.status(401).json({
+        message: 'Not authorized! :D'
+      });
+    }
+  })
+};
+
+//verwijder de apply na het accepteren of denyen van een apply
+//id is assignmentdId en req.body is userId
+exports.removeAppliedAssignment = (req, res, next) => {
+  Assignment.updateOne({_id: req.params.id}, {$pull: {applies: req.body.applies}}).then(result => {
+    if (result.nModified > 0) {
+      res.status(200).json({message: "update successful!"});
+    } else {
+      res.status(401).json({
+        message: 'Not authorized!'
+      });
+    }
+  })
+};
+
+// user apply for an assignment
+// id is the assignment id, req.body is the id of the user
+exports.applyAssignment =  (req, res, next) => {
+  console.log(req.body.applies);
+  Assignment.updateOne({_id: req.params.id}, {$push: {applies: req.body.applies}}).then(result => {
+    if (result.nModified > 0) {
+      res.status(200).json({message: "update successful!"});
+    } else {
+      res.status(401).json({
+        message: 'Not authorized! :D'
+      });
+    }
+  })
+};
+
+// compant accept apply for an assignment
+// id is the assignment id, req.body is the id of the user
+exports.acceptAppliedAssignment = (req, res, next) => {
+  console.log(req.body.applies);
+  Assignment.updateOne({_id: req.params.id}, {$push: {accepted: req.body.accepted}}).then(result => {
+    if (result.nModified > 0) {
+      res.status(200).json({message: "update successful!"});
+    } else {
+      res.status(401).json({
+        message: 'Not authorized! :D'
+      });
+    }
+  })
+};
+
+exports.getByCreatorId = (req, res, next) => {
+  Assignment.find({creator: req.params.creatorId})
+    .then(documents => {
+      res.status(200).json({
+        message: 'assignment fetched succesully',
+        assignments: documents
+      });
+    });
+};
+
 exports.createAssignment = (req, res, next) => {
   console.log(req.body);
   const assignment = new Assignment({
@@ -40,14 +109,9 @@ exports.createAssignment = (req, res, next) => {
     });
 };
 
-// exports.getAssigment()= (req, res, next) => {
-//   Assignment.find({email: {$regex : req.params.email}})
-// };
+
 
 exports.updateAssignment = (req, res, next) => {
-  // console.log(req.body);
-  // console.log(req.params);
-  // console.log(jwt.decode(req.body.creator)._id);
   const creatorId = jwt.decode(req.body.creator)._id;
   const assignment = new Assignment({
     _id: req.body.id,

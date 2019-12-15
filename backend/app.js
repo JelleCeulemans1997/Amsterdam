@@ -1,7 +1,6 @@
 const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
-// const userRouter = require('./controllers/user');
 const tagRouter = require('./routes/tag');
 const assignmentRouter = require('./routes/assignment');
 const companyRouter = require('./routes/company');
@@ -25,9 +24,9 @@ mongoose.connect('mongodb+srv://jelle:'+ process.env.MONGODB_PASSWORD +'@cluster
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
-//forward to this folder
-//Add this for pdf
-app.use('/images', express.static(path.join('backend/images')));
+// //forward to this folder
+// //Add this for pdf
+// app.use('/images', express.static(path.join('backend/images')));
 
 
 app.use((req, res, next) => {

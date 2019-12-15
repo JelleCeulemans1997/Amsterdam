@@ -1,8 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-//const Company = require('./company');
-
 const assignmentSchema = new Schema(
   {
     title: String,
@@ -36,46 +34,32 @@ const assignmentSchema = new Schema(
 );
 
 assignmentSchema.virtual('applies.developer', {
-  ref: 'Developer', // The model to use
-  localField: 'applies.apply', // Find people where `localField`
-  foreignField: 'userId', // is equal to `foreignField`
-  // If `justOne` is true, 'members' will be a single doc as opposed to
-  // an array. `justOne` is false by default.
+  ref: 'Developer',
+  localField: 'applies.apply',
+  foreignField: 'userId',
   justOne: true
-  // options: { sort: { name: -1 }, limit: 5 } // Query options, see http://bit.ly/mongoose-query-options
 });
 
 assignmentSchema.virtual('accepted.developer', {
-  ref: 'Developer', // The model to use
-  localField: 'accepted.accept', // Find people where `localField`
-  foreignField: 'userId', // is equal to `foreignField`
-  // If `justOne` is true, 'members' will be a single doc as opposed to
-  // an array. `justOne` is false by default.
+  ref: 'Developer',
+  localField: 'accepted.accept',
+  foreignField: 'userId',
   justOne: true
-  // options: { sort: { name: -1 }, limit: 5 } // Query options, see http://bit.ly/mongoose-query-options
 });
 
 assignmentSchema.virtual('denied.developer', {
-  ref: 'Developer', // The model to use
-  localField: 'denied.deny', // Find people where `localField`
-  foreignField: 'userId', // is equal to `foreignField`
-  // If `justOne` is true, 'members' will be a single doc as opposed to
-  // an array. `justOne` is false by default.
+  ref: 'Developer',
+  localField: 'denied.deny',
+  foreignField: 'userId',
   justOne: true
-  // options: { sort: { name: -1 }, limit: 5 } // Query options, see http://bit.ly/mongoose-query-options
 });
 
 
-
-
 assignmentSchema.virtual('company', {
-  ref: 'Company', // The model to use
-  localField: 'creator', // Find people where `localField`
-  foreignField: 'userId', // is equal to `foreignField`
-  // If `justOne` is true, 'members' will be a single doc as opposed to
-  // an array. `justOne` is false by default.
+  ref: 'Company',
+  localField: 'creator',
+  foreignField: 'userId',
   justOne: true
-  // options: { sort: { name: -1 }, limit: 5 } // Query options, see http://bit.ly/mongoose-query-options
 });
 
 module.exports = mongoose.model('Assignment', assignmentSchema);

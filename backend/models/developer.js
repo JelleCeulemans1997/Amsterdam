@@ -42,13 +42,11 @@ const DeveloperSchema = new Schema(
 );
 
 DeveloperSchema.virtual('reviews.company', {
-  ref: 'Company', // The model to use
-  localField: 'reviews.userId', // Find people where `localField`
-  foreignField: 'userId', // is equal to `foreignField`
-  // If `justOne` is true, 'members' will be a single doc as opposed to
-  // an array. `justOne` is false by default.
+  ref: 'Company',
+  localField: 'reviews.userId',
+  foreignField: 'userId',
   justOne: true
-  // options: { sort: { name: -1 }, limit: 5 } // Query options, see http://bit.ly/mongoose-query-options
+
 });
 
 module.exports = mongoose.model("Developer", DeveloperSchema);
