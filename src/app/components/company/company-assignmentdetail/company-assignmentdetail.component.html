@@ -7,23 +7,16 @@
       <div class="row" *ngIf="assignment">
         <div class="col-md-7" style="padding-bottom: 10px;">
           <mat-card class="example-card">
-            <mat-card-header>
-              <mat-card-title>--> {{assignment.title}}</mat-card-title>
+            <mat-card-header fxLayoutAlign="center center">
+              <mat-card-title>{{assignment.title}}</mat-card-title>
             </mat-card-header>
-            <mat-card-content>
-              <h5>Description</h5>
-              <p>{{assignment.description}}</p>
+            <mat-card-content fxLayoutAlign="center center" fxLayout="column">
+              <p align="center">{{assignment.description}}</p>
               <h5>Location</h5>
-              <div>
-                <p><span style="text-decoration: underline;">Street</span>: {{assignment.location.street}} - <span
-                    style="text-decoration: underline;">Nr</span>: {{assignment.location.nr}}</p>
-              </div>
-              <div>
-                <p><span style="text-decoration: underline;">Zipcode</span>: {{assignment.location.zipcode}} - <span
-                    style="text-decoration: underline;">City</span>: {{assignment.location.city}}</p>
-              </div>
+                <div>{{assignment.location.street}} {{assignment.location.nr}}</div>
+                <div>{{assignment.location.zipcode}} {{assignment.location.city}}</div>
               <h5>Tags</h5>
-              <mat-chip-list *ngFor="let tag of assignment.tags">
+              <mat-chip-list *ngFor="let tag of assignment.tags" fxFlex fxLayout="row">
                 <mat-chip color="primary" [selected]="true">{{tag}}</mat-chip>
               </mat-chip-list>
             </mat-card-content>
@@ -42,7 +35,6 @@
                 </mat-panel-title>
               </mat-expansion-panel-header>
               <mat-spinner *ngIf="isLoading"></mat-spinner>
-              <!--applies-->
               <div *ngIf="assignment.applies.length < 1">
                 <p>No applies!</p>
               </div>
