@@ -87,17 +87,13 @@ export class DeveloperCredentialsComponent implements OnInit {
         this.downloadImage = image;
         this.cv = cv;
 
-        // TODO: omzetten daar date
-        console.log(dob);
-        const tempDate = new Date(dob);
-        const tempDateString = tempDate.getFullYear() + '-' + tempDate.getMonth() + '-' + tempDate.getDate();
-        console.log(tempDate.getFullYear());
-        // dob = this.transformDate(dob);
+        let dateString = dob.toString();
+        dateString = dateString.substring(0, 10);
         this.developerForm.setValue({
           nickname,
           firstname,
           lastname,
-          dob: tempDateString,
+          dob: dateString,
           linkedin: linkedIn,
           bio,
           email,
@@ -203,6 +199,10 @@ export class DeveloperCredentialsComponent implements OnInit {
     const storageRef: firebase.storage.Reference = firebase.storage().ref(path);
     storageRef.put(file, customMetadata).then(() => {
       storageRef.getDownloadURL().then(result => {
+        console.log(result);
+        this.snackbar.open('CV updated', 'Success', {
+          duration: 3000
+        });
         this.cv = result;
       });
     });
@@ -215,6 +215,7 @@ export class DeveloperCredentialsComponent implements OnInit {
     const storageRef: firebase.storage.Reference = firebase.storage().ref(path);
     storageRef.put(file, customMetadata).then(() => {
       storageRef.getDownloadURL().then(result => {
+        console.log(result);
         this.downloadImage = result;
       });
     });

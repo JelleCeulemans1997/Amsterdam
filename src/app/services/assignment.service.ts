@@ -5,6 +5,7 @@ import { Assignment } from '../models/assignment.model';
 import { LocationDefining } from '../models/location.model';
 import { map } from 'rxjs/operators';
 import { User } from '../models/user.model';
+import {Router} from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class AssignmentService {
   baseURL = environment.baseURL;
 
   // Make all the necessary services available
-  constructor(private http: HttpClient) { }
+  constructor(private router: Router, private http: HttpClient) { }
 
   createAssignment(assignment: Assignment) {
     // const postData = new FormData();
@@ -31,7 +32,7 @@ export class AssignmentService {
   }
 
   updateAssignment(assignment: Assignment) {
-    return this.http.put<AssignmentService>(this.baseURL + '/assignment/' + assignment.id, assignment);
+    return this.http.put<Assignment>(this.baseURL + '/assignment/' + assignment.id, assignment);
   }
 
   // getAllDesc() {
@@ -127,6 +128,7 @@ export class AssignmentService {
     this.http.patch(this.baseURL + '/assignment/applyassignment/' + assignmentId, developer).subscribe(response => {
       console.log(response);
       console.log('added');
+      this.router.navigate(['/developerDashboard']);
     });
   }
 
