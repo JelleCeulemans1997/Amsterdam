@@ -15,6 +15,7 @@ import { Tag } from 'src/app/models/tag.model';
 import * as firebase from 'firebase/app';
 import { LocalStorageService } from 'src/app/services/localStorage.service';
 import { UserService } from 'src/app/services/user.service';
+import { CompanyService } from 'src/app/services/company.service';
 
 @Component({
   selector: 'app-create-assignment',
@@ -35,6 +36,7 @@ export class CreateAssignmentComponent implements OnInit {
   assignmentId: string;
   tagObjects: Tag[];
   pdf: string;
+  showAssessment = false;
 
   @ViewChild('tagInput', {static: false}) tagInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto', {static: false}) matAutocomplete: MatAutocomplete;
@@ -44,19 +46,25 @@ export class CreateAssignmentComponent implements OnInit {
     private assignmentService: AssignmentService,
     private route: ActivatedRoute,
     private router: Router,
-    private userService: UserService) {
+    private userService: UserService,
+    private companyService: CompanyService) {
     this.filteredTags = this.tagCtrl.valueChanges.pipe(
         startWith(null),
         map((fruit: string | null) => fruit ? this._filter(fruit) : this.allTags.slice()));
   }
 
   ngOnInit() {
+    this.companyService.getCompanyByUserId(this.userService.getUserId()).subscribe(result => {
+      this.showAssessment = result ? true : false;
+    });
+
     this.tagService.getAllDesc().subscribe(result => {
       this.tagObjects = result.tags;
       result.tags.forEach(element => {
         this.allTags.push(element.name);
       });
     });
+
 
 
     this.assignmentForm = new FormGroup({
