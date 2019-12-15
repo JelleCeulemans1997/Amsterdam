@@ -20,5 +20,4 @@ export class ReviewService {
   getCompanyByUserId(userId: string) {
     return this.http.get<Company>(this.baseURL + '/company/getByUserId/' + userId);
   }
-
 }

@@ -14,12 +14,18 @@ export class CompanyDashboardComponent implements OnInit {
   constructor(    private userService: UserService, private assingmentService: AssignmentService) {}
 
   ngOnInit() {
+    console.log('in dashboard');
     const companyId = this.userService.getUserId();
+    console.log(companyId);
 
     this.assingmentService.getAllByCompany(companyId).subscribe(result => {
       this.assignments = result.assignments;
       console.log(this.assignments);
     });
+    // this.assingmentService.getAllAsignments().subscribe(result => {
+    //   this.assignments = result.assignments;
+    //   console.log(this.assignments);
+    // });
   }
 
 
