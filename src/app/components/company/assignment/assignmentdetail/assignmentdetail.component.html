@@ -16,7 +16,7 @@
       <div>{{assignment.location.zipcode}} {{assignment.location.city}}</div>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-button color="warn" (click)="deleteAssignment(assignment.id)">DELETE</button>
+      <button *ngIf="role == 'Admin' || allowed" mat-button color="warn" (click)="deleteAssignment(assignment.id)">DELETE</button>
     </mat-card-actions>
   </mat-card>
 </div>
