@@ -46,6 +46,7 @@ const routes: Routes = [
   { path: 'companies', component: AdminCompaniesComponent, canActivate: [AuthGuard], data: {role: Role.Admin}},
   { path: 'developers', component: AdminDevelopersComponent, canActivate: [AuthGuard], data: {role: Role.Admin}},
   { path: 'assignments', component: AdminAssignmentsComponent, canActivate: [AuthGuard], data: {role: Role.Admin}},
+  { path: '**', component: OverviewComponent}
 ];
 
 @NgModule({

@@ -28,7 +28,8 @@ const DeveloperSchema = new Schema(
         text: String
       }
     ],
-    image: String
+    image: String,
+    cv: String,
   },
   {
     toJSON: {
