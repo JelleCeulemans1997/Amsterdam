@@ -82,13 +82,16 @@ export class DeveloperCredentialsComponent implements OnInit {
         this.imagePreview = image;
         console.log(this.imagePreview);
         // TODO: omzetten daar date
-        // console.log(dob);
+        console.log(dob);
+        let tempDate = new Date(dob);
+        let tempDateString = tempDate.getFullYear() + "-" + tempDate.getMonth() + "-" + tempDate.getDate();
+        console.log(tempDate.getFullYear());
         // dob = this.transformDate(dob);
         this.developerForm.setValue({
           nickname,
           firstname,
           lastname,
-          dob,
+          dob: tempDateString,
           linkedin: linkedIn,
           bio,
           email,
