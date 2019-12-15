@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { TagService } from 'src/app/services/tag.service';
 import { Tag } from 'src/app/models/tag.model';
-import { MatTableDataSource } from '@angular/material';
+import { MatTableDataSource, MatSnackBar } from '@angular/material';
 import { MatSort } from '@angular/material/sort';
 
 
@@ -14,13 +14,16 @@ export class AdminTagsComponent implements OnInit {
   displayedColumns: string[] = ['name', 'usages', 'actions'];
   dataSource: any;
   tag: string;
+  dbTags: Tag[];
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  constructor(private tagService: TagService) { }
+  constructor(private tagService: TagService, private snackbar: MatSnackBar) { }
 
   ngOnInit() {
     this.tagService.getAllDesc().subscribe(result => {
+      console.log(result.tags);
+      this.dbTags = result.tags;
       this.dataSource = new MatTableDataSource(result.tags);
       this.dataSource.sort = this.sort;
     });
@@ -37,19 +40,20 @@ export class AdminTagsComponent implements OnInit {
   // }
 
   createTag() {
-    if (this.tag && this.tag !== '') {
+    if (this.tag && this.tag !== '' && !this.dbTags.find(t => t.name === this.tag)) {
       const tag: Tag = {
         id: null,
         name: this.tag,
         usages: 0
       };
       this.tagService.createTag(tag).subscribe(result => {
-        console.log(result);
         this.tag = '';
         this.ngOnInit();
       });
     } else {
-      // show snackbar that field is empty
+      this.snackbar.open('Field empty or Tag already exists', 'Error', {
+        duration: 3000
+      });
     }
   }
 

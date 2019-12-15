@@ -1,5 +1,5 @@
 <div class="container mt-5 mb-5">
-  <mat-card>
+  <mat-card *ngIf="showAssessment">
     <mat-card-title fxLayoutAlign="center center">Assignment</mat-card-title>
     <mat-card-content>
       <form [formGroup]="assignmentForm">
@@ -69,5 +69,8 @@
     <mat-card-actions fxLayoutAlign="center center">
       <button mat-raised-button color="primary" [disabled]="assignmentForm.invalid" (click)="onSaveAssignment()">Submit Assignment</button>
     </mat-card-actions>
+  </mat-card>
+  <mat-card fxLayoutAlign="center center" *ngIf="!showAssessment">
+    <h3>First fill in your credentials!</h3>
   </mat-card>
 </div>
