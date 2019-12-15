@@ -21,7 +21,7 @@ export class SignupComponent implements OnInit {
   ngOnInit() {
     this.account = 'Developer';
     this.signupForm = new FormGroup({
-      email: new FormControl(null, {validators: [Validators.required, Validators.email]}),
+      email: new FormControl(null, {validators: [Validators.required, Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$')]}),
       password: new FormControl(null, {validators: [Validators.required]}),
       confirmPassword: new FormControl(null, {validators: [Validators.required]})
     });
@@ -32,6 +32,7 @@ export class SignupComponent implements OnInit {
   }
 
   onSubmit() {
+
     if (this.signupForm.value.password === this.signupForm.value.confirmPassword) {
       const user = new User('', this.signupForm.value.email, this.signupForm.value.password, this.account)
       this.userService.createUser(user).subscribe(result => {
