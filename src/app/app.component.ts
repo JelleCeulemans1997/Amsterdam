@@ -59,7 +59,10 @@ export class AppComponent implements OnInit, OnDestroy {
         } else if (result.role === Role.Admin) {
           this.store.dispatch(new RoleAction.SetAdmin());
         }
-        this.userService.emitChangeName(this.localStorageService.getName());
+        const name =  this.localStorageService.getName();
+        if (name) {
+          this.userService.emitChangeName(name);
+        }
         this.router.navigate([path]);
       });
     }
