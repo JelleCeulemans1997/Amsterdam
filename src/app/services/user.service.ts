@@ -32,9 +32,15 @@ export class UserService {
   }
 
   getUserId() {
-    const jwtData = this.localStorageService.getToken().split('.')[1];
-    const decodedJwt = window.atob(jwtData);
-    return JSON.parse(decodedJwt)._id;
+    const token = this.localStorageService.getToken();
+    if (token) {
+      const jwtData = this.localStorageService.getToken().split('.')[1];
+      const decodedJwt = window.atob(jwtData);
+      return JSON.parse(decodedJwt)._id;
+    } else {
+      return null;
+    }
+
   }
 
   emitChangeName(name: string) {

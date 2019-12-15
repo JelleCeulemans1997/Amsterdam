@@ -7,13 +7,13 @@ import { ENTER, COMMA } from '@angular/cdk/keycodes';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { MatAutocompleteSelectedEvent, MatChipInputEvent, MatAutocomplete } from '@angular/material';
-import {UserService} from '../../services/user.service';
-import {MatSnackBar} from '@angular/material/snack-bar';
+import { UserService } from '../../services/user.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { RoleDefining } from 'src/app/models/role.model';
 import { Store } from '@ngrx/store';
 
 import * as fromRoot from '../../app.reducer';
-import {DeveloperService} from '../../services/developer.service';
+import { DeveloperService } from '../../services/developer.service';
 
 @Component({
   selector: 'app-assignment-overview',
@@ -27,8 +27,8 @@ export class OverviewComponent implements OnInit {
   selection: string;
   results: any[];
   filtered = false;
-userId: string;
-canApply = false;
+  userId: string;
+  canApply = false;
   visible = true;
   selectable = true;
   removable = true;
@@ -42,8 +42,8 @@ canApply = false;
 
   roles$: Observable<RoleDefining>;
 
-  @ViewChild('tagInput', {static: false}) tagInput: ElementRef<HTMLInputElement>;
-  @ViewChild('auto', {static: false}) matAutocomplete: MatAutocomplete;
+  @ViewChild('tagInput', { static: false }) tagInput: ElementRef<HTMLInputElement>;
+  @ViewChild('auto', { static: false }) matAutocomplete: MatAutocomplete;
 
   constructor(
     private snackBar: MatSnackBar,
@@ -56,7 +56,7 @@ canApply = false;
     private store: Store<fromRoot.State>) {
     this.filteredTags = this.tagCtrl.valueChanges.pipe(startWith(null),
       map((tag: string | null) => tag ? this._filter(tag) : this.allTags.slice()));
-   }
+  }
 
   ngOnInit() {
     this.userId = this.userService.getUserId();
@@ -66,6 +66,7 @@ canApply = false;
         this.canApply = true;
       }
     });
+
     this.assingmentService.getAllAsignments().subscribe(result => {
       this.assignments = result.assignments;
       console.log(this.assignments);
@@ -84,7 +85,7 @@ canApply = false;
     this.results.splice(0, this.results.length);
     if (this.selection === 'Location') {
       this.assignments.forEach(assignment => {
-        if ( assignment.location.zipcode === this.searchForm.get('searchString').value ) {
+        if (assignment.location.zipcode === this.searchForm.get('searchString').value) {
           this.results.push(assignment);
         }
       });
@@ -177,10 +178,10 @@ canApply = false;
 
 
   onApply(assignmentId) {
-    const userId = this.userService.getUserId();
     this.roles$.subscribe(result => {
       if (result.Developer) {
         if (this.canApply) {
+          const userId = this.userService.getUserId();
           this.assignmentService.checkAlreadyApplied(assignmentId, userId).subscribe(response => {
             const assignment = response.assignment;
             let applied = false;

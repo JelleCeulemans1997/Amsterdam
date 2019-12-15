@@ -5,25 +5,25 @@
         <a routerLink="/" (click)="sidenav.close()"><img src="assets/images/devcom.png"></a>
       </div>
       <div *ngIf="(isAuthenticated$ | async) && name" id="userField" fxLayoutAlign="center center"><span>Welcome,&nbsp;</span>{{name}}</div>
-      <a *ngIf="!(isAuthenticated$ | async)" mat-list-item routerLink="/login" routerLinkActive="true" (click)="sidenav.close()">
+      <a *ngIf="!(isAuthenticated$ | async)" mat-list-item routerLink="/" routerLinkActive="true" (click)="sidenav.close()">
         <mat-icon>home</mat-icon>
         <span>Home</span>
       </a>
-      <a *ngIf="!(isAuthenticated$ | async)" mat-list-item routerLink="/" routerLinkActive="true" (click)="sidenav.close()">
+      <a *ngIf="!(isAuthenticated$ | async)" mat-list-item routerLink="/login" routerLinkActive="true" (click)="sidenav.close()">
         <mat-icon>perm_identity</mat-icon>
         <span>Login</span>
       </a>
-      <a *ngIf="!(isAuthenticated$ | async)" mat-list-item routerLink="/login" routerLinkActive="true" (click)="sidenav.close()">
+      <a *ngIf="!(isAuthenticated$ | async)" mat-list-item routerLink="/signup" routerLinkActive="true" (click)="sidenav.close()">
         <mat-icon>person_add</mat-icon>
         <span>Signup</span>
       </a>
 
 
-      <a *ngIf="(roles$ | async).Developer" mat-list-item routerLink="/login" routerLinkActive="true" (click)="sidenav.close()">
+      <a *ngIf="(roles$ | async).Developer" mat-list-item routerLink="/developerDashboard" routerLinkActive="true" (click)="sidenav.close()">
         <mat-icon>dashboard</mat-icon>
         <span>Dashboard</span>
       </a>
-      <a *ngIf="(roles$ | async).Developer" mat-list-item routerLink="/login" routerLinkActive="true" (click)="sidenav.close()">
+      <a *ngIf="(roles$ | async).Developer" mat-list-item routerLink="/developerCredentials" routerLinkActive="true" (click)="sidenav.close()">
         <mat-icon>assignment_ind</mat-icon>
         <span>Credentials</span>
       </a>
