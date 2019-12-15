@@ -10,7 +10,8 @@ import { ReviewService } from 'src/app/services/review.service';
 import { LocationDefining } from 'src/app/models/location.model';
 import { AssignmentService } from 'src/app/services/assignment.service';
 import { Assignment } from 'src/app/models/assignment.model';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar, MatDialog } from '@angular/material';
+import { DialogDeleteComponent } from '../../dialog-delete/dialog-delete.component';
 
 @Component({
   selector: 'app-developer-profile',
@@ -37,6 +38,8 @@ export class DeveloperProfileComponent implements OnInit {
   allowed = false;
   accepterByCompany: string[] = [];
 
+  userId: string;
+  role: string;
 
   constructor(
     private developerService: DeveloperService,
@@ -44,7 +47,8 @@ export class DeveloperProfileComponent implements OnInit {
     private fb: FormBuilder,
     private userService: UserService,
     private reviewService: ReviewService,
-    private assignmentService: AssignmentService) { }
+    private assignmentService: AssignmentService,
+    public dialog: MatDialog) { }
 
 
   ngOnInit() {
@@ -74,11 +78,49 @@ export class DeveloperProfileComponent implements OnInit {
               }
             });
             const userId = this.userService.getUserId();
-            this.allowed = this.accepterByCompany.includes(userId);
+            this.allowed = this.accepterByCompany.includes(paramMap.get('userId'));
+            console.log(userId);
+            console.log(this.accepterByCompany);
             console.log(this.allowed);
           }
         });
       }
+    });
+    this.userId = this.userService.getUserId();
+    this.userService.getUserbyId(this.userId).subscribe(res => {
+      this.role = res.role;
+      console.log(this.role);
+    });
+  }
+
+  deleteReview(review: Review){
+    const reviewId = this.developer.reviews.indexOf(review);
+    this.developer.reviews.splice(reviewId, 1);
+    this.reviews = this.developer.reviews;
+    if (this.reviews.length < 5) {
+      this.splicedData = this.reviews;
+    } else {
+      this.splicedData.splice(this.splicedData.indexOf(review), 1);
+    }
+    this.developerService.updateDeveloper(this.developer).subscribe(res => {
+      console.log(res);
+    }
+    );
+
+  }
+
+  openDialog(review: Review) {
+    const dialogRef = this.dialog.open(DialogDeleteComponent, {
+      width: '250px',
+      data: {option: 'yes'}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      if (result === 'yes') {
+        this.deleteReview(review);
+      }
+
     });
   }
 
