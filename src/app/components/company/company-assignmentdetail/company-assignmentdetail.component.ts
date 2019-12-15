@@ -31,20 +31,20 @@ isLoading = false;
     });
   }
 
-
-
-  onAcceptApply(assignmentId, makerId) {
-    console.log('click assId: ' + assignmentId + ' - makerId: ' + makerId);
-
-    this.assignmentService.acceptApply(assignmentId, makerId);
+  onAcceptApply(assignmentId, developerId) {
+    this.assignmentService.acceptApply(assignmentId, developerId).subscribe(result => {
+      this.assignmentService.removeApplied(assignmentId, developerId).subscribe(res => {
+        this.ngOnInit();
+      });
+    });
   }
-  onDenyApply(assignmentId, makerId) {
-    console.log('click assId: ' + assignmentId + ' - makerId: ' + makerId);
-
-    this.assignmentService.denyApply(assignmentId, makerId);
+  onDenyApply(assignmentId, developerId) {
+    this.assignmentService.denyApply(assignmentId, developerId).subscribe(result => {
+      this.assignmentService.removeApplied(assignmentId, developerId).subscribe(res => {
+        this.ngOnInit();
+      });
+    });
   }
-
-
 }
 
 
