@@ -154,16 +154,7 @@ exports.createAssignment = (req, res, next) => {
 
 
 exports.updateAssignment = (req, res, next) => {
-  const creatorId = jwt.decode(req.body.creator)._id;
-  const assignment = new Assignment({
-    _id: req.body.id,
-    title: req.body.title,
-    description: req.body.description,
-    tags: req.body.tags,
-    location: req.body.location,
-    creator: creatorId
-  });
-  Assignment.updateOne({ _id: req.params.id, creator: creatorId }, assignment)
+  Assignment.updateOne({ _id: req.params.id, creator: req.body.creator }, req.body)
     .then(result => {
       if (result.n > 0) {
         res.status(200).json({ message: "Update successful!" });

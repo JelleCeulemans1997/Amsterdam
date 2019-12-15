@@ -32,7 +32,7 @@ export class AssignmentService {
   }
 
   updateAssignment(assignment: Assignment) {
-    return this.http.put<AssignmentService>(this.baseURL + '/assignment/' + assignment.id, assignment);
+    return this.http.put<Assignment>(this.baseURL + '/assignment/' + assignment.id, assignment);
   }
 
   // getAllDesc() {

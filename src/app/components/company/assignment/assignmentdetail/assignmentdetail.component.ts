@@ -17,7 +17,7 @@ export class AssignmentdetailComponent implements OnInit {
   userId: string;
   role: any;
 
-  allowed: boolean = false;
+  allowed = false;
 
   constructor(
     private activated: ActivatedRoute,
@@ -36,7 +36,7 @@ export class AssignmentdetailComponent implements OnInit {
     });
     this.userService.getUserbyId(this.userId).subscribe(res => {
       this.role = res.role;
-    })
+    });
   }
 
   deleteAssignment(assignmentId: string) {

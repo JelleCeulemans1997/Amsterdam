@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { MatChipInputEvent, MatAutocomplete, MatAutocompleteSelectedEvent } from '@angular/material';
+import { MatChipInputEvent, MatAutocomplete, MatAutocompleteSelectedEvent, MatSnackBar } from '@angular/material';
 import { Observable } from 'rxjs';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {map, startWith} from 'rxjs/operators';
@@ -37,6 +37,10 @@ export class CreateAssignmentComponent implements OnInit {
   tagObjects: Tag[];
   pdf: string;
   showAssessment = false;
+  accepted: any;
+  applies: any;
+  denied: any;
+
 
   @ViewChild('tagInput', {static: false}) tagInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto', {static: false}) matAutocomplete: MatAutocomplete;
@@ -47,7 +51,8 @@ export class CreateAssignmentComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private userService: UserService,
-    private companyService: CompanyService) {
+    private companyService: CompanyService,
+    private snackbar: MatSnackBar) {
     this.filteredTags = this.tagCtrl.valueChanges.pipe(
         startWith(null),
         map((fruit: string | null) => fruit ? this._filter(fruit) : this.allTags.slice()));
@@ -66,7 +71,6 @@ export class CreateAssignmentComponent implements OnInit {
     });
 
 
-
     this.assignmentForm = new FormGroup({
       title: new FormControl(null, { validators: [Validators.required] }),
       description: new FormControl(null, { validators: [Validators.required]}),
@@ -83,6 +87,11 @@ export class CreateAssignmentComponent implements OnInit {
         this.editMode = true;
         this.assignmentId = paramMap.get('assignmentId');
         this.assignmentService.getAssignmentById(this.assignmentId).subscribe(result => {
+          console.log(result);
+          this.applies = result.assignment.applies;
+          this.accepted = result.assignment.accepted;
+          this.denied = result.assignment.denied;
+          this.pdf = result.assignment.pdf;
           const assignment = result.assignment;
           this.tags = assignment.tags;
           this.assignmentForm.setValue({
@@ -133,15 +142,16 @@ export class CreateAssignmentComponent implements OnInit {
       [],
       []);
     if (!this.editMode) {
-      console.log(assignment);
       this.assignmentService.createAssignment(assignment).subscribe(result => {
-        console.log(result);
         this.router.navigate(['/company']);
       });
     } else {
+      assignment.denied = this.denied;
+      assignment.accepted = this.accepted;
+      assignment.applies = this.applies;
       assignment.id = this.assignmentId;
+      console.log(assignment);
       this.assignmentService.updateAssignment(assignment).subscribe(result => {
-        console.log(result);
         this.router.navigate(['/company']);
       });
     }
@@ -199,42 +209,14 @@ export class CreateAssignmentComponent implements OnInit {
     const storageRef: firebase.storage.Reference = firebase.storage().ref(path);
     storageRef.put(file, customMetadata).then(() => {
       storageRef.getDownloadURL().then(result => {
-        console.log(result);
+        this.snackbar.open('PDF updated', 'Success', {
+          duration: 3000
+        });
         this.pdf = result;
       });
     });
-    // this.assignmentForm.patchValue({ pdf: file });
-    // this.assignmentForm.get('pdf').updateValueAndValidity();
   }
 
-  // onImagePicked(event: Event) {
-  //   const file = (event.target as HTMLInputElement).files[0];
-  //   // this.developerForm.patchValue({ image: file });
-  //   // this.developerForm.get('image').updateValueAndValidity();
-  //   const reader = new FileReader();
-  //   reader.onload = () => {
-  //     this.imagePreview = reader.result as string;
-  //   };
-  //   reader.readAsDataURL(file);
-  //   const path = `images/${new Date().getTime()}_${file.name}`;
-  //   const customMetadata = { contentType: file.type, app: 'DEV-COM connect' };
-  //   const storageRef: firebase.storage.Reference = firebase.storage().ref(path);
-  //   storageRef.put(file, customMetadata).then(() => {
-  //     storageRef.getDownloadURL().then(result => {
-  //       this.developerForm.patchValue({ image: result });
-  //     });
-  //   });
-  // }
 
-  // onImagePicked(event: Event) {
-  //   const file = (event.target as HTMLInputElement).files[0];
-  //   this.assignmentForm.patchValue({ image: file });
-  //   this.assignmentForm.get('image').updateValueAndValidity();
-  //   const reader = new FileReader();
-  //   reader.onload = () => {
-  //     this.imagePreview = reader.result as string;
-  //   };
-  //   reader.readAsDataURL(file);
-  // }
 
 }

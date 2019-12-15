@@ -12,7 +12,7 @@ export class Assignment {
     public creator: string,
     public pdf: string,
     public accepted: { accept: string; }[],
-    public applied: { apply: string; }[],
+    public applies: { apply: string; }[],
     public denied: { deny: string; }[],
     public company?: Company
     ) { }
