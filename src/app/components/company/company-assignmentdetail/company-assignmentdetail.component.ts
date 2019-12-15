@@ -3,7 +3,7 @@ import {Assignment} from '../../../models/assignment.model';
 import {AssignmentService} from '../../../services/assignment.service';
 import {ActivatedRoute, ParamMap} from '@angular/router';
 import { MatAutocompleteSelectedEvent, MatChipInputEvent, MatAutocomplete } from '@angular/material';
-
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-company-assignmentdetail',
@@ -15,7 +15,7 @@ isLoading = false;
   assignmentId = '';
   assignment = null;
 
-  constructor(public route: ActivatedRoute, private assignmentService: AssignmentService) { }
+  constructor(private snackBar: MatSnackBar, public route: ActivatedRoute, private assignmentService: AssignmentService) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
@@ -35,6 +35,7 @@ isLoading = false;
     this.assignmentService.acceptApply(assignmentId, developerId).subscribe(result => {
       this.assignmentService.removeApplied(assignmentId, developerId).subscribe(res => {
         this.ngOnInit();
+        this.openSnackBar('apply accepted', 'succes!');
       });
     });
   }
@@ -42,7 +43,14 @@ isLoading = false;
     this.assignmentService.denyApply(assignmentId, developerId).subscribe(result => {
       this.assignmentService.removeApplied(assignmentId, developerId).subscribe(res => {
         this.ngOnInit();
+        this.openSnackBar('apply denied', 'succes!');
       });
+    });
+  }
+
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 2000,
     });
   }
 }

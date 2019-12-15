@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { MatAutocompleteSelectedEvent, MatChipInputEvent, MatAutocomplete } from '@angular/material';
 import {UserService} from '../../services/user.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-assignment-overview',
@@ -37,6 +38,7 @@ export class OverviewComponent implements OnInit {
   @ViewChild('auto', {static: false}) matAutocomplete: MatAutocomplete;
 
   constructor(
+    private snackBar: MatSnackBar,
     private userService: UserService,
     private assingmentService: AssignmentService,
     private fb: FormBuilder,
@@ -185,10 +187,16 @@ export class OverviewComponent implements OnInit {
         this.assignmentService.sendApply(assignmentId, makerId);
         console.log('apply send');
       } else {
-        console.log('hier moet iets komen om te zeggen dat het niet mogelijk is...');
+       this.openSnackBar('You already applied', 'Failed');
       }
     });
 
+  }
+
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 2000,
+    });
   }
 
 }

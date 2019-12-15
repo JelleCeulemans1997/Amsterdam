@@ -12,4 +12,5 @@ export class DeveloperprofileComponent implements OnInit {
   ngOnInit() {
   }
 
+
 }
