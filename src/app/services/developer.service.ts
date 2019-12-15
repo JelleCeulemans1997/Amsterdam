@@ -28,4 +28,8 @@ export class DeveloperService {
   getAll() {
     return this.http.get<Developer[]>(this.baseURL + '/developer');
   }
+
+  deleteDeveloperByUser(userId: string) {
+    return this.http.delete(this.baseURL + '/developer/deletebyuser/' + userId);
+  }
 }

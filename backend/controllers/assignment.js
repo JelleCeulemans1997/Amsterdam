@@ -46,6 +46,48 @@ exports.removeAppliedAssignment = (req, res, next) => {
   })
 };
 
+//verwijder de apply na het accepteren of denyen van een apply
+//id is assignmentdId en req.body is userId
+exports.deleteAppliedByUser = (req, res, next) => {
+  Assignment.updateMany({}, {$pull: {applies: req.body.applies}}).then(result => {
+    if (result.nModified > 0) {
+      res.status(200).json({message: "update successful!"});
+    } else {
+      res.status(401).json({
+        message: 'Not authorized!'
+      });
+    }
+  })
+};
+
+//verwijder de apply na het accepteren of denyen van een apply
+//id is assignmentdId en req.body is userId
+exports.deleteAcceptedByUser = (req, res, next) => {
+  Assignment.updateMany({}, {$pull: {accepted: req.body.accepted}}).then(result => {
+    if (result.nModified > 0) {
+      res.status(200).json({message: "update successful!"});
+    } else {
+      res.status(401).json({
+        message: 'Not authorized!'
+      });
+    }
+  })
+};
+
+//verwijder de apply na het accepteren of denyen van een apply
+//id is assignmentdId en req.body is userId
+exports.deleteDeniedByUser = (req, res, next) => {
+  Assignment.updateMany({}, {$pull: {denied: req.body.denied}}).then(result => {
+    if (result.nModified > 0) {
+      res.status(200).json({message: "update successful!"});
+    } else {
+      res.status(401).json({
+        message: 'Not authorized!'
+      });
+    }
+  })
+};
+
 // user apply for an assignment
 // id is the assignment id, req.body is the id of the user
 exports.applyAssignment =  (req, res, next) => {
@@ -160,6 +202,22 @@ exports.getAssignment = (req, res, next) => {
 
 exports.deleteAssignment = (req, res, next) => {
   Assignment.deleteOne({ _id: req.params.id })
+    .then(result => {
+      if (result.n > 0) {
+        res.status(200).json({ message: "Deletion successful!" });
+      } else {
+        res.status(401).json({ message: "Not authorized!" });
+      }
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: "Deleting assignment failed!"
+      });
+    });
+};
+
+exports.deleteAllUserAssignment = (req, res, next) => {
+  Assignment.deleteMany({ creator: req.params.id })
     .then(result => {
       if (result.n > 0) {
         res.status(200).json({ message: "Deletion successful!" });

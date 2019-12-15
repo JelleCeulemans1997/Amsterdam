@@ -2,7 +2,8 @@
   <mat-card>
     <mat-card-title><h4>Applied assignments</h4></mat-card-title>
     <mat-card-content>
-      <mat-nav-list>
+    <div *ngIf="applies && applies.length < 1">No pending applies</div>
+    <mat-nav-list *ngIf="applies">
         <mat-list-item *ngFor="let assignment of applies">
            <a matLine [routerLink]="['/assignmentdetail/' + assignment.id]">
              {{assignment.title}}
@@ -17,7 +18,8 @@
     <mat-card>
       <mat-card-title><h4>Accepted assignments</h4></mat-card-title>
       <mat-card-content>
-        <mat-nav-list>
+        <div *ngIf="accepted && accepted.length < 1">No accepted assignments</div>
+        <mat-nav-list *ngIf="accepted">
           <mat-list-item *ngFor="let assignment of accepted">
              <a matLine [routerLink]="['/assignmentdetail/' + assignment.id]">
               {{assignment.title}}
@@ -33,7 +35,8 @@
     <mat-card>
       <mat-card-title><h4>Denied assignments</h4></mat-card-title>
       <mat-card-content>
-        <mat-nav-list>
+        <div *ngIf="denied && denied.length < 1">No assignments denied</div>
+        <mat-nav-list *ngIf="denied">
           <mat-list-item *ngFor="let assignment of denied">
              <a matLine [routerLink]="['/assignmentdetail/' + assignment.id]">
                 {{assignment.title}}

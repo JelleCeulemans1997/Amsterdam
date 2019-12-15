@@ -13,6 +13,7 @@ import { DeveloperService } from 'src/app/services/developer.service';
 import { mimeTypeImage } from 'src/app/file-validators/mime-type-image.validator';
 import * as firebase from 'firebase/app';
 import { Router } from '@angular/router';
+import {DatePipe} from '@angular/common';
 
 @Component({
   selector: 'app-developer-credentials',
@@ -48,6 +49,7 @@ export class DeveloperCredentialsComponent implements OnInit {
     private developerService: DeveloperService,
     private tagService: TagService,
     private snackbar: MatSnackBar,
+    private datePipe: DatePipe,
     private router: Router) {
 
     this.filteredTags = this.tagCtrl.valueChanges.pipe(
@@ -83,6 +85,9 @@ export class DeveloperCredentialsComponent implements OnInit {
         this.downloadImage = image;
         this.cv = cv;
 
+        // TODO: omzetten daar date
+        // console.log(dob);
+        // dob = this.transformDate(dob);
         this.developerForm.setValue({
           nickname,
           firstname,
@@ -101,13 +106,23 @@ export class DeveloperCredentialsComponent implements OnInit {
       }
     });
 
+    // this.tagService.getAllDesc().subscribe(result => {
+    //   result.tags.forEach(element => {
+    //     this.allTags.push(element.name);
+    //   });
+    // });
     this.tagService.getAllDesc().subscribe(result => {
+      this.tagObjects = result.tags;
       result.tags.forEach(element => {
         this.allTags.push(element.name);
       });
     });
-  }
+    console.log(this.allTags);
 
+  }
+  // transformDate(date) {
+  //   this.datePipe.transform(date, 'dd-mm-yyyy'); // whatever format you need.
+  // }
   goToProfile() {
     const userId = this.userService.getUserId();
     this.developerService.getByUserId(userId).subscribe(result => {
@@ -142,6 +157,23 @@ export class DeveloperCredentialsComponent implements OnInit {
       [],
       this.downloadImage,
       this.cv);
+
+    console.log('test1');
+    // Add or update tags in database
+    this.tags.forEach(element => {
+      console.log('test: ' + element);
+      if (!this.allTags.includes(element)) {
+        console.log('nieuw element: ' + element);
+        this.tagService.createTag(new Tag('', element, 1)).subscribe();
+      } else if (!this.editMode){
+        console.log('here');
+        const tag = this.tagObjects.find(t => t.name === element);
+        tag.usages++;
+        this.tagService.updateTag(tag);
+      }
+    });
+
+
 
     if (this.editMode) {
       developer.id = this.developerId;

@@ -114,6 +114,21 @@ export class CompanyCredentialsComponent implements OnInit {
     const userId = this.userService.getUserId();
     const company = new Company('', name, userId, contact, location, this.tags, bio, [], this.downloadImage) ;
 
+    // Add or update tags in database
+    this.tags.forEach(element => {
+      console.log('test: ' + element);
+      if (!this.allTags.includes(element)) {
+        console.log('nieuw element: ' + element);
+        this.tagService.createTag(new Tag('', element, 1)).subscribe();
+      } else if (!this.editMode){
+        console.log('here');
+        const tag = this.tagObjects.find(t => t.name === element);
+        tag.usages++;
+        this.tagService.updateTag(tag);
+      }
+    });
+
+
     if (this.editMode) {
       company.id = this.companyId;
       this.companyService.updateCompany(company).subscribe(result => {

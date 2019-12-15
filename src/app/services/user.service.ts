@@ -40,4 +40,8 @@ export class UserService {
   emitChangeName(name: string) {
     this.emitName.next(name);
   }
+
+  deleteUser(userId: string) {
+    return this.http.delete(this.baseURL + '/user/' + userId);
+  }
 }

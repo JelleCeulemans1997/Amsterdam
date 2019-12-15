@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { ParamMap, ActivatedRoute } from '@angular/router';
+import {ParamMap, ActivatedRoute, Router} from '@angular/router';
 import { CompanyService } from 'src/app/services/company.service';
 import { Company } from 'src/app/models/company.model';
 import { Review } from 'src/app/models/review.model';
@@ -36,6 +36,7 @@ export class CompanyProfileComponent implements OnInit {
   role: string;
 
   constructor(
+    private router: Router,
     private route: ActivatedRoute,
     private companyService: CompanyService,
     private fb: FormBuilder,
@@ -151,6 +152,17 @@ export class CompanyProfileComponent implements OnInit {
     this.userService.getUserbyId(this.userId).subscribe(res => {
       this.role = res.role;
       console.log(this.role);
+    });
+  }
+
+  onDeleteCompany(companyId: string) {
+    console.log('delete');
+    this.companyService.deleteCompanyByUser(companyId).subscribe(result => {
+      this.assignmentService.deleteAllCompanyAssignments(companyId).subscribe(res1 => {
+        this.userService.deleteUser(companyId).subscribe(res2 => {
+          this.router.navigate(['/companies']);
+        });
+      });
     });
   }
 

@@ -5,6 +5,7 @@ exports.createTag = (req, res, next) => {
     name: req.body.name,
     usages: req.body.usages,
   });
+
   tag.save().then(createdTag => {
       res.status(201).json({
         message: 'Tag added successfully',
