@@ -4,8 +4,8 @@
       <div mat-list-item>
         <a routerLink="/" (click)="sidenav.close()"><img src="assets/images/devcom.png"></a>
       </div>
-      <div *ngIf="(isAuthenticated$ | async) && name" id="userField" fxLayoutAlign="center center"><span>Welcome,&nbsp;</span>{{name}}</div>
-      <a *ngIf="!(isAuthenticated$ | async)" mat-list-item routerLink="/" routerLinkActive="true" (click)="sidenav.close()">
+      <div *ngIf="(isAuthenticated$ | async) && name" id="userField" fxLayoutAlign="center center">{{name}}</div>
+      <a mat-list-item routerLink="/" routerLinkActive="true" (click)="sidenav.close()">
         <mat-icon>home</mat-icon>
         <span>Home</span>
       </a>
