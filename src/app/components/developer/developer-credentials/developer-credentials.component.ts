@@ -213,7 +213,7 @@ export class DeveloperCredentialsComponent implements OnInit {
 
   onImagePicked(event: Event) {
     const file = (event.target as HTMLInputElement).files[0];
-    if (file.type.includes('iamge/')) {
+    if (file.type.includes('image/')) {
       const path = `images/${new Date().getTime()}_${file.name}`;
       const customMetadata = { contentType: file.type, app: 'DEV-COM connect' };
       const storageRef: firebase.storage.Reference = firebase.storage().ref(path);
@@ -224,7 +224,7 @@ export class DeveloperCredentialsComponent implements OnInit {
         });
       });
     } else {
-      this.snackbar.open('only iamges allowed!', 'Error', {
+      this.snackbar.open('only images allowed!', 'Error', {
         duration: 3000
       });
     }
