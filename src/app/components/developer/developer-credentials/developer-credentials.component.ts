@@ -4,7 +4,7 @@ import { ENTER, COMMA } from '@angular/cdk/keycodes';
 import { Observable } from 'rxjs';
 import { Developer } from 'src/app/models/developer.model';
 import { Tag } from 'src/app/models/tag.model';
-import { MatAutocomplete, MatChipInputEvent, MatAutocompleteSelectedEvent } from '@angular/material';
+import { MatAutocomplete, MatChipInputEvent, MatAutocompleteSelectedEvent, MatSnackBar } from '@angular/material';
 import { UserService } from 'src/app/services/user.service';
 import { TagService } from 'src/app/services/tag.service';
 import { startWith, map } from 'rxjs/operators';
@@ -12,6 +12,7 @@ import { LocationDefining } from 'src/app/models/location.model';
 import { DeveloperService } from 'src/app/services/developer.service';
 import { mimeTypeImage } from 'src/app/file-validators/mime-type-image.validator';
 import * as firebase from 'firebase/app';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-developer-credentials',
@@ -43,7 +44,9 @@ export class DeveloperCredentialsComponent implements OnInit {
     private userService: UserService,
     private developerService: DeveloperService,
     private tagService: TagService,
-  ) {
+    private snackbar: MatSnackBar,
+    private router: Router) {
+
     this.filteredTags = this.tagCtrl.valueChanges.pipe(
       startWith(null),
       map((tag: string | null) => tag ? this._filter(tag) : this.allTags.slice()));
@@ -99,6 +102,20 @@ export class DeveloperCredentialsComponent implements OnInit {
       result.tags.forEach(element => {
         this.allTags.push(element.name);
       });
+    });
+  }
+
+  goToProfile() {
+    const userId = this.userService.getUserId();
+    this.developerService.getByUserId(userId).subscribe(result => {
+      console.log(result);
+      if (result) {
+        this.router.navigate(['/developerProfile/' + userId]);
+      } else {
+        this.snackbar.open('First fill in your credentials', 'Error', {
+          duration: 3000
+        });
+      }
     });
   }
 

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DeveloperService } from 'src/app/services/developer.service';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Developer } from 'src/app/models/developer.model';
 import { Review } from 'src/app/models/review.model';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
@@ -10,6 +10,7 @@ import { ReviewService } from 'src/app/services/review.service';
 import { LocationDefining } from 'src/app/models/location.model';
 import { AssignmentService } from 'src/app/services/assignment.service';
 import { Assignment } from 'src/app/models/assignment.model';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-developer-profile',
@@ -44,6 +45,44 @@ export class DeveloperProfileComponent implements OnInit {
     private userService: UserService,
     private reviewService: ReviewService,
     private assignmentService: AssignmentService) { }
+
+
+  ngOnInit() {
+    this.reviewForm = this.fb.group({
+      text: ['', Validators.required]
+    });
+    this.route.paramMap.subscribe((paramMap: ParamMap) => {
+      if (paramMap.has('userId')) {
+        this.developerService.getByUserId(paramMap.get('userId')).subscribe(result => {
+          this.mailtoLink = 'mailto:' + result.email;
+          this.telLink = 'tel:' + result.phone;
+          this.developer = result;
+          console.log(result);
+          if (result.reviews.length > 0) {
+            this.reviews = result.reviews;
+            this.splicedData = result.reviews.slice(((0 + 1) - 1) * 5).slice(0, 5);
+          }
+        });
+        this.assignmentService.getAllAsignments().subscribe(response => {
+          console.log(response.assignments);
+          if (response.assignments) {
+            response.assignments.forEach(element => {
+              if (element.accepted) {
+                element.accepted.forEach(item => {
+                  this.accepterByCompany.push(item.accept);
+                });
+              }
+            });
+            const userId = this.userService.getUserId();
+            this.allowed = this.accepterByCompany.includes(userId);
+            console.log(this.allowed);
+          }
+        });
+      }
+    });
+  }
+
+
 
   onSubmit() {
     const stars = document.getElementsByClassName('selectedStar');
@@ -85,39 +124,7 @@ export class DeveloperProfileComponent implements OnInit {
 
   }
 
-  ngOnInit() {
-    this.reviewForm = this.fb.group({
-      text: ['', Validators.required]
-    });
-    this.route.paramMap.subscribe((paramMap: ParamMap) => {
-      if (paramMap.has('userId')) {
-        this.developerService.getByUserId(paramMap.get('userId')).subscribe(result => {
-          this.mailtoLink = 'mailto:' + result.email;
-          this.telLink = 'tel:' + result.phone;
-          this.developer = result;
-          console.log(result);
-          if (result.reviews.length > 0) {
-            this.reviews = result.reviews;
-            this.splicedData = result.reviews.slice(((0 + 1) - 1) * 5).slice(0, 5);
-          }
-          console.log(this.reviews);
-        });
-        this.assignmentService.getAllAsignments().subscribe(response => {
-          console.log(response.assignments);
-          if (response.assignments) {
-            response.assignments.forEach(element => {
-              if (element.accepted) {
-                element.accepted.forEach(item => {
-                  this.accepterByCompany.push(item.accept);
-                });
-              }
-            });
-            const userId = this.userService.getUserId();
-            this.allowed = this.accepterByCompany.includes(userId);
-            console.log(this.allowed);
-          }
-        });
-      }
-    });
-  }
+
+
+
 }

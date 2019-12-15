@@ -1,6 +1,6 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { MatChipInputEvent } from '@angular/material';
+import { MatChipInputEvent, MatSnackBar } from '@angular/material';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatAutocompleteSelectedEvent, MatAutocomplete } from '@angular/material/autocomplete';
 import { Observable } from 'rxjs';
@@ -11,6 +11,7 @@ import { TagService } from 'src/app/services/tag.service';
 import { Tag } from 'src/app/models/tag.model';
 import { CompanyService } from 'src/app/services/company.service';
 import { UserService } from 'src/app/services/user.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -46,6 +47,8 @@ export class CompanyCredentialsComponent implements OnInit {
     private userService: UserService,
     private companyService: CompanyService,
     private tagService: TagService,
+    private router: Router,
+    private snackbar: MatSnackBar
   ) {
     this.filteredTags = this.tagCtrl.valueChanges.pipe(
       startWith(null),
@@ -120,6 +123,20 @@ export class CompanyCredentialsComponent implements OnInit {
         this.ngOnInit();
       });
     }
+  }
+
+  goToProfile() {
+    const userId = this.userService.getUserId();
+    this.companyService.getCompanyByUserId(userId).subscribe(result => {
+      console.log(result);
+      if (result) {
+        this.router.navigate(['/companyProfile/' + userId]);
+      } else {
+        this.snackbar.open('First fill in your credentials', 'Error', {
+          duration: 3000
+        });
+      }
+    });
   }
 
 
