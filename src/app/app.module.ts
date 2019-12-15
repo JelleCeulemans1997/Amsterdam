@@ -39,6 +39,7 @@ import * as firebase from 'firebase/app';
 import { DeveloperprofileComponent } from './components/company/company-dashboard/developerprofile/developerprofile.component';
 import { EditassignmentComponent } from './components/company/company-dashboard/editassignment/editassignment.component';
 import { DialogDeleteComponent } from './components/dialog-delete/dialog-delete.component';
+import {DatePipe} from '@angular/common';
 
 firebase.initializeApp(environment.firebaseConfig);
 
@@ -80,7 +81,7 @@ firebase.initializeApp(environment.firebaseConfig);
     StoreModule.forRoot(reducers),
     AngularFireStorageModule
   ],
-  providers: [AuthGuard],
+  providers: [AuthGuard, DatePipe],
   bootstrap: [AppComponent],
   entryComponents: [DialogDeleteComponent],
 })

@@ -13,6 +13,7 @@ import { RoleDefining } from 'src/app/models/role.model';
 import { Store } from '@ngrx/store';
 
 import * as fromRoot from '../../app.reducer';
+import {DeveloperService} from '../../services/developer.service';
 
 @Component({
   selector: 'app-assignment-overview',
@@ -26,7 +27,8 @@ export class OverviewComponent implements OnInit {
   selection: string;
   results: any[];
   filtered = false;
-
+userId: string;
+canApply = false;
   visible = true;
   selectable = true;
   removable = true;
@@ -47,6 +49,7 @@ export class OverviewComponent implements OnInit {
     private snackBar: MatSnackBar,
     private userService: UserService,
     private assingmentService: AssignmentService,
+    private developerService: DeveloperService,
     private fb: FormBuilder,
     private assignmentService: AssignmentService,
     private router: Router,
@@ -56,6 +59,13 @@ export class OverviewComponent implements OnInit {
    }
 
   ngOnInit() {
+    this.userId = this.userService.getUserId();
+    this.developerService.getByUserId(this.userId).subscribe(result => {
+      console.log(result);
+      if (result) {
+        this.canApply = true;
+      }
+    });
     this.assingmentService.getAllAsignments().subscribe(result => {
       this.assignments = result.assignments;
       console.log(this.assignments);
@@ -170,31 +180,35 @@ export class OverviewComponent implements OnInit {
     const userId = this.userService.getUserId();
     this.roles$.subscribe(result => {
       if (result.Developer) {
-        this.assignmentService.checkAlreadyApplied(assignmentId, userId).subscribe(response => {
-          const assignment = response.assignment;
-          let applied = false;
-          for (const check of assignment.applies) {
-            if (check.apply === userId) {
-              applied = true;
+        if (this.canApply) {
+          this.assignmentService.checkAlreadyApplied(assignmentId, userId).subscribe(response => {
+            const assignment = response.assignment;
+            let applied = false;
+            for (const check of assignment.applies) {
+              if (check.apply === userId) {
+                applied = true;
+              }
             }
-          }
-          for (const check of assignment.accepted) {
-            if (check.accept === userId) {
-              applied = true;
+            for (const check of assignment.accepted) {
+              if (check.accept === userId) {
+                applied = true;
+              }
             }
-          }
-          for (const check of assignment.denied) {
-            applied = check.deny === userId;
-            if (check.deny === userId) {
-              applied = true;
+            for (const check of assignment.denied) {
+              applied = check.deny === userId;
+              if (check.deny === userId) {
+                applied = true;
+              }
             }
-          }
-          if (applied === false) {
-            this.assignmentService.sendApply(assignmentId, userId);
-          } else {
-           this.openSnackBar('You already applied', 'Failed');
-          }
-        });
+            if (applied === false) {
+              this.assignmentService.sendApply(assignmentId, userId);
+            } else {
+              this.openSnackBar('You already applied', 'Failed');
+            }
+          });
+        } else {
+          this.openSnackBar('Complete Credentials First', 'Failed');
+        }
       } else if (result.Company || result.Admin) {
         this.openSnackBar('Only for developers!', 'Error');
       } else {

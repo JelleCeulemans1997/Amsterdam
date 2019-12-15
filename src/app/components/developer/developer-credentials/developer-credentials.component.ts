@@ -13,6 +13,7 @@ import { DeveloperService } from 'src/app/services/developer.service';
 import { mimeTypeImage } from 'src/app/file-validators/mime-type-image.validator';
 import * as firebase from 'firebase/app';
 import { Router } from '@angular/router';
+import {DatePipe} from '@angular/common';
 
 @Component({
   selector: 'app-developer-credentials',
@@ -45,6 +46,7 @@ export class DeveloperCredentialsComponent implements OnInit {
     private developerService: DeveloperService,
     private tagService: TagService,
     private snackbar: MatSnackBar,
+    private datePipe: DatePipe,
     private router: Router) {
 
     this.filteredTags = this.tagCtrl.valueChanges.pipe(
@@ -79,7 +81,9 @@ export class DeveloperCredentialsComponent implements OnInit {
         this.tags = experience;
         this.imagePreview = image;
         console.log(this.imagePreview);
-
+        // TODO: omzetten daar date
+        // console.log(dob);
+        // dob = this.transformDate(dob);
         this.developerForm.setValue({
           nickname,
           firstname,
@@ -112,7 +116,9 @@ export class DeveloperCredentialsComponent implements OnInit {
     console.log(this.allTags);
 
   }
-
+  // transformDate(date) {
+  //   this.datePipe.transform(date, 'dd-mm-yyyy'); // whatever format you need.
+  // }
   goToProfile() {
     const userId = this.userService.getUserId();
     this.developerService.getByUserId(userId).subscribe(result => {

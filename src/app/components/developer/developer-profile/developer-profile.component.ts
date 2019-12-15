@@ -171,11 +171,11 @@ export class DeveloperProfileComponent implements OnInit {
     this.developerService.deleteDeveloperByUser(userId).subscribe(result => {
       this.userService.deleteUser(userId).subscribe(res1 => {
         this.assignmentService.deleteAppliedByUser(userId).subscribe(res2 => {
-          // this.assignmentService.deleteAppliedByUser(userId).subscribe(res2 => {
-          //   this.assignmentService.deleteAppliedByUser(userId).subscribe(res2 => {
+          this.assignmentService.deleteAcceptedByUser(userId).subscribe(res3 => {
+            this.assignmentService.deleteDeniedByUser(userId).subscribe(res4 => {
               console.log('done');
-          //   });
-          // });
+            });
+          });
         });
       });
     });
