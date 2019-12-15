@@ -10,9 +10,13 @@
       <div class="mt-3 mb-3">
         <p fxFlex fxLayout="column" fxLayoutAlign="center center">{{ company.bio }}</p>
       </div>
-      <div fxFlex fxLayout="row" fxLayoutAlign="center center">
-        <mat-chip-list  class="ml-1 mr-1"  style="display: inline;" mat-chip-list *ngFor="let tag of company.tags" fxFlex fxLayout="row"
-          fxLayoutGap="5px" >
+      <div fxLayout="row">
+        <mat-chip-list fxHide.lt-sm  class="ml-1 mr-1"  mat-chip-list fxLayoutAlign="center center" *ngFor="let tag of company.tags">
+          <mat-chip color="primary" [selected]="true">{{tag}}</mat-chip>
+        </mat-chip-list>
+      </div>
+      <div >
+        <mat-chip-list fxHide.gt-xs class="mt-1 mb-1" aria-orientation="vertical" fxLayoutAlign="center center"  mat-chip-list *ngFor="let tag of company.tags">
           <mat-chip color="primary" [selected]="true">{{tag}}</mat-chip>
         </mat-chip-list>
       </div>

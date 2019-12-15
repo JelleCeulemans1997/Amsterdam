@@ -1,26 +1,38 @@
 <div class="container mt-5 mb-5" *ngIf="developer" fxFlex fxLayout="column" fxLayoutGap="20px">
-  <mat-card>
-    <mat-card-header *ngIf="developer.image">
-      <img [src]="developer.image" [alt]="developer.firstname" height="100px" width="100px"/>
+  <mat-card fxFlex fxLayout="column" fxLayoutAlign="center center">
+    <mat-card-header class="mt-2 mb-4" *ngIf="developer.image">
+      <img style="border-radius: 15px;" [src]="developer.image" [alt]="developer.firstname" height="100px" width="100px"/>
     </mat-card-header>
     <mat-card-title>
       <h3>{{ developer.firstname }} {{developer.lastname}}</h3>
     </mat-card-title>
-    <mat-card-content>
+    <mat-card-content fxFlex fxLayout="column" fxLayoutAlign="center center">
+
       <p>{{ developer.bio }}</p>
-      <div>
-        <mat-chip-list style="display: inline;" mat-chip-list *ngFor="let tag of developer.experience" fxFlex fxLayout="row"
-          fxLayoutGap="5px">
+      <p>{{ developer.dob | date:"dd MMMM yyyy"}}</p>
+      <p class="mt-3"><a [href]="developer.cv" target="_blank" mat-button color="primary">Curriculum Vitae</a></p>
+      <div >
+        <mat-chip-list fxHide.gt-xs mat-chip-list *ngFor="let tag of developer.experience" aria-orientation="vertical" fxLayoutAlign="center center" class="mt-1 mb-1">
+          <mat-chip color="primary" [selected]="true">{{tag}}</mat-chip>
+        </mat-chip-list>
+      </div>
+
+      <div >
+        <mat-chip-list fxHide.lt-sm mat-chip-list *ngFor="let tag of developer.experience" fxLayoutAlign="center center" class="mr-1 ml-1" fxFlex fxLayout="row">
           <mat-chip color="primary" [selected]="true">{{tag}}</mat-chip>
         </mat-chip-list>
       </div>
       <div>
-        <h4 class="profile-title">Contact</h4>
+        <div>
+        <h4 class="profile-title " >Contact</h4></div>
         <div class="contact-container">
           <mat-icon>contact_mail</mat-icon><a class="contact-link" [href]="mailtoLink">{{developer.email}}</a>
         </div>
         <div  class="contact-container">
           <mat-icon>contact_phone</mat-icon><a class="contact-link" [href]="telLink">{{developer.phone}}</a>
+        </div>
+        <div  class="contact-container">
+          <fa name="linkedin"></fa><a class="contact-link"[href]="['https://www.linkedin.com/in/' + developer.linkedIn.toLocaleLowerCase() + '/']"  target="_blank">{{developer.linkedIn}}</a>
         </div>
       </div>
       <div>
