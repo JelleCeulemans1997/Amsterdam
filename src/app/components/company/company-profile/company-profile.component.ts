@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import {ParamMap, ActivatedRoute, Router} from '@angular/router';
+import { ParamMap, ActivatedRoute, Router } from '@angular/router';
 import { CompanyService } from 'src/app/services/company.service';
 import { Company } from 'src/app/models/company.model';
 import { Review } from 'src/app/models/review.model';
@@ -10,8 +10,13 @@ import { Developer } from 'src/app/models/developer.model';
 import { LocationDefining } from 'src/app/models/location.model';
 import { AssignmentService } from 'src/app/services/assignment.service';
 import { User } from 'src/app/models/user.model';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {
+  MatDialog,
+  MatDialogRef,
+  MAT_DIALOG_DATA
+} from '@angular/material/dialog';
 import { DialogDeleteComponent } from '../../dialog-delete/dialog-delete.component';
+import { DeveloperService } from 'src/app/services/developer.service';
 
 @Component({
   selector: 'app-company-profile',
@@ -31,9 +36,11 @@ export class CompanyProfileComponent implements OnInit {
   starsShown: string[];
   dev: Developer;
 
-  allowed = false;
+  allowed: boolean = false;
   userId: any;
   role: string;
+
+  assignments: any[];
 
   constructor(
     private router: Router,
@@ -41,31 +48,26 @@ export class CompanyProfileComponent implements OnInit {
     private companyService: CompanyService,
     private fb: FormBuilder,
     private userService: UserService,
-    private reviewService: ReviewService,
     private assignmentService: AssignmentService,
-    public dialog: MatDialog) { }
+    private developerService: DeveloperService,
+    public dialog: MatDialog
+  ) {}
 
   onSubmit() {
-    this.assignmentService.getAllByCompany(this.company.userId).subscribe(res => {
-      const assignments = res.assignments;
-      console.log(res);
-      assignments.forEach(assignment => {
-        if (assignment.accepted.includes(this.userId)) {
-          const stars = document.getElementsByClassName('selectedStar');
-          const review: Review = { text: this.reviewForm.get('text').value, score: stars.length, userId: this.userId };
-          console.log(review);
-          this.reviews.push(review);
-          this.company.reviews = this.reviews;
-          this.companyService.updateCompany(this.company).subscribe();
-          if (this.reviews.length < 5) {
-            this.splicedData.push(review);
-          }
-          this.allowed = true;
-        } else {
-          this.allowed = false;
-        }
-      });
-    });
+    const stars = document.getElementsByClassName('selectedStar');
+    const review: Review = {
+      text: this.reviewForm.get('text').value,
+      score: stars.length,
+      developer: this.dev,
+      userId: this.userId
+    };
+    console.log(review);
+    this.reviews.push(review);
+    this.company.reviews = this.reviews;
+    this.companyService.updateCompany(this.company).subscribe();
+    if (this.reviews.length < 5) {
+      this.splicedData.push(review);
+    }
   }
 
   onClick(star: number) {
@@ -93,7 +95,7 @@ export class CompanyProfileComponent implements OnInit {
     return this.starsShown;
   }
 
-  deleteReview(review: Review){
+  deleteReview(review: Review) {
     const reviewId = this.company.reviews.indexOf(review);
     this.company.reviews.splice(reviewId, 1);
     this.reviews = this.company.reviews;
@@ -104,15 +106,13 @@ export class CompanyProfileComponent implements OnInit {
     }
     this.companyService.updateCompany(this.company).subscribe(res => {
       console.log(res);
-    }
-    );
-
+    });
   }
 
   openDialog(review: Review) {
     const dialogRef = this.dialog.open(DialogDeleteComponent, {
       width: '250px',
-      data: {option: 'yes'}
+      data: { option: 'yes' }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -120,15 +120,13 @@ export class CompanyProfileComponent implements OnInit {
       if (result === 'yes') {
         this.deleteReview(review);
       }
-
     });
   }
 
   pageChangeEvent(event) {
-    const offset = ((event.pageIndex + 1) - 1) * event.pageSize;
+    const offset = (event.pageIndex + 1 - 1) * event.pageSize;
     this.splicedData = this.reviews.slice(offset).slice(0, event.pageSize);
   }
-
 
   ngOnInit() {
     this.reviewForm = this.fb.group({
@@ -136,37 +134,56 @@ export class CompanyProfileComponent implements OnInit {
     });
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
       if (paramMap.has('creatorId')) {
-        this.companyService.getCompanyByUserId(paramMap.get('creatorId')).subscribe(result => {
-          this.mailtoLink = 'mailto:' + result.contact.email;
-          this.telLink = 'tel:' + result.contact.phone;
-          this.company = result;
-          if (result.reviews) {
-            this.reviews = result.reviews;
-            this.splicedData = result.reviews.slice(((0 + 1) - 1) * 5).slice(0, 5);
-          }
-          console.log(result);
-        });
+        this.companyService
+          .getCompanyByUserId(paramMap.get('creatorId'))
+          .subscribe(result => {
+            this.mailtoLink = 'mailto:' + result.contact.email;
+            this.telLink = 'tel:' + result.contact.phone;
+            this.company = result;
+            if (result.reviews) {
+              this.reviews = result.reviews;
+              this.splicedData = result.reviews
+                .slice((0 + 1 - 1) * 5)
+                .slice(0, 5);
+            }
+            this.userId = this.userService.getUserId();
+            this.userService.getUserbyId(this.userId).subscribe(res => {
+              this.role = res.role;
+              console.log(this.role);
+            });
+            this.developerService.getByUserId(this.userId).subscribe(res => {
+              this.dev = res;
+            });
+            this.assignmentService
+              .getAllByCompany(this.company.userId)
+              .subscribe(res => {
+                this.assignments = res.assignments;
+                console.log(this.assignments);
+                this.assignments.forEach(assignment => {
+                  assignment.accepted.forEach(element => {
+                  if (element.accept === this.userId) {
+                    this.allowed = true;
+                  }
+                  });
+                });
+              });
+            console.log(result);
+            console.log(this.allowed);
+          });
       }
-    });
-    this.userId = this.userService.getUserId();
-    this.userService.getUserbyId(this.userId).subscribe(res => {
-      this.role = res.role;
-      console.log(this.role);
     });
   }
 
   onDeleteCompany(companyId: string) {
     console.log('delete');
     this.companyService.deleteCompanyByUser(companyId).subscribe(result => {
-      this.assignmentService.deleteAllCompanyAssignments(companyId).subscribe(res1 => {
-        this.userService.deleteUser(companyId).subscribe(res2 => {
-          this.router.navigate(['/companies']);
+      this.assignmentService
+        .deleteAllCompanyAssignments(companyId)
+        .subscribe(res1 => {
+          this.userService.deleteUser(companyId).subscribe(res2 => {
+            this.router.navigate(['/companies']);
+          });
         });
-      });
     });
   }
-
-
-
 }
-
