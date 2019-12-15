@@ -40,6 +40,7 @@ import { DeveloperprofileComponent } from './components/company/company-dashboar
 import { EditassignmentComponent } from './components/company/company-dashboard/editassignment/editassignment.component';
 import { DialogDeleteComponent } from './components/dialog-delete/dialog-delete.component';
 import {DatePipe} from '@angular/common';
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
 firebase.initializeApp(environment.firebaseConfig);
 
@@ -79,7 +80,8 @@ firebase.initializeApp(environment.firebaseConfig);
     MatBadgeModule,
     MatProgressSpinnerModule,
     StoreModule.forRoot(reducers),
-    AngularFireStorageModule
+    AngularFireStorageModule,
+    AngularFontAwesomeModule
   ],
   providers: [AuthGuard, DatePipe],
   bootstrap: [AppComponent],
