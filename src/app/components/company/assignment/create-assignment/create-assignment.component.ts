@@ -99,7 +99,7 @@ export class CreateAssignmentComponent implements OnInit {
     // Add or update tags in database
     this.tags.forEach(element => {
       if (!this.allTags.includes(element)) {
-        this.tagService.createTag(new Tag('', element, 1));
+        this.tagService.createTag(new Tag('', element, 1)).subscribe();
       } else if (!this.editMode) {
         const tag = this.tagObjects.find(t => t.name === element);
         tag.usages++;

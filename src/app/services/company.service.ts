@@ -34,4 +34,8 @@ export class CompanyService {
   deleteCompany(companyId: string) {
     return this.http.delete(this.baseURL + '/company/' + companyId);
   }
+
+  deleteCompanyByUser(companyId: string) {
+    return this.http.delete(this.baseURL + '/company/deletebyuser/' + companyId);
+  }
 }

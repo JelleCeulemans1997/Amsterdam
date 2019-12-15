@@ -98,11 +98,19 @@ export class DeveloperCredentialsComponent implements OnInit {
       }
     });
 
+    // this.tagService.getAllDesc().subscribe(result => {
+    //   result.tags.forEach(element => {
+    //     this.allTags.push(element.name);
+    //   });
+    // });
     this.tagService.getAllDesc().subscribe(result => {
+      this.tagObjects = result.tags;
       result.tags.forEach(element => {
         this.allTags.push(element.name);
       });
     });
+    console.log(this.allTags);
+
   }
 
   goToProfile() {
@@ -138,6 +146,23 @@ export class DeveloperCredentialsComponent implements OnInit {
       location,
       [],
       this.imagePreview);
+
+    console.log('test1');
+    // Add or update tags in database
+    this.tags.forEach(element => {
+      console.log('test: ' + element);
+      if (!this.allTags.includes(element)) {
+        console.log('nieuw element: ' + element);
+        this.tagService.createTag(new Tag('', element, 1)).subscribe();
+      } else if (!this.editMode){
+        console.log('here');
+        const tag = this.tagObjects.find(t => t.name === element);
+        tag.usages++;
+        this.tagService.updateTag(tag);
+      }
+    });
+
+
 
     if (this.editMode) {
       developer.id = this.developerId;

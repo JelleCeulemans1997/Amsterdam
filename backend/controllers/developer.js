@@ -11,6 +11,17 @@ exports.getAll = (req, res) => {
   }
 };
 
+exports.deleteDeveloperByUser = (req, res, next) => {
+  Developer.deleteOne({ userId: req.params.id })
+    .then(result => {
+      res.status(200).json({ message: 'Deletion successful!' });
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: 'Deleting developer failed!'
+      });
+    });
+};
 
 exports.createDeveloper = (req, res) => {
   const developer = new Developer({

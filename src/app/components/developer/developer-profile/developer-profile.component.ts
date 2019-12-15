@@ -1,17 +1,17 @@
-import { Component, OnInit } from '@angular/core';
-import { DeveloperService } from 'src/app/services/developer.service';
-import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { Developer } from 'src/app/models/developer.model';
-import { Review } from 'src/app/models/review.model';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { Company } from 'src/app/models/company.model';
-import { UserService } from 'src/app/services/user.service';
-import { ReviewService } from 'src/app/services/review.service';
-import { LocationDefining } from 'src/app/models/location.model';
-import { AssignmentService } from 'src/app/services/assignment.service';
-import { Assignment } from 'src/app/models/assignment.model';
-import { MatSnackBar, MatDialog } from '@angular/material';
-import { DialogDeleteComponent } from '../../dialog-delete/dialog-delete.component';
+import {Component, OnInit} from '@angular/core';
+import {DeveloperService} from 'src/app/services/developer.service';
+import {ActivatedRoute, ParamMap, Router} from '@angular/router';
+import {Developer} from 'src/app/models/developer.model';
+import {Review} from 'src/app/models/review.model';
+import {FormGroup, Validators, FormBuilder} from '@angular/forms';
+import {Company} from 'src/app/models/company.model';
+import {UserService} from 'src/app/services/user.service';
+import {ReviewService} from 'src/app/services/review.service';
+import {LocationDefining} from 'src/app/models/location.model';
+import {AssignmentService} from 'src/app/services/assignment.service';
+import {Assignment} from 'src/app/models/assignment.model';
+import {MatSnackBar, MatDialog} from '@angular/material';
+import {DialogDeleteComponent} from '../../dialog-delete/dialog-delete.component';
 
 @Component({
   selector: 'app-developer-profile',
@@ -48,7 +48,8 @@ export class DeveloperProfileComponent implements OnInit {
     private userService: UserService,
     private reviewService: ReviewService,
     private assignmentService: AssignmentService,
-    public dialog: MatDialog) { }
+    public dialog: MatDialog) {
+  }
 
 
   ngOnInit() {
@@ -93,7 +94,7 @@ export class DeveloperProfileComponent implements OnInit {
     });
   }
 
-  deleteReview(review: Review){
+  deleteReview(review: Review) {
     const reviewId = this.developer.reviews.indexOf(review);
     this.developer.reviews.splice(reviewId, 1);
     this.reviews = this.developer.reviews;
@@ -103,8 +104,8 @@ export class DeveloperProfileComponent implements OnInit {
       this.splicedData.splice(this.splicedData.indexOf(review), 1);
     }
     this.developerService.updateDeveloper(this.developer).subscribe(res => {
-      console.log(res);
-    }
+        console.log(res);
+      }
     );
 
   }
@@ -125,10 +126,9 @@ export class DeveloperProfileComponent implements OnInit {
   }
 
 
-
   onSubmit() {
     const stars = document.getElementsByClassName('selectedStar');
-    const review: Review = { text: this.reviewForm.get('text').value, score: stars.length, userId: this.userService.getUserId() };
+    const review: Review = {text: this.reviewForm.get('text').value, score: stars.length, userId: this.userService.getUserId()};
     console.log(review);
     this.reviews.push(review);
     this.developer.reviews = this.reviews;
@@ -166,7 +166,29 @@ export class DeveloperProfileComponent implements OnInit {
 
   }
 
+  onDeleteDeveloper(userId: string) {
+    console.log('delete');
+    this.developerService.deleteDeveloperByUser(userId).subscribe(result => {
+      this.userService.deleteUser(userId).subscribe(res1 => {
+        this.assignmentService.deleteAppliedByUser(userId).subscribe(res2 => {
+          // this.assignmentService.deleteAppliedByUser(userId).subscribe(res2 => {
+          //   this.assignmentService.deleteAppliedByUser(userId).subscribe(res2 => {
+              console.log('done');
+          //   });
+          // });
+        });
+      });
+    });
 
+
+    // this.companyService.deleteCompanyByUser(companyId).subscribe(result => {
+    //   this.assignmentService.deleteAllCompanyAssignments(companyId).subscribe(res1 => {
+    //     this.userService.deleteUser(companyId).subscribe(res2 => {
+    //       this.router.navigate(['/companies']);
+    //     });
+    //   });
+    // });
+  }
 
 
 }

@@ -64,6 +64,9 @@ export class AssignmentService {
   deleteAssignment(assignmentId: string) {
     return this.http.delete(this.baseURL + '/assignment/' + assignmentId);
   }
+  deleteAllCompanyAssignments(companyId: string) {
+    return this.http.delete(this.baseURL + '/assignment/deletebyuserid/' + companyId);
+  }
 
   getApplied(developerId: string) {
     return this.http.get<{message: string, assignments: Assignment[]}>(this.baseURL + '/assignment/applies/' + developerId);
@@ -100,6 +103,21 @@ export class AssignmentService {
   removeApplied(assignmentId: string, developerId: string) {
     const removedev = {applies: { apply: developerId }};
     return this.http.patch(this.baseURL + '/assignment/removeappliedassignment/' + assignmentId, removedev);
+  }
+
+  deleteAppliedByUser(developerId: string) {
+    const deleteDeveloper = {applies: { apply: developerId }};
+    return this.http.patch(this.baseURL + '/assignment/deleteappliedbyuser', deleteDeveloper);
+  }
+
+  deleteAcceptedByUser(developerId: string) {
+    const deleteDeveloper = {accepted: { accept: developerId }};
+    return this.http.patch(this.baseURL + '/assignment/deleteacceptedbyuser', deleteDeveloper);
+  }
+
+  deleteDeniedByUser(developerId: string) {
+    const deleteDeveloper = {denied: { deny: developerId }};
+    return this.http.patch(this.baseURL + '/assignment/deletedeniedbyuser', deleteDeveloper);
   }
 
 

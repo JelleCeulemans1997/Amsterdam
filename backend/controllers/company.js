@@ -13,6 +13,18 @@ exports.deleteCompany = (req, res, next) => {
     });
 };
 
+exports.deleteCompanyByUser = (req, res, next) => {
+  Company.deleteOne({ userId: req.params.id })
+    .then(result => {
+      res.status(200).json({ message: 'Deletion successful!' });
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: 'Deleting company failed!'
+      });
+    });
+};
+
 exports.getAllCompanies = (req, res) => {
   try {
     Company.find().exec((error, companies) => {

@@ -78,3 +78,15 @@ exports.getByUserId = async (req, res) => {
       res.status(500).json({ message: "Fetching user failed" });
     });
 };
+
+exports.deleteUser = (req, res, next) => {
+  User.deleteOne({ _id: req.params.id })
+    .then(result => {
+      res.status(200).json({ message: 'Deletion successful!' });
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: 'Deleting company failed!'
+      });
+    });
+};
