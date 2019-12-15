@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 
 import * as fromRoot from './app.reducer';
 import { Store, State } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { RoleDefining } from './models/role.model';
 
@@ -20,11 +20,13 @@ import { Role } from './models/role.enum';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
   title = 'Amsterdam';
   isAuthenticated$: Observable<boolean>;
   roles$: Observable<RoleDefining>;
   name: string;
+
+  nameSub: Subscription;
 
   constructor(
     private store: Store<fromRoot.State>,
@@ -37,7 +39,7 @@ export class AppComponent implements OnInit {
     this.isAuthenticated$ = this.store.select(fromRoot.getIsAuth);
     this.roles$ = this.store.select(fromRoot.getWhichRole);
 
-    this.userService.sendName$.subscribe(result => {
+    this.nameSub = this.userService.sendName$.subscribe(result => {
       console.log(result);
       this.name = result;
     });
@@ -70,5 +72,9 @@ export class AppComponent implements OnInit {
     this.store.dispatch(new RoleAction.SetLogout());
     this.localStorageService.removeToken();
     this.router.navigate(['/login']);
+  }
+
+  ngOnDestroy() {
+    this.nameSub.unsubscribe();
   }
 }

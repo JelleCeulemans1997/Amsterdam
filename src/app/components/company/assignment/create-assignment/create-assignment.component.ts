@@ -106,6 +106,7 @@ export class CreateAssignmentComponent implements OnInit {
         this.tagService.updateTag(tag);
       }
     });
+
     const location: LocationDefining = {
       street: this.assignmentForm.value.street,
       nr: this.assignmentForm.value.nr,
