@@ -19,6 +19,8 @@ import { AdminCompaniesComponent } from './components/admin/admin-companies/admi
 import { AdminDevelopersComponent } from './components/admin/admin-developers/admin-developers.component';
 import { AdminAssignmentsComponent } from './components/admin/admin-assignments/admin-assignments.component';
 import { AssignmentdetailComponent } from './components/company/assignment/assignmentdetail/assignmentdetail.component';
+import {DeveloperprofileComponent} from './components/company/company-dashboard/developerprofile/developerprofile.component';
+import {EditassignmentComponent} from './components/company/company-dashboard/editassignment/editassignment.component';
 
 
 
@@ -26,6 +28,7 @@ const routes: Routes = [
   // { path: '', component: HomeComponent },
   { path: 'createAssignment', component: CreateAssignmentComponent, canActivate: [AuthGuard], data: {role: Role.Company}},
   { path: 'editAssignment/:assignmentId', component: CreateAssignmentComponent, canActivate: [AuthGuard], data: {role: Role.Company}},
+  { path: 'editCompanyAssignment/:assignmentId', component: EditassignmentComponent, canActivate: [AuthGuard], data: {role: Role.Company}},
   { path: 'login', component: LoginComponent },
   { path: 'tags', component: AdminTagsComponent, canActivate: [AuthGuard], data: {role: Role.Admin} },
   { path: '', component: OverviewComponent},
@@ -39,6 +42,7 @@ const routes: Routes = [
   { path: 'companyProfile/:creatorId', component: CompanyProfileComponent},
   { path: 'developerCredentials', component: DeveloperCredentialsComponent, canActivate: [AuthGuard], data: {role: Role.Developer}},
   { path: 'developerProfile/:userId', component: DeveloperProfileComponent},
+  { path: 'developerdetails/:userId', component: DeveloperprofileComponent},
   { path: 'companies', component: AdminCompaniesComponent, canActivate: [AuthGuard], data: {role: Role.Admin}},
   { path: 'developers', component: AdminDevelopersComponent, canActivate: [AuthGuard], data: {role: Role.Admin}},
   { path: 'assignments', component: AdminAssignmentsComponent, canActivate: [AuthGuard], data: {role: Role.Admin}},

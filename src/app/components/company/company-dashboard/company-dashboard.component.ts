@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Assignment} from '../../../models/assignment.model';
 import {AssignmentService} from '../../../services/assignment.service';
+import {UserService} from '../../../services/user.service';
 
 @Component({
   selector: 'app-company-dashboard',
@@ -10,13 +11,19 @@ import {AssignmentService} from '../../../services/assignment.service';
 export class CompanyDashboardComponent implements OnInit {
   assignments: Assignment[];
 
-  constructor(private assingmentService: AssignmentService) {}
+  constructor(    private userService: UserService, private assingmentService: AssignmentService) {}
 
   ngOnInit() {
-    this.assingmentService.getAllAsignments().subscribe(result => {
+    const companyId = this.userService.getUserId();
+
+    this.assingmentService.getAllByCompany(companyId).subscribe(result => {
       this.assignments = result.assignments;
       console.log(this.assignments);
     });
   }
+
+
+
+
 
 }

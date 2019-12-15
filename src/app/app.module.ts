@@ -37,6 +37,8 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 import { environment } from '../environments/environment';
 
 import * as firebase from 'firebase/app';
+import { DeveloperprofileComponent } from './components/company/company-dashboard/developerprofile/developerprofile.component';
+import { EditassignmentComponent } from './components/company/company-dashboard/editassignment/editassignment.component';
 
 firebase.initializeApp(environment.firebaseConfig);
 
@@ -57,7 +59,9 @@ firebase.initializeApp(environment.firebaseConfig);
     NicknameDeveloperPipe,
     AdminDevelopersComponent,
     AdminAssignmentsComponent,
-    AssignmentdetailComponent
+    AssignmentdetailComponent,
+    DeveloperprofileComponent,
+    EditassignmentComponent
   ],
   imports: [
     // AngularFireModule.initializeApp(environment.firebaseConfig),

@@ -10,27 +10,26 @@
 
       <div class="row" *ngIf="assignment">
 
-        <div class="col-md-7">
+        <div class="col-md-7" style="padding-bottom: 10px;">
 
           <mat-card class="example-card">
             <mat-card-header>
 
-              <mat-card-title ><span style="text-align: center">{{assignment.title}}</span></mat-card-title>
+              <mat-card-title>--> {{assignment.title}}</mat-card-title>
             </mat-card-header>
 <!--            <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">-->
             <mat-card-content>
-              <h3 style="text-align: center">description</h3>
-              <p style="text-align: center">{{assignment.description}}</p>
+              <h5>Description</h5>
+              <p >{{assignment.description}}</p>
 
-              <h3 style="text-align: center">location</h3>
-              <div style="text-align: center">
-                <p>city: {{assignment.location.city}}</p>
-                <p>nr: {{assignment.location.nr}}</p>
-                <p>street: {{assignment.location.street}}</p>
-                <p>zipcode: {{assignment.location.zipcode}}</p>
-
+              <h5>Location</h5>
+              <div >
+                <p><span style="text-decoration: underline;">Street</span>: {{assignment.location.street}} - <span style="text-decoration: underline;">Nr</span>: {{assignment.location.nr}}</p>
               </div>
-              <h3>Tags</h3>
+              <div >
+                <p><span style="text-decoration: underline;">Zipcode</span>: {{assignment.location.zipcode}} - <span style="text-decoration: underline;">City</span>: {{assignment.location.city}}</p>
+              </div>
+              <h5>Tags</h5>
 <!--              <div style="text-align: center" *ngFor="let tag of assignment.assignment.tags">-->
 <!--                <p>{{tag}}</p>-->
 <!--              </div>-->
@@ -44,7 +43,7 @@
             </mat-card-content>
             <mat-card-actions>
 
-              <button class="btn btn-primary"  [routerLink]="['/editAssignment', assignment.id]">EDIT ASSIGNMENT</button>
+              <button mat-button color="primary" [routerLink]="['/editCompanyAssignment', assignment.id]">EDIT ASSIGNMENT</button>
 
             </mat-card-actions>
           </mat-card>
@@ -77,9 +76,9 @@
               </mat-expansion-panel-header>
 
                           <mat-list role="list">
-                            <mat-list-item role="listitem">Profile</mat-list-item>
-                            <mat-list-item class="hoveritem" role="listitem" style="background-color: green;" (click)="onAcceptApply(assignment.id, apply.apply)">Accept</mat-list-item>
-                            <mat-list-item class="hoveritem" role="listitem" style="background-color: red;" (click)="onDenyApply(assignment.id, apply.apply)">Deny</mat-list-item>
+                            <button mat-list-item style="background-color: #5a7780;" [routerLink]="['/developerdetails', apply.apply]">Profile</button>
+                            <button mat-list-item style="background-color: #518039;" (click)="onAcceptApply(assignment.id, apply.apply)">Accept</button>
+                            <button mat-list-item style="background-color: #ff7f58;" (click)="onDenyApply(assignment.id, apply.apply)">Deny</button>
                           </mat-list>
 
 
@@ -113,10 +112,12 @@
               </mat-expansion-panel-header>
 
               <mat-list role="list">
-                <mat-list-item role="listitem">Profile</mat-list-item>
+<!--                <mat-list-item role="listitem" [routerLink]="['/developerdetails', accept.accept]">Profile</mat-list-item>-->
+                <button mat-list-item style="background-color: #5a7780;" [routerLink]="['/developerdetails', accept.accept]">Profile</button>
 <!--                <mat-list-item role="listitem">Accept</mat-list-item>-->
 <!--                <mat-list-item role="listitem">Deny</mat-list-item>-->
               </mat-list>
+
 
             </mat-expansion-panel>
               </div>
@@ -138,8 +139,11 @@
               </mat-expansion-panel-header>
 
               <mat-list role="list">
-                <mat-list-item role="listitem">Profile</mat-list-item>
-<!--                <mat-list-item role="listitem">Accept</mat-list-item>-->
+<!--                <mat-list-item role="listitem" [routerLink]="['/developerProfile', deny.deny]">Profile</mat-list-item>-->
+                <button mat-list-item style="background-color: #5a7780;" [routerLink]="['/developerdetails', deny.deny]">Profile</button>
+
+
+                <!--                <mat-list-item role="listitem">Accept</mat-list-item>-->
 <!--                <mat-list-item role="listitem">Deny</mat-list-item>-->
               </mat-list>
 
