@@ -43,6 +43,7 @@ export class DeveloperProfileComponent implements OnInit {
 
   constructor(
     private developerService: DeveloperService,
+    private router: Router,
     private route: ActivatedRoute,
     private fb: FormBuilder,
     private userService: UserService,
@@ -173,7 +174,7 @@ export class DeveloperProfileComponent implements OnInit {
         this.assignmentService.deleteAppliedByUser(userId).subscribe(res2 => {
           this.assignmentService.deleteAcceptedByUser(userId).subscribe(res3 => {
             this.assignmentService.deleteDeniedByUser(userId).subscribe(res4 => {
-              console.log('done');
+              this.router.navigate(['/developers']);
             });
           });
         });
