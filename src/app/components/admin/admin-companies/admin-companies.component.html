@@ -1,44 +1,23 @@
 <div class="container mt-5 mb-5">
+  <mat-card>
+    <mat-card-title>Companies</mat-card-title>
+    <mat-card-header
+      >Click on the name to go to the detailed company page</mat-card-header>
+    <div class="mt-5 mb-5"><mat-divider></mat-divider></div>
+    <mat-card-content>
+      <mat-nav-list>
+        <mat-list-item *ngFor="let company of companies">
+          <a matLine [routerLink]="['/companyProfile/' + company.userId]">
+            {{ company.name }}
+          </a>
+          <mat-icon>info</mat-icon>
+        </mat-list-item>
+      </mat-nav-list>
+    </mat-card-content>
+  </mat-card>
+</div>
 
-  <div class="container mt-5 mb-5">
-    <mat-card>
-      <mat-card-title>Companies</mat-card-title>
-      <mat-card-header>Click on the name to go to the detailed company page</mat-card-header>
-      <div class="mt-5 mb-5"><mat-divider></mat-divider></div>
-      <mat-card-content>
-        <mat-nav-list>
-          <mat-list-item *ngFor="let company of companies">
-             <a matLine [routerLink]="['/companyProfile/' + company.userId]">
-               {{company.name}}
-             </a>
-             <mat-icon>info</mat-icon>
-             <!-- <button mat-icon-button >
-
-             </button> -->
-          </mat-list-item>
-        </mat-nav-list>
-      </mat-card-content>
-    </mat-card>
-  </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  <!-- <mat-accordion multi="true">
+<!-- <mat-accordion multi="true">
     <mat-expansion-panel *ngFor="let company of companies">
       <mat-expansion-panel-header>
         <mat-panel-title>
@@ -92,5 +71,3 @@
       </mat-action-row>
     </mat-expansion-panel>
   </mat-accordion> -->
-
-</div>
