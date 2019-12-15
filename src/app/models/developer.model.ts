@@ -21,6 +21,7 @@ export class Developer {
       city: string
     },
     public reviews: Review[],
-    public image: string
+    public image: string,
+    public cv: string
     ) { }
 }

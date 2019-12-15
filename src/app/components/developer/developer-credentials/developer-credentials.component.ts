@@ -38,6 +38,10 @@ export class DeveloperCredentialsComponent implements OnInit {
   developerId: string;
   imagePreview: string;
   dev: any;
+  // imagePreview: string;
+  downloadImage: string;
+  filename = '';
+  cv: string;
 
   @ViewChild('tagInput', { static: false }) tagInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto', { static: false }) matAutocomplete: MatAutocomplete;
@@ -78,10 +82,11 @@ export class DeveloperCredentialsComponent implements OnInit {
         console.log(result);
         this.editMode = true;
         this.developerId = result.id;
-        const { nickname, firstname, lastname, dob, linkedIn, bio, experience, email, phone, location, image } = result;
+        const { nickname, firstname, lastname, dob, linkedIn, bio, experience, email, phone, location, image, cv } = result;
         this.tags = experience;
-        this.imagePreview = image;
-        console.log(this.imagePreview);
+        this.downloadImage = image;
+        this.cv = cv;
+
         // TODO: omzetten daar date
         console.log(dob);
         const tempDate = new Date(dob);
@@ -156,7 +161,8 @@ export class DeveloperCredentialsComponent implements OnInit {
       this.tags,
       location,
       this.dev.reviews,
-      this.imagePreview);
+      this.downloadImage,
+      this.cv);
 
     console.log('test1');
     // Add or update tags in database
@@ -187,21 +193,29 @@ export class DeveloperCredentialsComponent implements OnInit {
     }
   }
 
+  onPdfPicked(event: Event) {
+    const file = (event.target as HTMLInputElement).files[0];
+    console.log(file);
+    this.filename = file.name;
+
+    const path = `pdf/${new Date().getTime()}_${file.name}`;
+    const customMetadata = { contentType: file.type, app: 'DEV-COM connect' };
+    const storageRef: firebase.storage.Reference = firebase.storage().ref(path);
+    storageRef.put(file, customMetadata).then(() => {
+      storageRef.getDownloadURL().then(result => {
+        this.cv = result;
+      });
+    });
+  }
+
   onImagePicked(event: Event) {
     const file = (event.target as HTMLInputElement).files[0];
-    // this.developerForm.patchValue({ image: file });
-    // this.developerForm.get('image').updateValueAndValidity();
-    const reader = new FileReader();
-    reader.onload = () => {
-      this.imagePreview = reader.result as string;
-    };
-    reader.readAsDataURL(file);
     const path = `images/${new Date().getTime()}_${file.name}`;
     const customMetadata = { contentType: file.type, app: 'DEV-COM connect' };
     const storageRef: firebase.storage.Reference = firebase.storage().ref(path);
     storageRef.put(file, customMetadata).then(() => {
       storageRef.getDownloadURL().then(result => {
-        this.developerForm.patchValue({ image: result });
+        this.downloadImage = result;
       });
     });
   }
