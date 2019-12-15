@@ -13,7 +13,7 @@ import { DeveloperService } from 'src/app/services/developer.service';
 import { mimeTypeImage } from 'src/app/file-validators/mime-type-image.validator';
 import * as firebase from 'firebase/app';
 import { Router } from '@angular/router';
-import {DatePipe} from '@angular/common';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-developer-credentials',
@@ -38,9 +38,7 @@ export class DeveloperCredentialsComponent implements OnInit {
   developerId: string;
   imagePreview: string;
   dev: any;
-  // imagePreview: string;
   downloadImage: string;
-  filename = '';
   cv: string;
 
   @ViewChild('tagInput', { static: false }) tagInput: ElementRef<HTMLInputElement>;
@@ -167,7 +165,7 @@ export class DeveloperCredentialsComponent implements OnInit {
       if (!this.allTags.includes(element)) {
         console.log('nieuw element: ' + element);
         this.tagService.createTag(new Tag('', element, 1)).subscribe();
-      } else if (!this.editMode){
+      } else if (!this.editMode) {
         console.log('here');
         const tag = this.tagObjects.find(t => t.name === element);
         tag.usages++;
@@ -192,33 +190,44 @@ export class DeveloperCredentialsComponent implements OnInit {
   onPdfPicked(event: Event) {
     const file = (event.target as HTMLInputElement).files[0];
     console.log(file);
-    this.filename = file.name;
 
-    const path = `pdf/${new Date().getTime()}_${file.name}`;
-    const customMetadata = { contentType: file.type, app: 'DEV-COM connect' };
-    const storageRef: firebase.storage.Reference = firebase.storage().ref(path);
-    storageRef.put(file, customMetadata).then(() => {
-      storageRef.getDownloadURL().then(result => {
-        console.log(result);
-        this.snackbar.open('CV updated', 'Success', {
-          duration: 3000
+    if (file.type === 'application/pdf') {
+      const path = `pdf/${new Date().getTime()}_${file.name}`;
+      const customMetadata = { contentType: file.type, app: 'DEV-COM connect' };
+      const storageRef: firebase.storage.Reference = firebase.storage().ref(path);
+      storageRef.put(file, customMetadata).then(() => {
+        storageRef.getDownloadURL().then(result => {
+          console.log(result);
+          this.snackbar.open('CV updated', 'Success', {
+            duration: 3000
+          });
+          this.cv = result;
         });
-        this.cv = result;
       });
-    });
+    } else {
+      this.snackbar.open('only pdf allowed!', 'Error', {
+        duration: 3000
+      });
+    }
   }
 
   onImagePicked(event: Event) {
     const file = (event.target as HTMLInputElement).files[0];
-    const path = `images/${new Date().getTime()}_${file.name}`;
-    const customMetadata = { contentType: file.type, app: 'DEV-COM connect' };
-    const storageRef: firebase.storage.Reference = firebase.storage().ref(path);
-    storageRef.put(file, customMetadata).then(() => {
-      storageRef.getDownloadURL().then(result => {
-        console.log(result);
-        this.downloadImage = result;
+    if (file.type.includes('iamge/')) {
+      const path = `images/${new Date().getTime()}_${file.name}`;
+      const customMetadata = { contentType: file.type, app: 'DEV-COM connect' };
+      const storageRef: firebase.storage.Reference = firebase.storage().ref(path);
+      storageRef.put(file, customMetadata).then(() => {
+        storageRef.getDownloadURL().then(result => {
+          console.log(result);
+          this.downloadImage = result;
+        });
       });
-    });
+    } else {
+      this.snackbar.open('only iamges allowed!', 'Error', {
+        duration: 3000
+      });
+    }
   }
 
 

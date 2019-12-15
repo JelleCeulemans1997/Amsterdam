@@ -112,7 +112,7 @@ export class CompanyCredentialsComponent implements OnInit {
     const contact = { firstname, lastname, email, phone };
     const location: LocationDefining = { street, nr, zipcode, city };
     const userId = this.userService.getUserId();
-    const company = new Company('', name, userId, contact, location, this.tags, bio, [], this.downloadImage) ;
+    const company = new Company('', name, userId, contact, location, this.tags, bio, [], this.downloadImage);
 
     // Add or update tags in database
     this.tags.forEach(element => {
@@ -120,7 +120,7 @@ export class CompanyCredentialsComponent implements OnInit {
       if (!this.allTags.includes(element)) {
         console.log('nieuw element: ' + element);
         this.tagService.createTag(new Tag('', element, 1)).subscribe();
-      } else if (!this.editMode){
+      } else if (!this.editMode) {
         console.log('here');
         const tag = this.tagObjects.find(t => t.name === element);
         tag.usages++;
@@ -159,19 +159,21 @@ export class CompanyCredentialsComponent implements OnInit {
 
   onImagePicked(event: Event) {
     const file = (event.target as HTMLInputElement).files[0];
-    // const reader = new FileReader();
-    // reader.onload = () => {
-    //   this.imagePreview = reader.result as string;
-    // };
-    // reader.readAsDataURL(file);
-    const path = `images/${new Date().getTime()}_${file.name}`;
-    const customMetadata = { contentType: file.type, app: 'DEV-COM connect' };
-    const storageRef: firebase.storage.Reference = firebase.storage().ref(path);
-    storageRef.put(file, customMetadata).then(() => {
-      storageRef.getDownloadURL().then(result => {
-        this.downloadImage = result;
+    console.log(file.type);
+    if (file.type.includes('image/')) {
+      const path = `images/${new Date().getTime()}_${file.name}`;
+      const customMetadata = { contentType: file.type, app: 'DEV-COM connect' };
+      const storageRef: firebase.storage.Reference = firebase.storage().ref(path);
+      storageRef.put(file, customMetadata).then(() => {
+        storageRef.getDownloadURL().then(result => {
+          this.downloadImage = result;
+        });
       });
-    });
+    } else {
+      this.snackbar.open('only iamges allowed!', 'Error', {
+        duration: 3000
+      });
+    }
   }
 
 

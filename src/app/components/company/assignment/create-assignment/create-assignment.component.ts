@@ -2,8 +2,8 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatChipInputEvent, MatAutocomplete, MatAutocompleteSelectedEvent, MatSnackBar } from '@angular/material';
 import { Observable } from 'rxjs';
-import {COMMA, ENTER} from '@angular/cdk/keycodes';
-import {map, startWith} from 'rxjs/operators';
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { map, startWith } from 'rxjs/operators';
 import { TagService } from 'src/app/services/tag.service';
 import { mimeTypeImage } from '../../../../file-validators/mime-type-image.validator';
 import { AssignmentService } from 'src/app/services/assignment.service';
@@ -26,11 +26,10 @@ export class CreateAssignmentComponent implements OnInit {
   assignmentForm: FormGroup;
   separatorKeysCodes: number[] = [ENTER, COMMA];
   tagCtrl = new FormControl();
-  filteredTags: Observable<string[]> ;
+  filteredTags: Observable<string[]>;
   tags: string[] = [];
   allTags: string[] = [];
   imagePreview: string;
-  filename = '';
   token = '';
   editMode = false;
   assignmentId: string;
@@ -42,8 +41,8 @@ export class CreateAssignmentComponent implements OnInit {
   denied: any;
 
 
-  @ViewChild('tagInput', {static: false}) tagInput: ElementRef<HTMLInputElement>;
-  @ViewChild('auto', {static: false}) matAutocomplete: MatAutocomplete;
+  @ViewChild('tagInput', { static: false }) tagInput: ElementRef<HTMLInputElement>;
+  @ViewChild('auto', { static: false }) matAutocomplete: MatAutocomplete;
 
   constructor(
     private tagService: TagService,
@@ -54,8 +53,8 @@ export class CreateAssignmentComponent implements OnInit {
     private companyService: CompanyService,
     private snackbar: MatSnackBar) {
     this.filteredTags = this.tagCtrl.valueChanges.pipe(
-        startWith(null),
-        map((fruit: string | null) => fruit ? this._filter(fruit) : this.allTags.slice()));
+      startWith(null),
+      map((fruit: string | null) => fruit ? this._filter(fruit) : this.allTags.slice()));
   }
 
   ngOnInit() {
@@ -73,13 +72,13 @@ export class CreateAssignmentComponent implements OnInit {
 
     this.assignmentForm = new FormGroup({
       title: new FormControl(null, { validators: [Validators.required] }),
-      description: new FormControl(null, { validators: [Validators.required]}),
+      description: new FormControl(null, { validators: [Validators.required] }),
       // image: new FormControl(null, {validators: [Validators.required], asyncValidators: [mimeTypeImage]}),
       // pdf: new FormControl(null, {validators: [Validators.required], asyncValidators: [mimeTypePdf]}),
-      street: new FormControl(null, {validators: [Validators.required]}),
-      nr: new FormControl(null, {validators: [Validators.required]}),
-      zipcode: new FormControl(null, {validators: [Validators.required]}),
-      city: new FormControl(null, {validators: [Validators.required]}),
+      street: new FormControl(null, { validators: [Validators.required] }),
+      nr: new FormControl(null, { validators: [Validators.required] }),
+      zipcode: new FormControl(null, { validators: [Validators.required] }),
+      city: new FormControl(null, { validators: [Validators.required] }),
     });
 
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
@@ -198,25 +197,26 @@ export class CreateAssignmentComponent implements OnInit {
   }
 
 
-
   onPdfPicked(event: Event) {
     const file = (event.target as HTMLInputElement).files[0];
     console.log(file);
-    this.filename = file.name;
-
-    const path = `pdf/${new Date().getTime()}_${file.name}`;
-    const customMetadata = { contentType: file.type, app: 'DEV-COM connect' };
-    const storageRef: firebase.storage.Reference = firebase.storage().ref(path);
-    storageRef.put(file, customMetadata).then(() => {
-      storageRef.getDownloadURL().then(result => {
-        this.snackbar.open('PDF updated', 'Success', {
-          duration: 3000
+    if (file.type === 'application/pdf') {
+      const path = `pdf/${new Date().getTime()}_${file.name}`;
+      const customMetadata = { contentType: file.type, app: 'DEV-COM connect' };
+      const storageRef: firebase.storage.Reference = firebase.storage().ref(path);
+      storageRef.put(file, customMetadata).then(() => {
+        storageRef.getDownloadURL().then(result => {
+          this.snackbar.open('PDF uploaded', 'Success', {
+            duration: 3000
+          });
+          this.pdf = result;
         });
-        this.pdf = result;
       });
-    });
+    } else {
+      this.snackbar.open('only pdf allowed!', 'Error', {
+        duration: 3000
+      });
+    }
+
   }
-
-
-
 }
