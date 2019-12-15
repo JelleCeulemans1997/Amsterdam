@@ -12,7 +12,7 @@
           </mat-step>
           <mat-step label="Write Description">
             <mat-form-field>
-              <textarea matInput rows="6" name="content" placeholder="Post content"
+              <textarea matInput rows="6" name="content" placeholder="Description"
                 formControlName="description"></textarea>
               <mat-error>Required!</mat-error>
             </mat-form-field>
@@ -38,30 +38,26 @@
           </mat-step>
           <mat-step label="Upload document">
             <div>
-              <button mat-raised-button type="button" color="primary" (click)="pdfPicker.click()">
-                Pick PDF
-              </button>
+              <button mat-raised-button type="button" color="primary" (click)="pdfPicker.click()">Pick PDF</button>
               <input type="file" #pdfPicker (change)="onPdfPicked($event)" />
-              <p>{{filename}}</p>
+              <p class="mt-3">{{filename}}</p>
             </div>
           </mat-step>
           <mat-step label="Location">
-            <div fxFlex fxLayout="row" fxLayoutGap="20px">
-              <mat-form-field>
+            <div class="row">
+              <mat-form-field class="col-lg-6 col-md-12">
                 <input type="text" matInput placeholder="Street" formControlName="street" />
                 <mat-error>The street is required!</mat-error>
               </mat-form-field>
-              <mat-form-field>
+              <mat-form-field class="col-lg-6 col-md-12">
                 <input type="text" matInput placeholder="Number" formControlName="nr" />
                 <mat-error>The nr is required!</mat-error>
               </mat-form-field>
-            </div>
-            <div fxFlex fxLayout="row" fxLayoutGap="20px">
-              <mat-form-field>
+              <mat-form-field class="col-lg-6 col-md-12">
                 <input type="text" matInput placeholder="Zipcode" formControlName="zipcode" />
                 <mat-error>The zipcode is required!</mat-error>
               </mat-form-field>
-              <mat-form-field>
+              <mat-form-field class="col-lg-6 col-md-12">
                 <input type="text" matInput placeholder="City" formControlName="city" />
                 <mat-error>The city is required!</mat-error>
               </mat-form-field>

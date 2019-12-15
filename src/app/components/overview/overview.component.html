@@ -1,20 +1,19 @@
 <div class="container mt-5 mb-5">
-    <h4>Select company</h4>
-    <form [formGroup]="searchForm">
-      <mat-form-field>
-        <mat-label>Select a filter</mat-label>
-        <mat-select [(value)]="selection" (selectionChange)="onSelectionChange()">
-          <mat-option *ngFor="let category of categories" [value]="category">
-            {{category}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-      <p *ngIf="!filtered">Please choose a filter</p>
-
-      <br />
-      <div *ngIf="filtered">
-      <p>Filtering by {{selection}}</p>
-      <mat-form-field *ngIf="selection == 'Tags'; else noTags" style="width:95%" class="example-chip-list">
+  <div fxLayoutAlign="center center">
+    <h4>Assignment overview</h4>
+  </div>
+  <form [formGroup]="searchForm">
+    <mat-form-field style="width: 100%;">
+      <mat-label>Select a filter</mat-label>
+      <mat-select [(value)]="selection" (selectionChange)="onSelectionChange()">
+        <mat-option *ngFor="let category of categories" [value]="category">
+          {{category}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <br />
+    <div *ngIf="filtered" style="width: 100%;">
+      <mat-form-field *ngIf="selection == 'Tags'; else noTags" style="width:100%" class="example-chip-list">
         <mat-chip-list #chipList aria-label="Fruit selection">
           <mat-chip *ngFor="let tag of tags" [selectable]="selectable" [removable]="removable" (removed)="remove(tag)">
             {{tag}}
@@ -30,108 +29,94 @@
           </mat-option>
         </mat-autocomplete>
       </mat-form-field>
-
       <ng-template #noTags>
-        <mat-form-field style="width:95%">
+        <mat-form-field style="width: 100%;">
           <input *ngIf="selection == 'Location'" matInput type="text" formControlName="searchString" (keyup)="search()"
             placeholder="Enter a zipcode" />
           <input *ngIf="selection == 'Company'" matInput type="text" formControlName="searchString" (keyup)="search()"
             placeholder="Enter a company name" />
-            <input *ngIf="selection == 'Keywords'" matInput type="text" formControlName="searchString" (keyup)="search()"
-              placeholder="Enter keywords" />
+          <input *ngIf="selection == 'Title'" matInput type="text" formControlName="searchString" (keyup)="search()"
+            placeholder="Enter a part of a title" />
         </mat-form-field>
       </ng-template>
     </div>
-    </form>
-
-
-
-
-
-<hr>
-
-
+  </form>
+  <hr>
   <mat-accordion multi="true" *ngIf="results.length > 0; else allAssignments">
     <mat-expansion-panel *ngFor="let assignment of results">
       <mat-expansion-panel-header>
-        <mat-panel-title><h5>{{assignment.title}}</h5></mat-panel-title>
+        <mat-panel-title>
+          <h5>{{assignment.title}}</h5>
+        </mat-panel-title>
+        <mat-panel-description fxHide.lt-md>
+          {{assignment.company.name}}
+        </mat-panel-description>
       </mat-expansion-panel-header>
-
-      <p>{{assignment.description}}</p>
-      <div>
-          <h5>Location:</h5>
+      <div fxFlex fxLayout="column" fxLayoutAlign="center center">
+        <div class="mb-2 mt-2" fxHide.gt-sm fxFlex fxLayout="column" fxLayoutAlign="center center">
+          <h6>Company</h6>
+          <div>{{assignment.company.name}}</div>
+        </div>
+        <p class="mt-3 mb-3">{{assignment.description}}</p>
+        <div class="mt-3 mb-3" fxFlex fxLayout="column" fxLayoutAlign="center center">
+          <h6>Location:</h6>
           <div>{{assignment.location.street}} {{assignment.location.nr}}</div>
           <div>{{assignment.location.zipcode}} {{assignment.location.city}}</div>
+        </div>
+        <div class="mt-2 mb-3">
+          <mat-chip-list style="display: inline;" mat-chip-list *ngFor="let tag of assignment.tags" fxFlex
+            fxLayout="row" fxLayoutGap="5px">
+            <mat-chip color="primary" [selected]="true">{{tag}}</mat-chip>
+          </mat-chip-list>
+        </div>
+        <div *ngIf="assignment.pdf">
+          <a mat-button [href]="assignment.pdf" target="_blank" color="primary">PDF bijlage</a>
+        </div>
       </div>
-      <p>tekst</p>
-      <div>
-        <mat-chip-list style="display: inline;" mat-chip-list *ngFor="let tag of assignment.tags" fxFlex fxLayout="row"
-          fxLayoutGap="5px">
-          <mat-chip color="primary" [selected]="true">{{tag}}</mat-chip>
-        </mat-chip-list>
-      </div>
-
-
-
-
-      <!-- Don't show when not the creator -->
-
-
-      <!-- <mat-action-row>
-        <a mat-button color="accent" [routerLink]="['/editAssignment', assignment.id]">EDIT</a>
-        <button mat-button color="warn">DELETE</button>
-      </mat-action-row> -->
-
       <mat-action-row fxLayoutAlign="center center">
         <button mat-raised-button color="primary" (click)="onApply(assignment.id)">Apply now!</button>
-      </mat-action-row>
-    </mat-expansion-panel>
-  </mat-accordion>
-
-  <ng-template #allAssignments>
-
-  <p style="font-weight: bold;">No assignments found! Maybe these will interest you: </p>
-  <mat-accordion multi="true">
-    <mat-expansion-panel *ngFor="let assignment of assignments">
-      <mat-expansion-panel-header>
-        <mat-panel-title><h5>{{assignment.title}}</h5></mat-panel-title>
-        <mat-panel-description>
-              {{assignment.company.name}}
-            </mat-panel-description>
-      </mat-expansion-panel-header>
-
-      <p>{{assignment.description}}</p>
-      <div>
-          <h5>Location:</h5>
-          <div>{{assignment.location.street}} {{assignment.location.nr}}</div>
-          <div>{{assignment.location.zipcode}} {{assignment.location.city}}</div>
-      </div>
-
-      <div>
-        <mat-chip-list style="display: inline;" mat-chip-list *ngFor="let tag of assignment.tags" fxFlex fxLayout="row"
-          fxLayoutGap="5px">
-          <mat-chip color="primary" [selected]="true">{{tag}}</mat-chip>
-        </mat-chip-list>
-      </div>
-
-      <div *ngIf="assignment.pdf">
-        <a  mat-button [href]="assignment.pdf" target="_blank" color="primary" >PDF bijlage</a>
-      </div>
-
-
-      <!-- Don't show when not the creator -->
-
-
-      <!-- <mat-action-row>
-        <a mat-button color="accent" [routerLink]="['/editAssignment', assignment.id]">EDIT</a>
-        <button mat-button color="warn">DELETE</button>
-      </mat-action-row> -->
-
-      <mat-action-row fxLayoutAlign="center center">
-        <button mat-raised-button color="primary"  (click)="onApply(assignment.id)">Apply now!</button>
         <button mat-button color="primary" (click)="showCompantDetails(assignment.creator)">Company details</button>
       </mat-action-row>
     </mat-expansion-panel>
   </mat-accordion>
+  <ng-template #allAssignments>
+    <p class="ml-2" style="font-weight: bold;">No assignments found! Maybe these will interest you: </p>
+    <mat-accordion multi="true">
+      <mat-expansion-panel *ngFor="let assignment of assignments">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <h5>{{assignment.title}}</h5>
+          </mat-panel-title>
+          <mat-panel-description fxHide.lt-md>
+            {{assignment.company.name}}
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div fxFlex fxLayout="column" fxLayoutAlign="center center">
+          <div class="mb-2 mt-2" fxHide.gt-sm fxFlex fxLayout="column" fxLayoutAlign="center center">
+            <h6>Company</h6>
+            <div>{{assignment.company.name}}</div>
+          </div>
+          <p class="mt-3 mb-3">{{assignment.description}}</p>
+          <div class="mt-3 mb-3" fxFlex fxLayout="column" fxLayoutAlign="center center">
+            <h6>Location:</h6>
+            <div>{{assignment.location.street}} {{assignment.location.nr}}</div>
+            <div>{{assignment.location.zipcode}} {{assignment.location.city}}</div>
+          </div>
+          <div class="mt-2 mb-3">
+            <mat-chip-list style="display: inline;" mat-chip-list *ngFor="let tag of assignment.tags" fxFlex
+              fxLayout="row" fxLayoutGap="5px">
+              <mat-chip color="primary" [selected]="true">{{tag}}</mat-chip>
+            </mat-chip-list>
+          </div>
+          <div *ngIf="assignment.pdf">
+            <a mat-button [href]="assignment.pdf" target="_blank" color="primary">PDF bijlage</a>
+          </div>
+        </div>
+        <mat-action-row fxLayoutAlign="center center">
+          <button mat-raised-button color="primary" (click)="onApply(assignment.id)">Apply now!</button>
+          <button mat-button color="primary" (click)="showCompantDetails(assignment.creator)">Company details</button>
+        </mat-action-row>
+      </mat-expansion-panel>
+    </mat-accordion>
   </ng-template>
 </div>
