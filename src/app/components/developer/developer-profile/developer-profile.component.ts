@@ -12,6 +12,7 @@ import {AssignmentService} from 'src/app/services/assignment.service';
 import {Assignment} from 'src/app/models/assignment.model';
 import {MatSnackBar, MatDialog} from '@angular/material';
 import {DialogDeleteComponent} from '../../dialog-delete/dialog-delete.component';
+import { CompanyService } from 'src/app/services/company.service';
 
 @Component({
   selector: 'app-developer-profile',
@@ -35,7 +36,7 @@ export class DeveloperProfileComponent implements OnInit {
 
   assignments: Assignment[];
 
-  allowed = false;
+  allowed: boolean = false;
   accepterByCompany: string[] = [];
 
   userId: string;
@@ -47,7 +48,7 @@ export class DeveloperProfileComponent implements OnInit {
     private route: ActivatedRoute,
     private fb: FormBuilder,
     private userService: UserService,
-    private reviewService: ReviewService,
+    private companyService: CompanyService,
     private assignmentService: AssignmentService,
     public dialog: MatDialog) {
   }
@@ -57,41 +58,38 @@ export class DeveloperProfileComponent implements OnInit {
     this.reviewForm = this.fb.group({
       text: ['', Validators.required]
     });
+    this.userId = this.userService.getUserId();
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
       if (paramMap.has('userId')) {
         this.developerService.getByUserId(paramMap.get('userId')).subscribe(result => {
           this.mailtoLink = 'mailto:' + result.email;
           this.telLink = 'tel:' + result.phone;
           this.developer = result;
-          console.log(result);
           if (result.reviews.length > 0) {
             this.reviews = result.reviews;
             this.splicedData = result.reviews.slice(((0 + 1) - 1) * 5).slice(0, 5);
           }
         });
         this.assignmentService.getAllAsignments().subscribe(response => {
-          console.log(response.assignments);
           if (response.assignments) {
             response.assignments.forEach(element => {
-              if (element.accepted) {
                 element.accepted.forEach(item => {
                   this.accepterByCompany.push(item.accept);
+                  if (item.accept === this.userId) {
+                    this.allowed = true;
+                  }
                 });
-              }
             });
-            const userId = this.userService.getUserId();
             this.allowed = this.accepterByCompany.includes(paramMap.get('userId'));
-            console.log(userId);
-            console.log(this.accepterByCompany);
-            console.log(this.allowed);
           }
         });
       }
     });
-    this.userId = this.userService.getUserId();
+    this.companyService.getCompanyByUserId(this.userId).subscribe(res => {
+      this.user = res;
+    });
     this.userService.getUserbyId(this.userId).subscribe(res => {
       this.role = res.role;
-      console.log(this.role);
     });
   }
 
@@ -129,11 +127,18 @@ export class DeveloperProfileComponent implements OnInit {
 
   onSubmit() {
     const stars = document.getElementsByClassName('selectedStar');
-    const review: Review = {text: this.reviewForm.get('text').value, score: stars.length, userId: this.userService.getUserId()};
-    console.log(review);
+    const review: Review = {
+      text: this.reviewForm.get('text').value,
+      score: stars.length,
+      userId: this.userService.getUserId(),
+      company: this.user
+    };
     this.reviews.push(review);
     this.developer.reviews = this.reviews;
     this.developerService.updateDeveloper(this.developer).subscribe();
+    if (this.reviews.length < 5) {
+      this.splicedData.push(review);
+    }
   }
 
   onClick(star: number) {
