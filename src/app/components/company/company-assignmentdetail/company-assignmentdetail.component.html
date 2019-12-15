@@ -78,8 +78,8 @@
 
                           <mat-list role="list">
                             <mat-list-item role="listitem">Profile</mat-list-item>
-                            <mat-list-item role="listitem" (click)="onAcceptApply(assignment.id, apply.apply)">Accept</mat-list-item>
-                            <mat-list-item role="listitem" (click)="onDenyApply(assignment.id, apply.apply)">Deny</mat-list-item>
+                            <mat-list-item class="hoveritem" role="listitem" style="background-color: green;" (click)="onAcceptApply(assignment.id, apply.apply)">Accept</mat-list-item>
+                            <mat-list-item class="hoveritem" role="listitem" style="background-color: red;" (click)="onDenyApply(assignment.id, apply.apply)">Deny</mat-list-item>
                           </mat-list>
 
 
