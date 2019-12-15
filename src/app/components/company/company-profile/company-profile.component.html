@@ -1,6 +1,6 @@
 <div fxLayout="column"  class="container mt-5 mb-5" *ngIf="company">
   <mat-card  style="margin: 16px;" fxFlex fxLayout="column" fxLayoutAlign="center center">
-    <div class="mt-2 mb-4">
+    <div class="mt-2 mb-4" *ngIf="company.image">
       <img [src]="company.image" width="200" height="auto" >
     </div>
     <mat-card-title>
