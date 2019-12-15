@@ -9,6 +9,10 @@ import { Router } from '@angular/router';
 import { MatAutocompleteSelectedEvent, MatChipInputEvent, MatAutocomplete } from '@angular/material';
 import {UserService} from '../../services/user.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import { RoleDefining } from 'src/app/models/role.model';
+import { Store } from '@ngrx/store';
+
+import * as fromRoot from '../../app.reducer';
 
 @Component({
   selector: 'app-assignment-overview',
@@ -21,7 +25,7 @@ export class OverviewComponent implements OnInit {
   categories: string[];
   selection: string;
   results: any[];
-  filtered: boolean = false;
+  filtered = false;
 
   visible = true;
   selectable = true;
@@ -31,8 +35,10 @@ export class OverviewComponent implements OnInit {
   tagCtrl = new FormControl();
   filteredTags: Observable<string[]>;
   tags: string[] = [];
-  allTags: string[] = ['JavaScript', 'node.js', 'C#', 'PHP', 'Java'];
+  allTags: string[] = [];
   assignments: Assignment[];
+
+  roles$: Observable<RoleDefining>;
 
   @ViewChild('tagInput', {static: false}) tagInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto', {static: false}) matAutocomplete: MatAutocomplete;
@@ -42,7 +48,9 @@ export class OverviewComponent implements OnInit {
     private userService: UserService,
     private assingmentService: AssignmentService,
     private fb: FormBuilder,
-    private assignmentService: AssignmentService, private router: Router) {
+    private assignmentService: AssignmentService,
+    private router: Router,
+    private store: Store<fromRoot.State>) {
     this.filteredTags = this.tagCtrl.valueChanges.pipe(startWith(null),
       map((tag: string | null) => tag ? this._filter(tag) : this.allTags.slice()));
    }
@@ -51,6 +59,7 @@ export class OverviewComponent implements OnInit {
     this.assingmentService.getAllAsignments().subscribe(result => {
       this.assignments = result.assignments;
       console.log(this.assignments);
+      this.roles$ = this.store.select(fromRoot.getWhichRole);
     });
 
     this.categories = ['Location', 'Tags', 'Company', 'Title'];
@@ -58,7 +67,6 @@ export class OverviewComponent implements OnInit {
     this.searchForm = this.fb.group({
       searchString: ['']
     });
-    // this.getAllAssignments();
   }
 
 
@@ -82,16 +90,16 @@ export class OverviewComponent implements OnInit {
       });
     } else if (this.selection === 'Company') {
       this.assignments.forEach(assignment => {
-        if(assignment.company.name.toLowerCase().includes(this.searchForm.get('searchString').value.toLowerCase())) {
+        if (assignment.company.name.toLowerCase().includes(this.searchForm.get('searchString').value.toLowerCase())) {
           this.results.push(assignment);
         }
-      })
+      });
     } else if (this.selection === 'Title') {
       this.assignments.forEach(assignment => {
-        if(assignment.title.toLowerCase().includes(this.searchForm.get('searchString').value.toLowerCase())) {
+        if (assignment.title.toLowerCase().includes(this.searchForm.get('searchString').value.toLowerCase())) {
           this.results.push(assignment);
         }
-      })
+      });
     }
     return this.searchForm.get('searchString').value;
 
@@ -159,44 +167,45 @@ export class OverviewComponent implements OnInit {
 
 
   onApply(assignmentId) {
-
-    const makerId = this.userService.getUserId();
-    console.log('click assId: ' + assignmentId + ' - makerId: ' + makerId);
-
-
-    this.assignmentService.checkAlreadyApplied(assignmentId, makerId).subscribe(response => {
-      const assignment = response.assignment;
-      let applied = false;
-      for (const check of assignment.applies) {
-        if (check.apply === makerId) {
-          applied = true;
-        }
-      }
-      for (const check of assignment.accepted) {
-        if (check.accept === makerId) {
-          applied = true;
-        }
-      }
-      for (const check of assignment.denied) {
-        if (check.deny === makerId) {
-          applied = true;
-        }
-      }
-      console.log('service applied: ' + applied);
-      if (applied === false) {
-        this.assignmentService.sendApply(assignmentId, makerId);
-        console.log('apply send');
+    const userId = this.userService.getUserId();
+    this.roles$.subscribe(result => {
+      if (result.Developer) {
+        this.assignmentService.checkAlreadyApplied(assignmentId, userId).subscribe(response => {
+          const assignment = response.assignment;
+          let applied = false;
+          for (const check of assignment.applies) {
+            if (check.apply === userId) {
+              applied = true;
+            }
+          }
+          for (const check of assignment.accepted) {
+            if (check.accept === userId) {
+              applied = true;
+            }
+          }
+          for (const check of assignment.denied) {
+            applied = check.deny === userId;
+            if (check.deny === userId) {
+              applied = true;
+            }
+          }
+          if (applied === false) {
+            this.assignmentService.sendApply(assignmentId, userId);
+          } else {
+           this.openSnackBar('You already applied', 'Failed');
+          }
+        });
+      } else if (result.Company || result.Admin) {
+        this.openSnackBar('Only for developers!', 'Error');
       } else {
-       this.openSnackBar('You already applied', 'Failed');
+        this.router.navigate(['/login']);
       }
     });
-
   }
 
   openSnackBar(message: string, action: string) {
     this.snackBar.open(message, action, {
-      duration: 2000,
+      duration: 3000,
     });
   }
-
 }

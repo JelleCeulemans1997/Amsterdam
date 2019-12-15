@@ -12,6 +12,7 @@ import { Tag } from 'src/app/models/tag.model';
 import { CompanyService } from 'src/app/services/company.service';
 import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
+import * as firebase from 'firebase/app';
 
 
 @Component({
@@ -38,6 +39,7 @@ export class CompanyCredentialsComponent implements OnInit {
   editMode = false;
   userId: string;
   companyId: string;
+  downloadImage: string;
 
   @ViewChild('tagInput', { static: false }) tagInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto', { static: false }) matAutocomplete: MatAutocomplete;
@@ -66,7 +68,7 @@ export class CompanyCredentialsComponent implements OnInit {
       nr: new FormControl(null, { validators: [Validators.required] }),
       zipcode: new FormControl(null, { validators: [Validators.required] }),
       city: new FormControl(null, { validators: [Validators.required] }),
-      bio: new FormControl(null, { validators: [Validators.required] }),
+      bio: new FormControl(null, { validators: [Validators.required] })
     });
 
 
@@ -77,8 +79,9 @@ export class CompanyCredentialsComponent implements OnInit {
         console.log(result);
         this.companyId = result.id;
         this.editMode = true;
-        const { name, bio, tags, contact, location } = result;
+        const { name, bio, tags, contact, location, image } = result;
         this.tags = tags;
+        this.downloadImage = image;
 
         this.companyForm.setValue({
           name,
@@ -90,7 +93,7 @@ export class CompanyCredentialsComponent implements OnInit {
           street: location.street,
           nr: location.nr,
           zipcode: location.zipcode,
-          city: location.city,
+          city: location.city
         });
       } else {
         this.editMode = false;
@@ -109,7 +112,7 @@ export class CompanyCredentialsComponent implements OnInit {
     const contact = { firstname, lastname, email, phone };
     const location: LocationDefining = { street, nr, zipcode, city };
     const userId = this.userService.getUserId();
-    const company = new Company('', name, userId, contact, location, this.tags, bio, [], null) ;
+    const company = new Company('', name, userId, contact, location, this.tags, bio, [], this.downloadImage) ;
 
     // Add or update tags in database
     this.tags.forEach(element => {
@@ -151,6 +154,23 @@ export class CompanyCredentialsComponent implements OnInit {
           duration: 3000
         });
       }
+    });
+  }
+
+  onImagePicked(event: Event) {
+    const file = (event.target as HTMLInputElement).files[0];
+    // const reader = new FileReader();
+    // reader.onload = () => {
+    //   this.imagePreview = reader.result as string;
+    // };
+    // reader.readAsDataURL(file);
+    const path = `images/${new Date().getTime()}_${file.name}`;
+    const customMetadata = { contentType: file.type, app: 'DEV-COM connect' };
+    const storageRef: firebase.storage.Reference = firebase.storage().ref(path);
+    storageRef.put(file, customMetadata).then(() => {
+      storageRef.getDownloadURL().then(result => {
+        this.downloadImage = result;
+      });
     });
   }
 
