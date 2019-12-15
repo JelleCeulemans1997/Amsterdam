@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 import { Role } from 'src/app/models/role.enum';
 import { DeveloperService } from 'src/app/services/developer.service';
 import { CompanyService } from 'src/app/services/company.service';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-login',
@@ -33,7 +34,8 @@ export class LoginComponent implements OnInit {
     private store: Store<{ ui: fromAuth.State, us: fromRole.State }>,
     private router: Router,
     private developerService: DeveloperService,
-    private companyService: CompanyService
+    private companyService: CompanyService,
+    private snackbar: MatSnackBar
     ) { }
 
   loginForm = new FormGroup({
@@ -74,7 +76,9 @@ export class LoginComponent implements OnInit {
       console.log(navigateTo);
       this.router.navigate([navigateTo]);
     }, error => {
-      console.log(error);
+      this.snackbar.open('Login failed', 'Error', {
+        duration: 3000
+      });
     });
   }
 }

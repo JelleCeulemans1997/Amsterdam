@@ -27,7 +27,6 @@ import { DeveloperCredentialsComponent } from './components/developer/developer-
 import { DeveloperProfileComponent } from './components/developer/developer-profile/developer-profile.component';
 import { AdminCompaniesComponent } from './components/admin/admin-companies/admin-companies.component';
 import { MatSortModule } from '@angular/material';
-import { NicknameDeveloperPipe } from './pipes/nicknameDeveloper.pipe';
 import { AdminDevelopersComponent } from './components/admin/admin-developers/admin-developers.component';
 import { AdminAssignmentsComponent } from './components/admin/admin-assignments/admin-assignments.component';
 import { AssignmentdetailComponent } from './components/company/assignment/assignmentdetail/assignmentdetail.component';
@@ -56,7 +55,6 @@ firebase.initializeApp(environment.firebaseConfig);
     DeveloperCredentialsComponent,
     DeveloperProfileComponent,
     AdminCompaniesComponent,
-    NicknameDeveloperPipe,
     AdminDevelopersComponent,
     AdminAssignmentsComponent,
     AssignmentdetailComponent,

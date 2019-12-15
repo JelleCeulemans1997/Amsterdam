@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControlName, Validators, FormControl } from '@angular/forms';
-import { MatSlideToggleChange } from '@angular/material';
+import { MatSlideToggleChange, MatSnackBar } from '@angular/material';
 import { User } from 'src/app/models/user.model';
 import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
@@ -15,7 +15,8 @@ export class SignupComponent implements OnInit {
   account: string;
   constructor(
     private userService: UserService,
-    private router: Router) { }
+    private router: Router,
+    private snackbar: MatSnackBar) { }
 
   ngOnInit() {
     this.account = 'Developer';
@@ -34,12 +35,15 @@ export class SignupComponent implements OnInit {
     if (this.signupForm.value.password === this.signupForm.value.confirmPassword) {
       const user = new User('', this.signupForm.value.email, this.signupForm.value.password, this.account)
       this.userService.createUser(user).subscribe(result => {
-        console.log(result);
-        this.router.navigate(['/login'])
+        this.snackbar.open('Account created', 'Success', {
+          duration: 3000
+        });
+        this.router.navigate(['/login']);
       });
     } else {
-      // show message that passwords aren't identical withh snackbar
+      this.snackbar.open('Passwords aren\'t identical', 'Error', {
+        duration: 3000
+      });
     }
-
   }
 }
