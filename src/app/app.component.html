@@ -71,14 +71,14 @@
   </mat-sidenav>
   <mat-sidenav-content>
     <mat-toolbar color="primary">
-      <div fxHide.gt-xs>
+      <div fxHide.gt-sm>
         <button mat-icon-button (click)="sidenav.toggle()">
           <mat-icon>menu</mat-icon>
         </button>
       </div>
       <div><a routerLink="/"><img src="assets/images/devcom.png" id="toolbarImage"/></a></div>
-      <div *ngIf="(isAuthenticated$ | async) && name" id="toolbarUser" fxHide.lt-sm fxLayoutAlign="center center" ><span>Welcome,&nbsp;</span>{{name}}</div>
-      <div fxFlex fxLayout fxLayoutAlign="flex-end" class="navigation-items" fxHide.lt-sm>
+      <div *ngIf="(isAuthenticated$ | async) && name" id="toolbarUser" fxHide.lt-md fxLayoutAlign="center center"><span>Welcome,&nbsp;</span>{{name}}</div>
+      <div fxFlex fxLayout fxLayoutAlign="flex-end" class="navigation-items" fxHide.lt-md>
         <ul fxLayout fxLayoutGap="20px" class="navigation-items">
           <li><a routerLink="/" routerLinkActive="true" class="home"  ><mat-icon style="margin-top: 5px">home</mat-icon></a></li>
           <li *ngIf="!(isAuthenticated$ | async)" ><a ngif routerLink="/signup">Signup</a></li>
@@ -101,7 +101,7 @@
 
         </ul>
       </div>
-      <div fxFlex fxLayout fxLayoutAlign="flex-end" class="navigation-items" fxHide.gt-xs>
+      <div fxFlex fxLayout fxLayoutAlign="flex-end" class="navigation-items" fxHide.gt-sm>
       </div>
     </mat-toolbar>
     <main>
