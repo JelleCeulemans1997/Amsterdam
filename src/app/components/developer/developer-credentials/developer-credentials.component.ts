@@ -37,6 +37,7 @@ export class DeveloperCredentialsComponent implements OnInit {
   userId: string;
   developerId: string;
   imagePreview: string;
+  dev: any;
 
   @ViewChild('tagInput', { static: false }) tagInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto', { static: false }) matAutocomplete: MatAutocomplete;
@@ -83,8 +84,8 @@ export class DeveloperCredentialsComponent implements OnInit {
         console.log(this.imagePreview);
         // TODO: omzetten daar date
         console.log(dob);
-        let tempDate = new Date(dob);
-        let tempDateString = tempDate.getFullYear() + "-" + tempDate.getMonth() + "-" + tempDate.getDate();
+        const tempDate = new Date(dob);
+        const tempDateString = tempDate.getFullYear() + '-' + tempDate.getMonth() + '-' + tempDate.getDate();
         console.log(tempDate.getFullYear());
         // dob = this.transformDate(dob);
         this.developerForm.setValue({
@@ -140,6 +141,7 @@ export class DeveloperCredentialsComponent implements OnInit {
     const { nickname, firstname, lastname, email, phone, dob, zipcode, city, bio, linkedin } = this.developerForm.value;
     const location = { zipcode, city };
     const userId = this.userService.getUserId();
+    this.dev = this.userService.getUserbyId(userId);
     const developer = new Developer(
       '',
       nickname,
@@ -153,7 +155,7 @@ export class DeveloperCredentialsComponent implements OnInit {
       linkedin,
       this.tags,
       location,
-      [],
+      this.dev.reviews,
       this.imagePreview);
 
     console.log('test1');
