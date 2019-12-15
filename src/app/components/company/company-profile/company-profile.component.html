@@ -66,6 +66,7 @@
               <mat-icon *ngIf="star == 'full'">star</mat-icon>
               <mat-icon *ngIf="star == 'empty'">star_border</mat-icon>
             </div>
+            <button mat-button *ngIf="role == 'Admin'" (click)="openDialog(review)" matTooltip="Delete this review"><mat-icon>delete</mat-icon></button>
           </div>
           <p>"{{review.text}}" - {{review.developer.nickname}}</p>
 
