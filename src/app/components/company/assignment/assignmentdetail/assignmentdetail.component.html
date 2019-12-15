@@ -5,7 +5,7 @@
 
       <p>{{assignment.description}}</p>
       <mat-chip-list>
-        <mat-chip  *ngFor="let tag of assignment.tags">{{tag}}</mat-chip>
+        <mat-chip color="primary" selected="true" *ngFor="let tag of assignment.tags">{{tag}}</mat-chip>
       </mat-chip-list>
       <br />
       <h5>Company</h5>

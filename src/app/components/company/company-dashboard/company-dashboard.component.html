@@ -22,6 +22,7 @@
                     matBadge="{{assignment.applies.length}}" matBadgePosition="before" matBadgeColor="accent">
               View Assignment
             </button>
+            <button class="ml-5" mat-button color="warn" (click)="deleteAssignment(assignment.id)">Delete</button>
           </mat-action-row>
         </mat-expansion-panel>
       </mat-accordion>

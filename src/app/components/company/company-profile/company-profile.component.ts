@@ -36,7 +36,7 @@ export class CompanyProfileComponent implements OnInit {
   starsShown: string[];
   dev: Developer;
 
-  allowed: boolean = false;
+  allowed = false;
   userId: any;
   role: string;
 
@@ -167,8 +167,6 @@ export class CompanyProfileComponent implements OnInit {
                   });
                 });
               });
-            console.log(result);
-            console.log(this.allowed);
           });
       }
     });

@@ -22,14 +22,11 @@ export class CompanyDashboardComponent implements OnInit {
       this.assignments = result.assignments;
       console.log(this.assignments);
     });
-    // this.assingmentService.getAllAsignments().subscribe(result => {
-    //   this.assignments = result.assignments;
-    //   console.log(this.assignments);
-    // });
   }
 
-
-
-
-
+  deleteAssignment(assignmentId: string) {
+    this.assingmentService.deleteAssignment(assignmentId).subscribe(result => {
+      this.ngOnInit();
+    });
+  }
 }

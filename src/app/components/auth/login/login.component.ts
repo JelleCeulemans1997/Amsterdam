@@ -39,8 +39,8 @@ export class LoginComponent implements OnInit {
     ) { }
 
   loginForm = new FormGroup({
-    email: new FormControl('info@jelleceulemans.be', { validators: [Validators.required] }),
-    password: new FormControl('azertyuiop', { validators: [Validators.required] })
+    email: new FormControl(null, { validators: [Validators.required] }),
+    password: new FormControl(null, { validators: [Validators.required] })
   });
 
 
