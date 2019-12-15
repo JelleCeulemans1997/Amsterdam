@@ -15,7 +15,9 @@
 
   <div class="row">
     <div class="col-md-2"><app-navigation></app-navigation></div>
-    <div class="col-md-10">
+
+    <div class="col-md-10" *ngIf="assignments && assignments.length < 1"><h2 style="text-align: center;">No assignments made yet!</h2></div>
+    <div class="col-md-10" *ngIf="assignments && assignments.length > 0">
 
 
 
