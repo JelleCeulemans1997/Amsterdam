@@ -53,8 +53,8 @@ exports.deleteAppliedByUser = (req, res, next) => {
     if (result.nModified > 0) {
       res.status(200).json({message: "update successful!"});
     } else {
-      res.status(401).json({
-        message: 'Not authorized!'
+      res.status(200).json({
+        message: 'nothing to delete'
       });
     }
   })
@@ -67,8 +67,8 @@ exports.deleteAcceptedByUser = (req, res, next) => {
     if (result.nModified > 0) {
       res.status(200).json({message: "update successful!"});
     } else {
-      res.status(401).json({
-        message: 'Not authorized!'
+      res.status(200).json({
+        message: 'nothing to delete'
       });
     }
   })
@@ -81,8 +81,8 @@ exports.deleteDeniedByUser = (req, res, next) => {
     if (result.nModified > 0) {
       res.status(200).json({message: "update successful!"});
     } else {
-      res.status(401).json({
-        message: 'Not authorized!'
+      res.status(200).json({
+        message: 'nothing to delete'
       });
     }
   })
