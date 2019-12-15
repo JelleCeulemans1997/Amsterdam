@@ -35,7 +35,6 @@ export class AppComponent implements OnInit, OnDestroy {
     private userService: UserService) { }
 
   ngOnInit() {
-    this.autoLogin();
     this.isAuthenticated$ = this.store.select(fromRoot.getIsAuth);
     this.roles$ = this.store.select(fromRoot.getWhichRole);
 
@@ -43,12 +42,13 @@ export class AppComponent implements OnInit, OnDestroy {
       console.log(result);
       this.name = result;
     });
+    this.autoLogin();
 
   }
 
   autoLogin() {
     const token = this.localStorageService.getToken();
-    if (this.localStorageService.getToken()) {
+    if (token) {
       // FIX THE NAVIGATE TO LOGIN!!
       const path = window.location.pathname;
       const userId = this.userService.getUserId();
@@ -62,6 +62,7 @@ export class AppComponent implements OnInit, OnDestroy {
         } else if (result.role === Role.Admin) {
           this.store.dispatch(new RoleAction.SetAdmin());
         }
+        this.userService.emitChangeName(this.localStorageService.getName());
         this.router.navigate([path]);
       });
     }
@@ -71,6 +72,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.store.dispatch(new Auth.SetUnauthenticated());
     this.store.dispatch(new RoleAction.SetLogout());
     this.localStorageService.removeToken();
+    this.localStorageService.removeName();
     this.router.navigate(['/login']);
   }
 

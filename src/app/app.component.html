@@ -77,7 +77,7 @@
         </button>
       </div>
       <div><a routerLink="/"><img src="assets/images/devcom.png" id="toolbarImage"/></a></div>
-      <div *ngIf="(isAuthenticated$ | async) && name" id="toolbarUser" fxLayoutAlign="center center" ><span>Welcome,&nbsp;</span>{{name}}</div>
+      <div *ngIf="(isAuthenticated$ | async) && name" id="toolbarUser" fxHide.lt-sm fxLayoutAlign="center center" ><span>Welcome,&nbsp;</span>{{name}}</div>
       <div fxFlex fxLayout fxLayoutAlign="flex-end" class="navigation-items" fxHide.lt-sm>
         <ul fxLayout fxLayoutGap="20px" class="navigation-items">
           <li><a routerLink="/" routerLinkActive="true" class="home"  ><mat-icon style="margin-top: 5px">home</mat-icon></a></li>
