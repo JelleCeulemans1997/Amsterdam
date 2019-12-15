@@ -38,6 +38,7 @@ import { environment } from '../environments/environment';
 import * as firebase from 'firebase/app';
 import { DeveloperprofileComponent } from './components/company/company-dashboard/developerprofile/developerprofile.component';
 import { EditassignmentComponent } from './components/company/company-dashboard/editassignment/editassignment.component';
+import { DialogDeleteComponent } from './components/dialog-delete/dialog-delete.component';
 
 firebase.initializeApp(environment.firebaseConfig);
 
@@ -59,7 +60,8 @@ firebase.initializeApp(environment.firebaseConfig);
     AdminAssignmentsComponent,
     AssignmentdetailComponent,
     DeveloperprofileComponent,
-    EditassignmentComponent
+    EditassignmentComponent,
+    DialogDeleteComponent
   ],
   imports: [
     // AngularFireModule.initializeApp(environment.firebaseConfig),
@@ -79,6 +81,7 @@ firebase.initializeApp(environment.firebaseConfig);
     AngularFireStorageModule
   ],
   providers: [AuthGuard],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [DialogDeleteComponent],
 })
 export class AppModule { }
