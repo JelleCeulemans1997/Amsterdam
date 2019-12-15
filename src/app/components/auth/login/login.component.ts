@@ -11,6 +11,8 @@ import { LocalStorageService } from 'src/app/services/localStorage.service';
 import * as fromRoot from '../../../app.reducer';
 import { Router } from '@angular/router';
 import { Role } from 'src/app/models/role.enum';
+import { DeveloperService } from 'src/app/services/developer.service';
+import { CompanyService } from 'src/app/services/company.service';
 
 @Component({
   selector: 'app-login',
@@ -29,12 +31,14 @@ export class LoginComponent implements OnInit {
     private userService: UserService,
     private localStorageService: LocalStorageService,
     private store: Store<{ ui: fromAuth.State, us: fromRole.State }>,
-    private router: Router
+    private router: Router,
+    private developerService: DeveloperService,
+    private companyService: CompanyService
     ) { }
 
   loginForm = new FormGroup({
-    email: new FormControl('admin@admin.com', { validators: [Validators.required] }),
-    password: new FormControl('admin', { validators: [Validators.required] })
+    email: new FormControl('info@jelleceulemans.be', { validators: [Validators.required] }),
+    password: new FormControl('azertyuiop', { validators: [Validators.required] })
   });
 
 
@@ -44,16 +48,26 @@ export class LoginComponent implements OnInit {
   login() {
     const user = new User(null, this.loginForm.value.email, this.loginForm.value.password, null);
     this.userService.authenticate(user).subscribe(result => {
+      console.log(result);
       this.store.dispatch(new Auth.SetAuthenticated());
       this.localStorageService.setToken(result.token);
       let navigateTo;
       if (result.role === Role.Developer) {
+        this.developerService.getByUserId(this.userService.getUserId()).subscribe(developer => {
+          this.userService.emitChangeName(developer.nickname);
+          console.log(developer);
+        });
         navigateTo = '/developerDashboard';
         this.store.dispatch(new RoleActions.SetDeveloper());
       } else  if (result.role === Role.Company) {
+        this.companyService.getCompanyByUserId(this.userService.getUserId()).subscribe(company => {
+          this.userService.emitChangeName(company.name);
+          console.log(company);
+        });
         navigateTo = '/company';
         this.store.dispatch(new RoleActions.SetComapny());
       } else if (result.role === Role.Admin) {
+        this.userService.emitChangeName('Administrator');
         navigateTo = '';
         this.store.dispatch(new RoleActions.SetAdmin());
       }

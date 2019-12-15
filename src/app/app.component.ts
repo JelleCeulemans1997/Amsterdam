@@ -24,6 +24,7 @@ export class AppComponent implements OnInit {
   title = 'Amsterdam';
   isAuthenticated$: Observable<boolean>;
   roles$: Observable<RoleDefining>;
+  name: string;
 
   constructor(
     private store: Store<fromRoot.State>,
@@ -35,6 +36,12 @@ export class AppComponent implements OnInit {
     this.autoLogin();
     this.isAuthenticated$ = this.store.select(fromRoot.getIsAuth);
     this.roles$ = this.store.select(fromRoot.getWhichRole);
+
+    this.userService.sendName$.subscribe(result => {
+      console.log(result);
+      this.name = result;
+    });
+
   }
 
   autoLogin() {

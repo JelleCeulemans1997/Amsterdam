@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { User } from '../models/user.model';
 import { LocalStorageService } from './localStorage.service';
+import { Subject } from 'rxjs';
 
 
 @Injectable({
@@ -11,6 +12,8 @@ import { LocalStorageService } from './localStorage.service';
 export class UserService {
 
   baseURL = environment.baseURL;
+  private emitName = new Subject<string>();
+  sendName$ = this.emitName.asObservable();
 
   constructor(
     private http: HttpClient,
@@ -32,5 +35,9 @@ export class UserService {
     const jwtData = this.localStorageService.getToken().split('.')[1];
     const decodedJwt = window.atob(jwtData);
     return JSON.parse(decodedJwt)._id;
+  }
+
+  emitChangeName(name: string) {
+    this.emitName.next(name);
   }
 }

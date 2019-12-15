@@ -7,7 +7,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 import { SharedModule } from './shared.module';
 import { CreateAssignmentComponent } from './components/company/assignment/create-assignment/create-assignment.component';
-import { HomeComponent } from './components/home/home.component';
 import { AdminTagsComponent } from './components/admin/admin-tags/admin-tags.component';
 import { AuthModule } from './components/auth/auth.module';
 import { HttpClientModule } from '@angular/common/http';
@@ -45,7 +44,6 @@ firebase.initializeApp(environment.firebaseConfig);
   declarations: [
     AppComponent,
     CreateAssignmentComponent,
-    HomeComponent,
     AdminTagsComponent,
     OverviewComponent,
     CompanyDashboardComponent,

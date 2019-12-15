@@ -4,19 +4,18 @@ mat-toolbar {
   z-index: 1000;
 }
 
-.navbarbgc {
-  background-color: #FF5722;
+#toolbarImage {
+  margin-left: 20px;
+}
+
+mat-nav-list mat-icon {
+  margin: auto 25px;
 }
 
 .navigation-items {
   list-style: none;
   padding: 0;
   margin: 0;
-}
-
-#friendsIcon {
-  font-size:  45px;
-  margin-right: 35px;
 }
 
 #nav-icon {
@@ -41,14 +40,6 @@ a {
   }
 }
 
-#fbImage {
-  border-radius: 50%;
-  height: 50px;
-  width: auto;
-  margin-right: 10px;
-  margin-left: -20px;
-}
-
 #toolbarUser {
   margin: 10px 50px;
 }
@@ -58,8 +49,9 @@ a {
 }
 
 img {
-  width: 100px;
+  width: 150px;
   height: auto;
+  padding-bottom: 10px;
 }
 
 mat-nav-list {
