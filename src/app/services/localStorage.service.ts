@@ -20,4 +20,17 @@ export class LocalStorageService {
   removeToken() {
     localStorage.removeItem('token');
   }
+
+
+  setName(name: string) {
+    localStorage.setItem('name', name);
+  }
+
+  getName() {
+    return localStorage.getItem('name');
+  }
+
+  removeName() {
+    localStorage.removeItem('name');
+  }
 }

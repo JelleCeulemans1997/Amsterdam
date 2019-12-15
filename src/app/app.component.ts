@@ -43,16 +43,13 @@ export class AppComponent implements OnInit, OnDestroy {
       console.log(result);
       this.name = result;
     });
-
   }
 
   autoLogin() {
-    const token = this.localStorageService.getToken();
-    if (this.localStorageService.getToken()) {
+    const userId = this.userService.getUserId();
+    if (userId) {
       // FIX THE NAVIGATE TO LOGIN!!
       const path = window.location.pathname;
-      const userId = this.userService.getUserId();
-
       this.store.dispatch(new Auth.SetAuthenticated());
       this.userService.getUserbyId(userId).subscribe(result => {
         if (result.role === Role.Developer) {
@@ -62,6 +59,7 @@ export class AppComponent implements OnInit, OnDestroy {
         } else if (result.role === Role.Admin) {
           this.store.dispatch(new RoleAction.SetAdmin());
         }
+        this.userService.emitChangeName(this.localStorageService.getName());
         this.router.navigate([path]);
       });
     }
@@ -71,6 +69,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.store.dispatch(new Auth.SetUnauthenticated());
     this.store.dispatch(new RoleAction.SetLogout());
     this.localStorageService.removeToken();
+    this.localStorageService.removeName();
     this.router.navigate(['/login']);
   }
 

@@ -57,19 +57,21 @@ export class LoginComponent implements OnInit {
       if (result.role === Role.Developer) {
         this.developerService.getByUserId(this.userService.getUserId()).subscribe(developer => {
           this.userService.emitChangeName(developer.nickname);
-          console.log(developer);
+          this.localStorageService.setName(developer.nickname);
         });
         navigateTo = '/developerDashboard';
         this.store.dispatch(new RoleActions.SetDeveloper());
       } else  if (result.role === Role.Company) {
         this.companyService.getCompanyByUserId(this.userService.getUserId()).subscribe(company => {
           this.userService.emitChangeName(company.name);
+          this.localStorageService.setName(company.name);
           console.log(company);
         });
         navigateTo = '/company';
         this.store.dispatch(new RoleActions.SetComapny());
       } else if (result.role === Role.Admin) {
         this.userService.emitChangeName('Administrator');
+        this.localStorageService.setName('Administrator');
         navigateTo = '';
         this.store.dispatch(new RoleActions.SetAdmin());
       }
