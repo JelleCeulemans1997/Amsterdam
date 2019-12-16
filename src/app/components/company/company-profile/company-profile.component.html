@@ -37,7 +37,7 @@
         <div>{{company.location.street}} {{company.location.nr}}</div>
         <div>{{company.location.zipcode}} {{company.location.city}}</div>
       </div>
-      <div *ngIf="role === 'Admin'"><button mat-raised-button (click)="onDeleteCompany(company.userId)">Delete Company</button></div>
+      <div *ngIf="role === 'Admin'"><button class="mt-3" mat-raised-button color="warn" (click)="onDeleteCompany(company.userId)">Delete Company</button></div>
     </mat-card-content>
   </mat-card>
 

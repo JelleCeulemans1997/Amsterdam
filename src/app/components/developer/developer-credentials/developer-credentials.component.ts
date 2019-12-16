@@ -198,7 +198,7 @@ export class DeveloperCredentialsComponent implements OnInit {
       storageRef.put(file, customMetadata).then(() => {
         storageRef.getDownloadURL().then(result => {
           console.log(result);
-          this.snackbar.open('CV updated', 'Success', {
+          this.snackbar.open('CV uploaded', 'Success', {
             duration: 3000
           });
           this.cv = result;

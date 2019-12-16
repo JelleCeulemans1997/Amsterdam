@@ -39,7 +39,7 @@
         <h4 class="profile-title">Location</h4>
         <div>{{developer.location.zipcode}} {{developer.location.city}}</div>
       </div>
-      <div *ngIf="role === 'Admin'"><button mat-raised-button (click)="onDeleteDeveloper(developer.userId)">Delete Developer</button></div>
+      <div class="mt-3" *ngIf="role === 'Admin'"><button mat-raised-button color="warn" (click)="onDeleteDeveloper(developer.userId)">Delete Developer</button></div>
     </mat-card-content>
   </mat-card>
 
