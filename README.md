@@ -16,3 +16,6 @@ This project is made by:
 - Then type 'cd ..' back in to the angular repo
 - Type 'npm install --save' to install packages and then 'ng serve --open' to start angular
 
+## See this Project?
+
+Click on the link: http://devcom.jelleceulemans.be/
